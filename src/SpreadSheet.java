@@ -15,7 +15,7 @@ public class SpreadSheet {
 	// Criando o arquivo e uma planilha chamada "Silhouette"
 	
 	private List <List <Double>> clusters = new ArrayList();
-	private static final String fileName = "C:/Users/jorge/workspace/CluesterPe/src/tabela.xls";
+	private static final String fileName = "C:/Users/jorge/workspace/ClusterPe/src/tabela.xls";
 		
 	public SpreadSheet(List<List<Double>> clusters) {
 		super();

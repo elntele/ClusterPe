@@ -8,7 +8,7 @@ import cbic15.Pattern;
 public class Principal {
 
 	public static void main(String[] args) {
-		String patch = "C:/Users/jorge/workspace/CluesterPe/src/MunicipiosDePernambucoTec.RedesFinalizado.gml";
+		String patch = "C:/Users/jorge/workspace/ClusterPe/src/MunicipiosDePernambucoTec.RedesFinalizado.gml";
 		BigListCity bigListCity = new BigListCity(patch);
 		List<City> listCity = bigListCity.getBigListCity();
 		List<Pattern> listPatterns = new ArrayList<>();

@@ -16,11 +16,21 @@ public class SpreadSheet {
 	
 	private List <List <Double>> clusters = new ArrayList();
 	private static final String fileName = "C:/Users/jorge/workspace/ClusterPe/src/tabela.xls";
+	String clusterString[];
 		
-	public SpreadSheet(List<List<Double>> clusters) {
+	public SpreadSheet(List<List<Double>> clusters, List <String> list) {
 		super();
 		this.clusters = clusters;
+		String clusString[] =new String[list.size()];
+		int i=0;
+		for (String s:list){
+			clusString[i]=s;
+			i+=1;
+			
+		} 
+		this.clusterString=clusString;
 		createSpreadSheet();
+
 	}
 	
 	
@@ -29,25 +39,33 @@ public class SpreadSheet {
 		HSSFSheet sheet = workTable.createSheet("Silhouette");
 		int rownum = 0;
 		int count=0;
+		int clusterCount=0;
         for ( List L : this.clusters) {
             Row row = sheet.createRow(rownum++);
             int cellnum = 0;
             if (count==0){
             	Cell numClus = row.createCell(cellnum++);
                 numClus.setCellValue("Silhouette");
-                Cell Silhouette = row.createCell(cellnum++);
-                Silhouette.setCellValue("nº de clusters");
+                Cell silhouette = row.createCell(cellnum++);
+                silhouette.setCellValue("nº de clusters");
+                Cell clusterGroup =row.createCell(cellnum++);
+                clusterGroup.setCellValue("Cluster");
                 Row row2 = sheet.createRow(rownum++);
-                numClus = row2.createCell(cellnum-2);
+                numClus = row2.createCell(cellnum-3);
                 numClus.setCellValue((double)L.get(0));
-                Silhouette = row2.createCell(cellnum-1);
-                Silhouette.setCellValue((double)L.get(1));
-                
+                silhouette = row2.createCell(cellnum-2);
+                silhouette.setCellValue((double)L.get(1));
+                clusterGroup= row2.createCell(cellnum-1);
+                clusterGroup.setCellValue(this.clusterString[clusterCount]);
+                clusterCount+=1;
             }else{
             Cell numClus = row.createCell(cellnum++);
             numClus.setCellValue((double)L.get(0));
-            Cell Silhouette = row.createCell(cellnum++);
-            Silhouette.setCellValue((double)L.get(1));
+            Cell silhouette = row.createCell(cellnum++);
+            silhouette.setCellValue((double)L.get(1));
+            Cell clusterGroup =row.createCell(cellnum++);
+            clusterGroup.setCellValue(this.clusterString[clusterCount]);
+            clusterCount+=1;	
             }
             count++;
         }

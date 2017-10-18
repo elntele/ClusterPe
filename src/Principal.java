@@ -24,6 +24,7 @@ public class Principal {
 		}
 
 		List<List<Double>> listResult = new ArrayList();
+		List<String> listStringCluster = new ArrayList<>();
 
 		/**
 		 * loop executa o kmeans com k de 4 a 20, ou seja com 4 a 20 clusters ha
@@ -50,42 +51,46 @@ public class Principal {
 
 				Kmeans kmeans = new Kmeans(i, listPatterns);
 				clustters = kmeans.execute(200);
+				List<String> litleCluster = new ArrayList<>();
+				
+				if (w == 29) {
+					String stringCluster = "";
+					for (int u = 0; u < clustters.length; u++) {
+						stringCluster+="{";
+						for (Pattern p : clustters[u]) {
+							stringCluster += p.getName();
+							stringCluster += ", ";
 
-				// for (int u = 0; u < clustters.length; u++) {
-				// System.out.println("######################cluster " + (u + 1)
-				// + " #########################");
-				// for (Pattern p : clustters[u]) {
-				// System.out.println(p.getName());
-				// }
-				// }
+						}
+						stringCluster += "} ";
+					}
+					listStringCluster.add(stringCluster);
+				}
 
-				// for (int j = 0; j <
-				// kmeans.getNearestPatternsFromCentroid().length; j++) {
-				// System.out.println(
-				// "centroid do cluster" + (j + 1) +
-				// kmeans.getNearestPatternsFromCentroid()[j].getName());
-				// }
+				for (int j = 0; j < kmeans.getNearestPatternsFromCentroid().length; j++) {
+					System.out.println(
+							"centroid do cluster" + (j + 1) + kmeans.getNearestPatternsFromCentroid()[j].getName());
+				}
+
 				average += kmeans.getSilhouetteIndex(clustters);
 				w += 1;
 				listIteration.addAll(kmeans.getLisItaration());
+				
 			}
 
 			result.add(average / w);
 			result.add((double) i);
 			listResult.add(result);
-		}
-
-		for (List L : listResult) {
-			System.out.println(L.get(0));
-			System.out.println(L.get(1));
 
 		}
-		
-		
+
+
 		listIteration.sort(null);
 		System.out.println(listIteration);
 		
-		SpreadSheet dataSheet = new SpreadSheet(listResult);
+		
+
+		SpreadSheet dataSheet = new SpreadSheet(listResult, listStringCluster);
 
 	}
 }

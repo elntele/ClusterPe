@@ -4,5 +4,9 @@
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/cbic15"/>
 	<classpathentry kind="lib" path="bibliotecas/poi-bin-3.17-20170915/poi-3.17/poi-3.17.jar"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/jmetal-algorithm"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/jmetal-core"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/jmetal-exec"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/jmetal-problem"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

@@ -1,3 +1,7 @@
+/**
+ * caiu em desuso, apesar de que estava funcionando, o professor mandou
+ * usar outra classe 
+ */
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;

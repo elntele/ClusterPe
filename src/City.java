@@ -1,3 +1,7 @@
+/**
+ * caiu em desuso, apesar de que estava funcionando, o professor mandou
+ * usar outra classe 
+ */
 
 public class City {
 private Integer id;

@@ -1,8 +1,10 @@
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.ListIterator;
-import java.util.Vector;
+
+import br.cns.model.GmlData;
+import br.cns.model.GmlNode;
+import br.cns.persistence.GmlDao;
 import cbic15.Kmeans;
 import cbic15.Pattern;
 
@@ -10,24 +12,40 @@ public class Principal {
 
 	public static void main(String[] args) {
 		String patch = "C:/Users/jorge/workspace/ClusterPe/src/MunicipiosDePernambucoTec.RedesFinalizado.gml";
-		BigListCity bigListCity = new BigListCity(patch);
-		List<City> listCity = bigListCity.getBigListCity();
+		// BigListCity bigListCity = new BigListCity(patch);// antes
+		// List<City> listCity = bigListCity.getBigListCity();//antes
+
 		List<Pattern> listPatterns = new ArrayList<>();
-		
+
+		GmlData gml = new GmlDao().loadGmlData(patch); // novo
+
+		List<GmlNode> listCity = gml.getNodes();// novo
 
 		/**
 		 * lista de cidades sendo converdida em lista de Pattern
 		 */
-		for (City c : listCity) {
+		for (GmlNode c : listCity) {
 			double[] variables = { c.getLatitude(), c.getLongitude() };
-			Pattern pattern = new Pattern(c.getName(), variables, null);
+			Pattern pattern = new Pattern(c.getLabel(), variables, null);
+			pattern.setId(c.getId());
 			listPatterns.add(pattern);
 		}
 
+		// antes
+		// for (City c : listCity) {
+		// double[] variables = { c.getLatitude(), c.getLongitude() };
+		// Pattern pattern = new Pattern(c.getName(), variables, null);
+		// listPatterns.add(pattern);
+		// }
+
+		gml.createComplexNetwork();
 		List<List<Double>> globalResultSillhouetteAverange = new ArrayList();
 		List<String> listStringCluster = new ArrayList<>();
-		HashMap <Integer, List<Integer>> mapIteration = new HashMap <Integer, List<Integer>>();
-		List<List<Double>> maxMinAverangeDisntance = new ArrayList<>();
+		HashMap<Integer, List<Integer>> mapIteration = new HashMap<Integer, List<Integer>>();
+		List<List<Double>> maxMinAverangeDisntanceInterCentroids = new ArrayList<>();
+		List<List<Double>> maxMindistanceIntraCluster = new ArrayList();
+		List<List<Double>> maxMindistanceBetweenCentroidsAndNodes = new ArrayList();
+		List<Pattern>[] copyFinalclustters=null;
 
 		/**
 		 * loop executa o kmeans com k de 4 a 20, ou seja com 4 a 20 clusters ha
@@ -37,13 +55,15 @@ public class Principal {
 		 * Silhouette.
 		 * 
 		 */
-		for (int i = 4; i <= 20; i++) {
+		int kSizeMin = 4;
+		int kSizeMax = 30;
+		for (int i = kSizeMin; i <= kSizeMax; i++) {
 			List<Pattern> listCentroids = new ArrayList<>();
 			List<Double> resultSilhouetteAverage = new ArrayList();
 			List<Integer> listIteration = new ArrayList<>();
 			int w = 0;
 			double silhouetteAverage = 0;
-			double DistanceAverange=0;
+			double DistanceAverange = 0;
 			while (w < 30) {
 				// array de listas do tipo pattern sendo preparado para ser
 				// passado
@@ -55,7 +75,7 @@ public class Principal {
 
 				Kmeans kmeans = new Kmeans(i, listPatterns);
 				clustters = kmeans.execute(200);
-				//List<String> litleCluster = new ArrayList<>();
+				// List<String> litleCluster = new ArrayList<>();
 				if (w == 29) {
 					// montando a lista com os nomes das cidades de cada cluster
 					String stringCluster = "";
@@ -68,39 +88,49 @@ public class Principal {
 						stringCluster += "} ";
 					}
 					listStringCluster.add(stringCluster);
-					// calculando a distância mínima, máxima e média entre os centrois
+
+					// calculando a distância mínima, máxima e média entre os
+					// centrois
 					Pattern[] centroids = kmeans.getNearestPatternsFromCentroid();
-					double minDistance = Double.MAX_VALUE;
-					double maxDistance = Double.MIN_VALUE;
-					double CurrentDistance = 0;
-					double averageDistance = 0;
-					for (int j = 0; j < centroids.length; j++) {
-						for (int g = j; g < centroids.length; g++) {
-							if (j != g) {
-								CurrentDistance = centroids[j].euclidianDistance(centroids[g]);
-								if (CurrentDistance > maxDistance)
-									maxDistance = CurrentDistance;
-								if (CurrentDistance < minDistance)
-									minDistance = CurrentDistance;
-								DistanceAverange += CurrentDistance;
+					AllDistancesCLuster node = new AllDistancesCLuster(centroids, gml, clustters);
+
+					maxMinAverangeDisntanceInterCentroids.add(node.distanceInterCentroids());
+					if (i == kSizeMax) {
+						copyFinalclustters=clustters;
+						maxMindistanceBetweenCentroidsAndNodes = node.distanceBetweenCentroidAndNodesInCluster();
+						maxMindistanceIntraCluster = node.distanceIntraCluster();
+
+						for (List L : maxMindistanceBetweenCentroidsAndNodes) {
+							double max = (double) L.get(0);
+							for (int h = 0; h < gml.getDistances().length; h++) {
+								for (int j = 0; j < gml.getDistances().length; j++) {
+									if (max == gml.getDistances()[h][j]) {
+										for (GmlNode g : gml.getNodes()) {
+											if (g.getId() == h)
+												System.out.println("cidade a:" + g.getLabel());
+											if (g.getId() == j)
+												System.out.println("cidade b:" + g.getLabel());
+
+										}
+
+									}
+								}
+
 							}
 						}
 
 					}
-					List<Double> localMaxMinAverangeDistance = new ArrayList<>();
-					localMaxMinAverangeDistance.add(maxDistance);
-					localMaxMinAverangeDistance.add(minDistance);
-					localMaxMinAverangeDistance.add(DistanceAverange / centroids.length);
-					maxMinAverangeDisntance.add(localMaxMinAverangeDistance);
 				}
 
-				for (int j = 0; j < kmeans.getNearestPatternsFromCentroid().length; j++) {
-					System.out.println(
-							"centroid do cluster" + (j + 1) + kmeans.getNearestPatternsFromCentroid()[j].getName());
-				}
+				// for (int j = 0; j <
+				// kmeans.getNearestPatternsFromCentroid().length; j++) {
+				// System.out.println(
+				// "centroid do cluster: " + (j + 1) +
+				// kmeans.getNearestPatternsFromCentroid()[j].getName());
+				// }
 				silhouetteAverage += kmeans.getSilhouetteIndex(clustters);
-				w += 1;
 				listIteration.add(kmeans.getCountItaration());
+				w += 1;
 			}
 			listIteration.sort(null);
 			mapIteration.put(i, listIteration);
@@ -109,12 +139,11 @@ public class Principal {
 			globalResultSillhouetteAverange.add(resultSilhouetteAverage);
 		}
 
-		
-//		System.out.println(listIteration);
-		
-		
-		SpreadSheet dataSheet = new SpreadSheet(globalResultSillhouetteAverange, listStringCluster);
-		dataSheet.createSpreedSheetMMAverangeDistance(maxMinAverangeDisntance);
-		dataSheet.createSpreedSheetItereation(mapIteration);
+		SpreadSheet dataSheet = new SpreadSheet(globalResultSillhouetteAverange, listStringCluster,copyFinalclustters);
+		dataSheet.createSpreedSheetMMAverangeDistanceBetweenCentroids(maxMinAverangeDisntanceInterCentroids, kSizeMin);
+		dataSheet.createSpreedSheetMMAverangeDistanceBetweenCentroidAndNode(maxMindistanceBetweenCentroidsAndNodes);
+		dataSheet.createSpreedSheetMMAverangeDistanceIntraCluster(maxMindistanceIntraCluster);
+		dataSheet.createSpreedSheetItereation(mapIteration, kSizeMin, kSizeMax);
+		dataSheet.createSpreadForMapGoogle();
 	}
 }

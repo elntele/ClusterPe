@@ -1,4 +1,4 @@
-Ôªøgraph [
+graph [
   node [
     id 0
     label "Abreu e Lima, PE"
@@ -373,7 +373,7 @@
   ]
   node [
     id 31
-    label "Cabrob√≥, PE"
+    label "CabrobÛ, PE"
     Country "Brazil"
     Longitude -39.310222
     Latitude -8.506919
@@ -397,7 +397,7 @@
   ]
   node [
     id 33
-    label "Caet√©s, PE"
+    label "CaetÈs, PE"
     Country "Brazil"
     Longitude -36.627159
     Latitude -8.779618
@@ -409,7 +409,7 @@
   ]
   node [
     id 34
-    label "Cal√ßado, PE"
+    label "CalÁado, PE"
     Country "Brazil"
     Longitude -36.328485
     Latitude -8.755836
@@ -445,7 +445,7 @@
   ]
   node [
     id 37
-    label "Camocim de S√£o F√©lix, PE"
+    label "Camocim de S„o FÈlix, PE"
     Country "Brazil"
     Longitude -35.76194444
     Latitude  -8.35861111 
@@ -493,7 +493,7 @@
   ]
   node [
     id 41
-    label "Carna√∫ba, PE"
+    label "Carna˙ba, PE"
     Country "Brazil"
     Longitude -37.79388889
     Latitude -7.80527778
@@ -577,7 +577,7 @@
   ]
   node [
     id 48
-    label "Ch√£ de Alegria, PE"
+    label "Ch„ de Alegria, PE"
     Country "Brazil"
     Longitude -35.21277778
     Latitude -8.00111111
@@ -589,7 +589,7 @@
   ]
   node [
     id 49
-    label "Ch√£ Grande, PE"
+    label "Ch„ Grande, PE"
     Country "Brazil"
     Longitude -35.461301
     Latitude -8.238066
@@ -625,7 +625,7 @@
   ]
   node [
     id 52
-    label "Cort√™s, PE"
+    label "CortÍs, PE"
     Country "Brazil"
     Longitude -35.527112
     Latitude -8.450465
@@ -661,7 +661,7 @@
   ]
   node [
     id 55
-    label "Cust√≥dia, PE"
+    label "CustÛdia, PE"
     Country "Brazil"
     Longitude -37.640408
     Latitude -8.084319
@@ -721,18 +721,6 @@
   ]
   node [
     id 60
-    label "Fernando de Noronha, PE"
-    Country "Brazil"
-    Longitude -32.429715
-    Latitude -3.853430 
-    type "Node"
-    population 2930
-    IDH 0.788
-    GINI 0.46
-    PIB 26674
-  ]
-  node [
-    id 61
     label "Ferreiros, PE"
     Country "Brazil"
     Longitude -35.244663
@@ -744,7 +732,7 @@
     PIB 7965
   ]
   node [
-    id 62
+    id 61
     label "Flores, PE"
     Country "Brazil"
     Latitude -7.857939 
@@ -756,7 +744,7 @@
     PIB 4797
   ]
   node [
-    id 63
+    id 62
     label "Floresta, PE"
     Country "Brazil"
     Longitude -38.574482
@@ -768,7 +756,7 @@
     PIB 11392
   ]
   node [
-    id 64
+    id 63
     label "Frei Miguelinho, PE"
     Country "Brazil"
     Longitude -35.912222222222
@@ -780,7 +768,7 @@
     PIB 4962
   ]
   node [
-    id 65
+    id 64
     label "Gameleira, PE"
     Country "Brazil"
     Longitude -35.386666666667
@@ -792,7 +780,7 @@
     PIB 5683
   ]
   node [
-    id 66
+    id 65
     label "Garanhuns, PE"
     Country "Brazil"
     Longitude -36.492777777778
@@ -804,8 +792,8 @@
     PIB 13228
   ]
   node [
-    id 67
-    label "Gloria do Goita¬°, PE"
+    id 66
+    label "Gloria do Goita°, PE"
     Country "Brazil"
     Longitude -35.292777777778
     Latitude -8.003759
@@ -816,7 +804,7 @@
     PIB 8967
   ]
   node [
-    id 68
+    id 67
     label "Goiana, PE"
     Country "Brazil"
     Longitude -35.0025 
@@ -828,7 +816,7 @@
     PIB 19772
   ]
   node [
-    id 69
+    id 68
     label "Granito, PE"
     Country "Brazil"
     Longitude -39.691869 
@@ -840,7 +828,7 @@
     PIB 6032
   ]
   node [
-    id 70
+    id 69
     label "Gravata, PE"
     Country "Brazil"
     Longitude -35.564722222222
@@ -852,7 +840,7 @@
     PIB 10338
   ]
   node [
-    id 71
+    id 70
     label "Iati, PE"
     Country "Brazil"
     Longitude -36.846111111111 
@@ -864,7 +852,7 @@
     PIB 5492
   ]
   node [
-    id 72
+    id 71
     label "Ibimirim, PE"
     Country "Brazil"
     Longitude -37.690277777778
@@ -876,7 +864,7 @@
     PIB 6599
   ]
   node [
-    id 73
+    id 72
     label "Ibirajuba, PE"
     Country "Brazil"
     Longitude -36.179444444444
@@ -888,7 +876,7 @@
     PIB 5330
   ]
   node [
-    id 74
+    id 73
     label "Igarassu, PE"
     Country "Brazil"
     Longitude -34.906388888889
@@ -900,7 +888,7 @@
     PIB 17517
   ]
   node [
-    id 75
+    id 74
     label "Iguaracy, PE"
     Country "Brazil"
     Longitude -37.515277777778 
@@ -912,8 +900,8 @@
     PIB 4949
   ]
   node [
-    id 76
-    label "Ilha de Itamarac√É¬°, PE"
+    id 75
+    label "Ilha de Itamarac√°, PE"
     Country "Brazil"
     Longitude -34.825555555556
     Latitude -7.748406
@@ -924,7 +912,7 @@
     PIB 7488
   ]
   node [
-    id 77
+    id 76
     label "Inaja, PE"
     Country "Brazil"
     Longitude -37.823888888889
@@ -936,7 +924,7 @@
     PIB 5263
   ]
   node [
-    id 78
+    id 77
     label "Ingazeira, PE"
     Country "Brazil"
     Longitude -37.459722222222
@@ -948,7 +936,7 @@
     PIB 5969
   ]
   node [
-    id 79
+    id 78
     label "Ipojuca, PE"
     Country "Brazil"
     Longitude -35.063888888889
@@ -960,7 +948,7 @@
     PIB 95666
   ]
   node [
-    id 80
+    id 79
     label "Ipubi, PE"
     Country "Brazil"
     Longitude -40.148888888889
@@ -972,7 +960,7 @@
     PIB 6910
   ]
   node [
-    id 81
+    id 80
     label "Itacuruba, PE"
     Country "Brazil"
     Longitude -38.422777777778 
@@ -984,7 +972,7 @@
     PIB 9265
   ]
   node [
-    id 82
+    id 81
     label "Itaiba, PE"
     Country "Brazil"
     Longitude -37.422777777778
@@ -996,7 +984,7 @@
     PIB 6090
   ]
   node [
-    id 83
+    id 82
     label "Itambe, PE"
     Country "Brazil"
     Longitude -35.112777777778
@@ -1008,7 +996,7 @@
     PIB 7440
   ]
   node [
-    id 84
+    id 83
     label "Itapetim, PE"
     Country "Brazil"
     Longitude -37.190277777778
@@ -1020,7 +1008,7 @@
     PIB 4806
   ]
   node [
-    id 85
+    id 84
     label "Itapissuma, PE"
     Country "Brazil"
     Longitude -34.892222222222
@@ -1032,7 +1020,7 @@
     PIB 44429
   ]
   node [
-    id 86
+    id 85
     label "Itaquitinga, PE"
     Country "Brazil"
     Longitude -35.100993
@@ -1044,7 +1032,7 @@
     PIB 7020
   ]
   node [
-    id 87
+    id 86
     label "Jaboatao dos Guararapes, PE"
     Country "Brazil"
     Longitude -34.999667
@@ -1056,7 +1044,7 @@
     PIB 17691
   ]
   node [
-    id 88
+    id 87
     label "Jaqueira, PE"
     Country "Brazil"
     Longitude -35.793333333333
@@ -1068,7 +1056,7 @@
     PIB 5769
   ]
   node [
-    id 89
+    id 88
     label "Jatauba, PE"
     Country "Brazil"
     Longitude -36.566191 
@@ -1080,7 +1068,7 @@
     PIB 5547
   ]
   node [
-    id 90
+    id 89
     label "Jatoba, PE"
     Country "Brazil"
     Longitude -38.267268 
@@ -1092,7 +1080,7 @@
     PIB 6513
   ]
   node [
-    id 91
+    id 90
     label "Joao Alfredo, PE"
     Country "Brazil"
     Longitude -35.588333333333
@@ -1104,11 +1092,11 @@
     PIB 6255
   ]
   node [
-    id 92
+    id 91
     label "Joaquim Nabuco, PE"
     Country "Brazil"
-    Longitude: -35.533333333333 
-    Latitude: -8.622084 
+    Longitude -35.533333333333
+    Latitude -8.622084
     type "Node"
     population 16021
     IDH 0.554
@@ -1116,7 +1104,7 @@
     PIB 5414
   ]
   node [
-    id 93
+    id 92
     label "Jucati, PE"
     Country "Brazil"
     Longitude -36.48888889
@@ -1128,7 +1116,7 @@
     PIB 6330
   ]
   node [
-    id 94
+    id 93
     label "Jupi, PE"
     Country "Brazil"
     Longitude -36.41500000
@@ -1140,7 +1128,7 @@
     PIB 7190
   ]
   node [
-    id 95
+    id 94
     label "Jurema, PE"
     Country "Brazil"
     Longitude -36.13583333
@@ -1152,7 +1140,7 @@
     PIB 5337
   ]
   node [
-    id 96
+    id 95
     label "Lagoa do Carro, PE"
     Country "Brazil"
     Longitude -35.31972222
@@ -1164,7 +1152,7 @@
     PIB 7352
   ]
   node [
-    id 97
+    id 96
     label "Lagoa de Itaenga, PE"
     Country "Brazil"
     Longitude -35.29027778
@@ -1176,7 +1164,7 @@
     PIB 9461
   ]
   node [
-    id 98
+    id 97
     label "Lagoa do Ouro, PE"
     Country "Brazil"
     Longitude -36.45833333
@@ -1188,7 +1176,7 @@
     PIB 5495
   ]
   node [
-    id 99
+    id 98
     label "Lagoa dos Gatos, PE"
     Country "Brazil"
     Longitude -35.90000000
@@ -1200,7 +1188,7 @@
     PIB 4967
   ]
   node [
-    id 100
+    id 99
     label "Lagoa Grande, PE"
     Country "Brazil"
     Longitude -40.27194444
@@ -1212,7 +1200,7 @@
     PIB 10878
   ]
   node [
-    id 101
+    id 100
     label "Lajedo, PE"
     Country "Brazil"
     Longitude -36.32000000
@@ -1224,7 +1212,7 @@
     PIB 8422
   ]
   node [
-    id 102
+    id 101
     label "Limoeiro, PE"
     Country "Brazil"
     Longitude -35.11694444
@@ -1236,7 +1224,7 @@
     PIB 9526
   ]
   node [
-    id 103
+    id 102
     label "Macaparana, PE"
     Country "Brazil"
     Longitude -35.442865
@@ -1248,7 +1236,7 @@
     PIB 7493
   ]
   node [
-    id 104
+    id 103
     label "Machados, PE"
     Country "Brazil"
     Longitude -35.51194444
@@ -1260,7 +1248,7 @@
     PIB 6968
   ]
   node [
-    id 105
+    id 104
     label "Manari, PE"
     Country "Brazil"
     Longitude -37.62833333
@@ -1272,7 +1260,7 @@
     PIB 4441
   ]
   node [
-    id 106
+    id 105
     label "Maraial, PE"
     Country "Brazil"
     Longitude -35.80888889
@@ -1284,7 +1272,7 @@
     PIB 5444
   ]
   node [
-    id 107
+    id 106
     label "Mirandiba, PE"
     Country "Brazil"
     Longitude -38.72944444
@@ -1296,7 +1284,7 @@
     PIB 6971
   ]
   node [
-    id 108
+    id 107
     label "Moreilandia, PE"
     Country "Brazil"
     Longitude -39.55111111
@@ -1308,7 +1296,7 @@
     PIB 6048
   ]
   node [
-    id 109
+    id 108
     label "Moreno, PE"
     Country "Brazil"
     Longitude -35.09222222
@@ -1320,7 +1308,7 @@
     PIB 8180
   ]
   node [
-    id 110
+    id 109
     label "Nazare da Mata, PE"
     Country "Brazil"
     Longitude -35.22777778
@@ -1332,7 +1320,7 @@
     PIB 10245
   ] 
   node [
-    id 111
+    id 110
     label "Olinda, PE"
     Country "Brazil"
     Longitude -34.85527778
@@ -1344,7 +1332,7 @@
     PIB 12410
   ] 
   node [
-    id 112
+    id 111
     label "Orobo, PE"
     Country "Brazil"
     Longitude -35.601944
@@ -1356,7 +1344,7 @@
     PIB 8484
   ]
   node [
-    id 113
+    id 112
     label "Oroco, PE"
     Country "Brazil"
     Longitude -39.601944
@@ -1368,7 +1356,7 @@
     PIB 9805
   ]
   node [
-    id 114
+    id 113
     label "Ouricuri, PE"
     Country "Brazil"
     Longitude -40.081667
@@ -1380,7 +1368,7 @@
     PIB 614
   ]
   node [
-    id 115
+    id 114
     label "Palmares, PE"
     Country "Brazil"
     Longitude -35.591944
@@ -1392,7 +1380,7 @@
     PIB 12028
   ]
   node [
-    id 116
+    id 115
     label "Palmeirina, PE"
     Country "Brazil"
     Longitude -36.325833
@@ -1404,7 +1392,7 @@
     PIB 6098
   ]
   node [
-    id 117
+    id 116
     label "Panelas, PE"
     Country "Brazil"
     Longitude -36.005833
@@ -1416,7 +1404,7 @@
     PIB 5188
   ]
   node [
-    id 118
+    id 117
     label "Paranatama, PE"
     Country "Brazil"
     Longitude -36.6652
@@ -1428,7 +1416,7 @@
     PIB 5539
   ]
   node [
-    id 119
+    id 118
     label "Parnamirim, PE"
     Country "Brazil"
     Longitude -39.577778
@@ -1440,7 +1428,7 @@
     PIB 6828
   ]
   node [
-    id 120
+    id 119
     label "Passira, PE"
     Country "Brazil"
     Longitude -35.580833
@@ -1452,7 +1440,7 @@
     PIB 5655
   ]
   node [
-    id 121
+    id 120
     label "Paudalho, PE"
     Country "Brazil"
     Longitude -35.18
@@ -1464,7 +1452,7 @@
     PIB 8484
   ]
   node [
-    id 122
+    id 121
     label "Paulista, PE"
     Country "Brazil"
     Longitude -34.872778
@@ -1476,7 +1464,7 @@
     PIB 11686
   ]
   node [
-    id 123
+    id 122
     label "Pedra, PE"
     Country "Brazil"
     Longitude -36.945556
@@ -1488,7 +1476,7 @@
     PIB 6859
   ]
   node [
-    id 124
+    id 123
     label "Pesqueira, PE"
     Country "Brazil"
     Longitude -36.694722
@@ -1500,8 +1488,8 @@
     PIB 8501
   ]
   node [
-    id 125
-    label "Petrol√¢ndia, PE"
+    id 124
+    label "Petrol‚ndia, PE"
     Country "Brazil"
     Longitude -38.219444
     Latitude -8.979167
@@ -1512,7 +1500,7 @@
     PIB 12964
   ]
   node [
-    id 126
+    id 125
     label "Petrolina, PE"
     Country "Brazil"
     Longitude -40.507778
@@ -1524,8 +1512,8 @@
     PIB 15334
   ]
   node [
-    id 127
-    label "Po√ß√£o, PE"
+    id 126
+    label "PoÁ„o, PE"
     Country "Brazil"
     Longitude -36.705
     Latitude -8.185833
@@ -1536,7 +1524,7 @@
     PIB 5906
   ]
   node [
-    id 128
+    id 127
     label "Pombos, PE"
     Country "Brazil"
     Longitude -35.395833
@@ -1548,7 +1536,7 @@
     PIB 9393
   ]
   node [
-    id 129
+    id 128
     label "Primavera, PE"
     Country "Brazil"
     Longitude -35.353889
@@ -1560,8 +1548,8 @@
     PIB 9404
   ]
   node [
-    id 130
-    label "Quipap√°, PE"
+    id 129
+    label "Quipap·, PE"
     Country "Brazil"
     Longitude -36.013947
     Latitude -8.811070
@@ -1572,7 +1560,7 @@
     PIB 5691
   ]
   node [
-    id 131
+    id 130
     label "Quixaba, PE"
     Country "Brazil"
     Longitude -37.847778
@@ -1584,7 +1572,7 @@
     PIB 5457
   ]
   node [
-    id 132
+    id 131
     label "Recife, PE"
     Country "Brazil"
     Longitude -34.880833
@@ -1596,7 +1584,7 @@
     PIB 29037
   ]
   node [
-    id 133
+    id 132
     label "Riacho das Almas, PE"
     Country "Brazil"
     Longitude -35.855833
@@ -1608,8 +1596,8 @@
     PIB 6652
   ]
   node [
-    id 134
-    label "Ribeir√£o, PE"
+    id 133
+    label "Ribeir„o, PE"
     Country "Brazil"
     Longitude -35.375467
     Latitude -8.506543
@@ -1620,7 +1608,7 @@
     PIB 7171
   ]
   node [
-    id 135
+    id 134
     label "Rio Formoso, PE"
     Country "Brazil"
     Longitude -35.158889
@@ -1632,8 +1620,8 @@
     PIB 9443
   ]
   node [
-    id 136
-    label "Sair√©, PE"
+    id 135
+    label "SairÈ, PE"
     Country "Brazil"
     Longitude -35.675216
     Latitude -8.309113
@@ -1644,7 +1632,7 @@
     PIB 9441
   ]
   node [
-    id 137
+    id 136
     label "Salgadinho, PE"
     Country "Brazil"
     Longitude -35.632778
@@ -1656,7 +1644,7 @@
     PIB 4374
   ]
   node [
-    id 138
+    id 137
     label "Salgueiro, PE"
     Country "Brazil"
     Longitude -39.119167
@@ -1668,8 +1656,8 @@
     PIB 11763
   ]
    node [
-    id 139
-    label "Salo√°, PE"
+    id 138
+    label "Salo·, PE"
     Country "Brazil"
     Longitude -36.687778
     Latitude -8.975833
@@ -1680,8 +1668,8 @@
     PIB 5925
   ]
   node [
-    id 140
-    label "Sanhar√≥, PE"
+    id 139
+    label "SanharÛ, PE"
     Country "Brazil"
     Longitude -36.565833
     Latitude -8.360833
@@ -1692,7 +1680,7 @@
     PIB 6125
   ]
   node [
-    id 141
+    id 140
     label "Santa Cruz, PE"
     Country "Brazil"
     Longitude -40.335833
@@ -1704,7 +1692,7 @@
     PIB 5443
   ]
   node [
-    id 142
+    id 141
     label "Santa Cruz da Baixa Verde, PE"
     Country "Brazil"
     Longitude -38.152778
@@ -1716,7 +1704,7 @@
     PIB 4729
   ]
   node [
-    id 143
+    id 142
     label "Santa Cruz do Capibaribe, PE"
     Country "Brazil"
     Longitude -36.205
@@ -1728,7 +1716,7 @@
     PIB 11506
   ]
   node [
-    id 144
+    id 143
     label "Santa Filomena, PE"
     Country "Brazil"
     Longitude -40.615833
@@ -1740,7 +1728,7 @@
     PIB 4529
   ]
   node [
-    id 145
+    id 144
     label "Santa Maria da Boa Vista, PE"
     Country "Brazil"
     Longitude -39.825
@@ -1752,8 +1740,8 @@
     PIB 10260
   ]
   node [
-    id 146
-    label "Santa Maria do Cambuc√°, PE"
+    id 145
+    label "Santa Maria do Cambuc·, PE"
     Country "Brazil"
     Longitude -35.894805
     Latitude -7.833598
@@ -1764,7 +1752,7 @@
     PIB 5285
   ]
   node [
-    id 147
+    id 146
     label "Santa Terezinha, PE"
     Country "Brazil"
     Longitude -37.48
@@ -1776,8 +1764,8 @@
     PIB 4715
   ]
   node [
-    id 148
-    label "S√£o Benedito do Sul, PE"
+    id 147
+    label "S„o Benedito do Sul, PE"
     Country "Brazil"
     Longitude -35.951944
     Latitude -8.807778
@@ -1788,8 +1776,8 @@
     PIB 4642    
   ]
   node [
-    id 149
-    label "S√£o Bento do Una, PE"
+    id 148
+    label "S„o Bento do Una, PE"
     Country "Brazil"
     Longitude -36.443889
     Latitude -8.522778
@@ -1800,8 +1788,8 @@
     PIB 11502
   ]
   node [
-    id 150
-    label "S√£o Caitano, PE"
+    id 149
+    label "S„o Caitano, PE"
     Country "Brazil"
     Longitude -36.142778
     Latitude -8.325833
@@ -1812,8 +1800,8 @@
     PIB 6864
   ]
   node [
-    id 151
-    label "S√£o Jo√£o, PE"
+    id 150
+    label "S„o Jo„o, PE"
     Country "Brazil"
     Longitude -36.366944
     Latitude -8.875833
@@ -1824,8 +1812,8 @@
     PIB 6783
   ]
   node [
-    id 152
-    label "S√£o Joaquim do Monte, PE"
+    id 151
+    label "S„o Joaquim do Monte, PE"
     Country "Brazil"
     Longitude -35.803889
     Latitude -8.431944
@@ -1836,8 +1824,8 @@
     PIB 5671        
   ]
   node [
-    id 153
-    label "S√£o Jos√© da Coroa Grande, PE"
+    id 152
+    label "S„o JosÈ da Coroa Grande, PE"
     Country "Brazil"
     Longitude -35.147778    
     Latitude -8.897778
@@ -1848,8 +1836,8 @@
     PIB 9234
   ]
   node [
-    id 154
-    label "S√£o Jos√© do Belmonte, PE"
+    id 153
+    label "S„o JosÈ do Belmonte, PE"
     Country "Brazil"
     Longitude -38.76
     Latitude -7.860833
@@ -1860,8 +1848,8 @@
     PIB 6047
   ]
   node [
-    id 155
-    label "S√£o Jos√© do Egito, PE"
+    id 154
+    label "S„o JosÈ do Egito, PE"
     Country "Brazil"
     Longitude -37.274444
     Latitude -7.478889
@@ -1872,8 +1860,8 @@
     PIB 7311
   ]
   node [
-    id 156
-    label "S√£o Louren√ßo da Mata, PE"
+    id 155
+    label "S„o LourenÁo da Mata, PE"
     Country "Brazil"
     Longitude -35.017778
     Latitude -8.001944
@@ -1884,8 +1872,8 @@
     PIB 7586
   ]
   node [
-    id 157
-    label "S√£o Vicente Ferrer, PE"
+    id 156
+    label "S„o Vicente Ferrer, PE"
     Country "Brazil"
     Longitude -35.481163
     Latitude -7.589359
@@ -1896,7 +1884,7 @@
     PIB 9203
   ]
   node [
-    id 158
+    id 157
     label "Serra Talhada, PE"
     Country "Brazil"
     Longitude -38.295833    
@@ -1908,7 +1896,7 @@
     PIB 12948
   ]
   node [
-    id 159
+    id 158
     label "Serrita, PE"
     Country "Brazil"
     Longitude -39.403588
@@ -1920,8 +1908,8 @@
     PIB 5591
   ]
   node [
-    id 160
-    label "Sert√¢nia, PE"
+    id 159
+    label "Sert‚nia, PE"
     Country "Brazil"
     Longitude -37.265833
     Latitude -8.070556
@@ -1932,8 +1920,8 @@
     PIB 6393
   ]
   node [
-    id 161
-    label "Sirinha√©m, PE"
+    id 160
+    label "SirinhaÈm, PE"
     Country "Brazil"
     Longitude -35.115833
     Latitude -8.590833
@@ -1944,8 +1932,8 @@
     PIB 9920
   ]
   node [
-    id 162
-    label "Solid√£o, PE"
+    id 161
+    label "Solid„o, PE"
     Country "Brazil"
     Longitude -37.644961
     Latitude -7.594064
@@ -1956,7 +1944,7 @@
     PIB 5717
   ]
   node [
-    id 163
+    id 162
     label "Surubim, PE"
     Country "Brazil"
     Longitude -35.755833
@@ -1968,7 +1956,7 @@
     PIB 9626
   ]
   node [
-    id 164
+    id 163
     label "Tabira, PE"
     Country "Brazil"
     Longitude -37.539444
@@ -1980,8 +1968,8 @@
     PIB 6836
   ]
   node [
-    id 165
-    label "Tacaimb√≥, PE"
+    id 164
+    label "TacaimbÛ, PE"
     Country "Brazil"
     Longitude -36.300445
     Latitude -8.308379
@@ -1992,7 +1980,7 @@
     PIB 6338
   ]
   node [
-    id 166
+    id 165
     label "Tacaratu, PE"
     Country "Brazil"
     Longitude -38.15
@@ -2004,8 +1992,8 @@
     PIB 4951
   ]
   node [
-    id 167
-    label "Tamandar√©, PE"
+    id 166
+    label "TamandarÈ, PE"
     Country "Brazil"
     Longitude -35.105
     Latitude -8.76
@@ -2016,7 +2004,7 @@
     PIB 9453
   ]
   node [
-    id 168
+    id 167
     label "Taquaritinga do Norte, PE"
     Country "Brazil"
     Longitude -36.040907
@@ -2028,7 +2016,7 @@
     PIB 7242
   ]
   node [
-    id 169
+    id 168
     label "Terezinha, PE"
     Country "Brazil"
     Longitude -36.627610
@@ -2040,7 +2028,7 @@
     PIB 5413
   ]
   node [
-    id 170
+    id 169
     label "Terra Nova, PE"
     Country "Brazil"
     Longitude -39.383523
@@ -2052,8 +2040,8 @@
     PIB 5359
   ]
   node [
-    id 171
-    label "Timba√∫ba, PE"
+    id 170
+    label "Timba˙ba, PE"
     Country "Brazil"
     Longitude -35.316993
     Latitude -7.511406
@@ -2064,7 +2052,7 @@
     PIB 10654
   ]
   node [
-    id 172
+    id 171
     label "Toritama, PE"
     Country "Brazil"
     Longitude -36.050833
@@ -2076,8 +2064,8 @@
     PIB 14495
   ]
   node [
-    id 173
-    label "Tracunha√©m, PE"
+    id 172
+    label "TracunhaÈm, PE"
     Country "Brazil"
     Longitude -35.237526
     Latitude -7.801987
@@ -2088,7 +2076,7 @@
     PIB 6290
   ]
   node [
-    id 174
+    id 173
     label "Trindade, PE"
     Country "Brazil"
     Longitude -40.267778
@@ -2100,7 +2088,7 @@
     PIB 9534
   ]
   node [
-    id 175
+    id 174
     label "Triunfo, PE"
     Country "Brazil"
     Longitude -38.101944
@@ -2112,7 +2100,7 @@
     PIB 6598
   ]
   node [
-    id 176
+    id 175
     label "Tupanatinga, PE"
     Country "Brazil"
     Longitude -37.344998
@@ -2124,7 +2112,7 @@
     PIB 5220
   ]
   node [
-    id 177
+    id 176
     label "Tuparetama, PE"
     Country "Brazil"
     Longitude -37.310833
@@ -2136,7 +2124,7 @@
     PIB 7029 
   ]
   node [
-    id 178
+    id 177
     label "Venturosa, PE"
     Country "Brazil"
     Longitude -36.874167
@@ -2148,7 +2136,7 @@
     PIB 6300
   ]
   node [
-    id 179
+    id 178
     label "Verdejante, PE"
     Country "Brazil"
     Longitude -38.971944
@@ -2160,8 +2148,8 @@
     PIB 5351
   ]
   node [
-    id 180
-    label "Vertente do L√©rio, PE"
+    id 179
+    label "Vertente do LÈrio, PE"
     Country "Brazil"
     Longitude -35.85
     Latitude -7.770833
@@ -2172,7 +2160,7 @@
     PIB 8622
   ]
   node [
-    id 181
+    id 180
     label "Vertentes, PE"
     Country "Brazil"
     Longitude -35.9877
@@ -2184,8 +2172,8 @@
     PIB 6509
   ]
   node [
-    id 182
-    label "Vic√™ncia, PE"
+    id 181
+    label "VicÍncia, PE"
     Country "Brazil"
     Longitude -35.326944
     Latitude -7.656944 
@@ -2196,8 +2184,8 @@
     PIB 9127
   ]
   node [
-    id 183
-    label "Vit√≥ria de Santo Ant√£o, PE"
+    id 182
+    label "VitÛria de Santo Ant„o, PE"
     Country "Brazil"
     Longitude -35.3075
     Latitude -8.126389 
@@ -2208,7 +2196,7 @@
     PIB 18092
   ]
   node [
-    id 184
+    id 183
     label "Xexeu, PE"
     Country "Brazil"
     Longitude -35.626944
@@ -2219,5 +2207,4 @@
     GINI 0.4999
     PIB 5325
   ]
- 
 ]

@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+<record>
+  <date>2017-11-25T18:45:13</date>
+  <millis>1511646313708</millis>
+  <sequence>0</sequence>
+  <logger>org.uma.jmetal.util.JMetalLogger</logger>
+  <level>INFO</level>
+  <class>org.uma.jmetal.util.JMetalLogger</class>
+  <method>configureLoggers</method>
+  <thread>1</thread>
+  <message>Loggers configured with null</message>
+</record>
+<record>
+  <date>2017-11-25T18:45:13</date>
+  <millis>1511646313749</millis>
+  <sequence>1</sequence>
+  <logger>org.uma.jmetal.util.JMetalLogger</logger>
+  <level>INFO</level>
+  <class>org.uma.jmetal.algorithm.multiobjective.nsgaiii.NSGAIII</class>
+  <method>&lt;init&gt;</method>
+  <thread>1</thread>
+  <message>rpssize: 1820</message>
+</record>
+<record>
+  <date>2017-11-25T18:45:45</date>
+  <millis>1511646345098</millis>
+  <sequence>2</sequence>
+  <logger>org.uma.jmetal.util.JMetalLogger</logger>
+  <level>INFO</level>
+  <class>br.multiobjetivo.MultiObjectivesWay</class>
+  <method>&lt;init&gt;</method>
+  <thread>1</thread>
+  <message>Total execution time: 31231ms</message>
+</record>
+<record>
+  <date>2017-11-25T18:45:45</date>
+  <millis>1511646345178</millis>
+  <sequence>3</sequence>
+  <logger>org.uma.jmetal.util.JMetalLogger</logger>
+  <level>INFO</level>
+  <class>br.multiobjetivo.MultiObjectivesWay</class>
+  <method>printFinalSolutionSet</method>
+  <thread>1</thread>
+  <message>Random seed: 1511646313646</message>
+</record>
+<record>
+  <date>2017-11-25T18:45:45</date>
+  <millis>1511646345179</millis>
+  <sequence>4</sequence>
+  <logger>org.uma.jmetal.util.JMetalLogger</logger>
+  <level>INFO</level>
+  <class>br.multiobjetivo.MultiObjectivesWay</class>
+  <method>printFinalSolutionSet</method>
+  <thread>1</thread>
+  <message>Objectives values have been written to file FUN.tsv</message>
+</record>
+<record>
+  <date>2017-11-25T18:45:45</date>
+  <millis>1511646345179</millis>
+  <sequence>5</sequence>
+  <logger>org.uma.jmetal.util.JMetalLogger</logger>
+  <level>INFO</level>
+  <class>br.multiobjetivo.MultiObjectivesWay</class>
+  <method>printFinalSolutionSet</method>
+  <thread>1</thread>
+  <message>Variables values have been written to file VAR.tsv</message>
+</record>
+</log>

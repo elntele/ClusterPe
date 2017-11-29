@@ -28,13 +28,13 @@ import cbic15.Pattern;
 
 public class MultiObjectivesWay {
 	
-	public MultiObjectivesWay(Kmeans kmeans, GmlData gml) {
+	public MultiObjectivesWay(Kmeans kmeans, GmlData gml,List<Pattern>[] clustters) {
 		Problem<IntegerSolution> problem; // do Jmetal
 		Algorithm<List<IntegerSolution>> algorithm; // do Jmetal
 		CrossoverOperator<IntegerSolution> crossover; // do Jmetal
 		MutationOperator<IntegerSolution> mutation; // do Jmetal
 		SelectionOperator<List<IntegerSolution>, IntegerSolution> selection; // do
-		problem = new SearchForNetworkAndEvaluate(kmeans, gml);
+		problem = new SearchForNetworkAndEvaluate(kmeans, gml,clustters);
 
 		// ****************************
 		double crossoverProbability = 1.0;

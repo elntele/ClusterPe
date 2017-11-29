@@ -37,6 +37,8 @@ public class ClusterDeliveryManager {
 
 		Kmeans kmeans = new Kmeans(Kcluster, listPatterns);
 		clustters = kmeans.execute(200);
+		
+		
 		// List<String> litleCluster = new ArrayList<>();
 
 		// montando a lista com os nomes das cidades de cada cluster
@@ -56,7 +58,7 @@ public class ClusterDeliveryManager {
 		Pattern[] centroids = kmeans.getNearestPatternsFromCentroid();
 		AllDistancesCLuster node = new AllDistancesCLuster(centroids, gml, clustters);
 
-		MultiObjectivesWay multi =new MultiObjectivesWay(kmeans, gml);
+		MultiObjectivesWay multi =new MultiObjectivesWay(kmeans, gml,clustters);
 
 	}
 }

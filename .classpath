@@ -8,5 +8,6 @@
 	<classpathentry combineaccessrules="false" kind="src" path="/jmetal-core"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/jmetal-exec"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/jmetal-problem"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/bons"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

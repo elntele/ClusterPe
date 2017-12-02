@@ -2,8 +2,8 @@
 <!DOCTYPE log SYSTEM "logger.dtd">
 <log>
 <record>
-  <date>2017-11-29T00:59:07</date>
-  <millis>1511927947678</millis>
+  <date>2017-12-02T12:45:43</date>
+  <millis>1512229543291</millis>
   <sequence>0</sequence>
   <logger>org.uma.jmetal.util.JMetalLogger</logger>
   <level>INFO</level>
@@ -13,8 +13,8 @@
   <message>Loggers configured with null</message>
 </record>
 <record>
-  <date>2017-11-29T00:59:07</date>
-  <millis>1511927947726</millis>
+  <date>2017-12-02T12:45:43</date>
+  <millis>1512229543380</millis>
   <sequence>1</sequence>
   <logger>org.uma.jmetal.util.JMetalLogger</logger>
   <level>INFO</level>
@@ -23,48 +23,3 @@
   <thread>1</thread>
   <message>rpssize: 91</message>
 </record>
-<record>
-  <date>2017-11-29T00:59:08</date>
-  <millis>1511927948463</millis>
-  <sequence>2</sequence>
-  <logger>org.uma.jmetal.util.JMetalLogger</logger>
-  <level>INFO</level>
-  <class>br.multiobjetivo.MultiObjectivesWay</class>
-  <method>&lt;init&gt;</method>
-  <thread>1</thread>
-  <message>Total execution time: 731ms</message>
-</record>
-<record>
-  <date>2017-11-29T00:59:08</date>
-  <millis>1511927948490</millis>
-  <sequence>3</sequence>
-  <logger>org.uma.jmetal.util.JMetalLogger</logger>
-  <level>INFO</level>
-  <class>br.multiobjetivo.MultiObjectivesWay</class>
-  <method>printFinalSolutionSet</method>
-  <thread>1</thread>
-  <message>Random seed: 1511927947736</message>
-</record>
-<record>
-  <date>2017-11-29T00:59:08</date>
-  <millis>1511927948493</millis>
-  <sequence>4</sequence>
-  <logger>org.uma.jmetal.util.JMetalLogger</logger>
-  <level>INFO</level>
-  <class>br.multiobjetivo.MultiObjectivesWay</class>
-  <method>printFinalSolutionSet</method>
-  <thread>1</thread>
-  <message>Objectives values have been written to file FUN.tsv</message>
-</record>
-<record>
-  <date>2017-11-29T00:59:08</date>
-  <millis>1511927948495</millis>
-  <sequence>5</sequence>
-  <logger>org.uma.jmetal.util.JMetalLogger</logger>
-  <level>INFO</level>
-  <class>br.multiobjetivo.MultiObjectivesWay</class>
-  <method>printFinalSolutionSet</method>
-  <thread>1</thread>
-  <message>Variables values have been written to file VAR.tsv</message>
-</record>
-</log>

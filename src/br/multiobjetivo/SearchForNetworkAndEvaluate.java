@@ -6,9 +6,11 @@ import java.util.Random;
 
 import org.uma.jmetal.problem.impl.AbstractIntegerProblem;
 import org.uma.jmetal.solution.IntegerSolution;
-import org.uma.jmetal.solution.impl.DefaultIntegerSolution;
 
+import br.bons.core.OpticalNetworkProblem;
+//import br.clustering.LabeledIntegerSolution;
 import br.cns.model.GmlData;
+import br.cns.persistence.GmlDao;
 import cbic15.Kmeans;
 import cbic15.Pattern;
 
@@ -18,35 +20,51 @@ public class SearchForNetworkAndEvaluate extends AbstractIntegerProblem {
 	private int upperBound;
 	private Kmeans kmeans;
 	private GmlData gml;
-	private Pattern[] line;
-	private Pattern[] column;
+	private Pattern[] lineColumn;
+	private PatternToGml ptg;
+	private GmlDao dao;
 	private List<Pattern>[] clustters;
 	private Pattern[] centroids;
+	private OpticalNetworkProblem  opticalNetwoark;
 
 	@Override
 	public IntegerSolution createSolution() {
-		IntegerSolution retorno = new DefaultIntegerSolution(this);
+		
+		//IntegerSolution retorno = new DefaultIntegerSolution(this);
+		IntegerSolution retorno = new labeledIntegerSolution(this);
 		Random gerador = new Random();
 
 		for (int i = 0; i < getNumberOfVariables(); i++) {
 			retorno.setVariableValue(i, gerador.nextInt(2));
 		}
-
-//		for (int k = 0; k < getNumberOfVariables(); k++) {
-//			System.out.println("valor sorteado" + retorno.getVariableValueString(k));
-//		}
+		((labeledIntegerSolution) retorno).setLineColumn(this.lineColumn);
 
 		return retorno;
 	}
 
 	@Override
 	public void evaluate(IntegerSolution solution) {
-
-		int[] vars = new int[solution.getNumberOfVariables()];
+		int load=80;
+		Integer[] vars = new Integer[solution.getNumberOfVariables()];
 		List<Integer> impr = new ArrayList();
+		
 		for (int i = 0; i < vars.length; i++) {
 			vars[i] = solution.getVariableValue(i);
 		}
+		this.ptg.patternGmlData(this.lineColumn,vars);
+				
+		String path="C:/Users/jorge/workspace/ClusterPe/src/Gmlevaluating.gml";
+		
+		OpticalNetworkProblem P = new OpticalNetworkProblem(load,path);
+//		P.setDefaultSolution(vars);
+		vars=P.getDefaultSolution();
+		Double[] objectives = P.evaluate(vars);
+		System.out.println("Sumário da rede \"" + gml + "\" para a carga de " + load + " erlangs:");
+		System.out.println();
+		System.out.printf("Probabilidade de bloqueio = %.6f\n", objectives[0]);
+		System.out.printf("Custo de implantação = %.2f u.m.\n", objectives[1]);
+		System.out.printf("Gasto energético = %.2f Watts\n", objectives[2]);
+		System.out.printf("Conectividade algébrica = %.2f\n", objectives[3]);
 		// setando a sugestão de matricula em problema preparado
 		// solution.setObjective(0, problemaPreparado.getTempoDeFormatura());
 		// solution.setObjective(1, problemaPreparado.getVarianciaTotal());
@@ -127,77 +145,73 @@ public class SearchForNetworkAndEvaluate extends AbstractIntegerProblem {
 	 * dos 3 patterns mais proximos de forma aleatória
 	 */
 	public void createNewMatrix() {
-		Pattern[] copyLine = new Pattern[this.line.length];
-		Pattern[] copyColumn = new Pattern[this.column.length];
+		Pattern[] copyLineColumn = new Pattern[this.lineColumn.length];
 		Random gerator = new Random();
 
-		for (int i = 0; i < this.line.length; i++) {
-			copyLine[i] = takeTreNodeMinDistance(this.clustters[i], this.line[i]).get(gerator.nextInt(3));
-			copyColumn[i] = takeTreNodeMinDistance(this.clustters[i], this.line[i]).get(gerator.nextInt(3));
+		for (int i = 0; i < this.lineColumn.length; i++) {
+			copyLineColumn[i] = takeTreNodeMinDistance(this.clustters[i], this.lineColumn[i]).get(gerator.nextInt(3));
 		}
-		this.line = copyLine;
-		this.column = copyColumn;
+		this.lineColumn = copyLineColumn;
 
 	}
 
-	public void changeOneIndexOfLineMatrix(int position, Pattern pattern) {
+	public void changeOneIndexOfMatrix(int position, Pattern pattern) {
 		Random gerator = new Random();
-		this.line[position] = takeTreNodeMinDistance(this.clustters[position], this.line[position])
+		this.lineColumn[position] = takeTreNodeMinDistance(this.clustters[position], this.lineColumn[position])
 				.get(gerator.nextInt(3));
 	}
 
-	public void changeOneIndexOfColumnMatrix(int position, Pattern pattern) {
-		Random gerator = new Random();
-		this.column[position] = takeTreNodeMinDistance(this.clustters[position], this.column[position])
-				.get(gerator.nextInt(3));
+	public void testMudaElementoDaMatriz() {
+		// teste muda elemento da matriz
+		System.out.println("id de pattern de linha antes: " + this.lineColumn[2].getId());
+		changeOneIndexOfMatrix(2, this.lineColumn[2]);
+		System.out.println("id de pattern de linha depois: " + this.lineColumn[2].getId());
 	}
 
-	public void teste(){
-		// teste se centroid n pretence ao cluster n 
-		//e centroid n+1 pertence ao cluster n+1
-		int k=0;
-		for (int i=0;i<this.centroids.length;i++){
-			System.out.println("tem centroide neste cluster: "+	this.clustters[k].contains(this.centroids[i]));
-			k+=1;
+	public void testMudaMatrixInterira() {
+		// teste muda a matrix inteira
+		for (int i = 0; i < this.lineColumn.length; i++) {
+			System.out.println("linha: " + this.lineColumn[i].getId() + " coluna: " + this.lineColumn[i].getId());
 		}
-		// teste muda elemento da linha
-		System.out.println("id de pattern de linha antes: "+ this.line[2].getId());
-		changeOneIndexOfLineMatrix(2,this.line[2]);
-		System.out.println("id de pattern de linha depois: "+ this.line[2].getId());
-		//teste muda elemento de coluna
-		System.out.println("id de pattern de coluna antes: "+ this.column[2].getId());
-		changeOneIndexOfColumnMatrix(2,this.column[2]);
-		System.out.println("id de pattern de coluna depois: "+ this.column[2].getId());
-		System.out.println();
-		//teste muda a matrix inteira
-		for (int i=0;i<this.line.length;i++){
-			System.out.println("linha: "+this.line[i].getId()+" coluna: "+this.column[i].getId());
-		}
-		
+
 		createNewMatrix();
+
 		System.out.println("#########################################");
-		for (int i=0;i<this.line.length;i++){
-			System.out.println("linha: "+this.line[i].getId()+" coluna: "+this.column[i].getId());
+
+		for (int i = 0; i < this.lineColumn.length; i++) {
+			System.out.println("linha: " + this.lineColumn[i].getId() + " coluna: " + this.lineColumn[i].getId());
 		}
-		
+
 	}
+
+	public void testCardinalidadeCentroidCluster() {
+		// teste se centroid n pretence ao cluster n
+		// e centroid n+1 pertence ao cluster n+1
+		int k = 0;
+		for (int i = 0; i < this.centroids.length; i++) {
+			System.out.println("tem centroide neste cluster: " + this.clustters[k].contains(this.centroids[i]));
+			k += 1;
+		}
+
+	}
+	
+	
 
 	public SearchForNetworkAndEvaluate(Kmeans kmeans, GmlData gml, List<Pattern>[] clustters) {
 		super();
 		this.setNumberOfObjectives(3);
-		this.setNumberOfVariables(kmeans.getCentroids().length * (kmeans.getCentroids().length - 1) / 2);// tamanho
-																											// do
-																											// cromossomo
+		// tamanho do cromossomo
+		this.setNumberOfVariables(kmeans.getCentroids().length * (kmeans.getCentroids().length - 1) / 2);
 		this.upperBound = 1;// maior valor acomodado no cromossomo
 		this.gml = gml;
 		this.kmeans = kmeans;
 		this.clustters = clustters;
-		this.line = kmeans.getNearestPatternsFromCentroid();
-		this.column = kmeans.getNearestPatternsFromCentroid();
-		this.centroids=kmeans.getNearestPatternsFromCentroid();
-		//createSolution();
-		teste();
-		
-		
+		this.lineColumn = kmeans.getNearestPatternsFromCentroid();
+		this.centroids = kmeans.getNearestPatternsFromCentroid();
+		testCardinalidadeCentroidCluster();
+		testMudaMatrixInterira();
+		testMudaElementoDaMatriz();
+		this.ptg = new PatternToGml(gml);
+
 	}
 }

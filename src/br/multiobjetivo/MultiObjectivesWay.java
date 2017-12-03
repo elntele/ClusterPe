@@ -51,7 +51,7 @@ public class MultiObjectivesWay {
 		// AlgorithmRunner.Executor(algorithm).execute();
 
 		algorithm = new NSGAIIIBuilder<>(problem).setCrossoverOperator(crossover).setMutationOperator(mutation)
-				.setSelectionOperator(selection).setPopulationSize(500).setMaxIterations(30).build();
+				.setSelectionOperator(selection).setPopulationSize(100).setMaxIterations(30).build();
 
 		List<IntegerSolution> population;
 		AlgorithmRunner algorithmRunner = new AlgorithmRunner.Executor(algorithm).execute();

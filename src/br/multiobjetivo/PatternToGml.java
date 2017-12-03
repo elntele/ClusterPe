@@ -56,6 +56,17 @@ public class PatternToGml {
 
 		return edges;
 	}
+	public GmlData takeGmlData(Pattern[] arrayPatterns, Integer[] vars) {
+		List<GmlNode> listNode = new ArrayList<>();
+		GmlDao G = new GmlDao();
+		GmlData gmlLocal = new GmlData();
+		GmlEdge edge = new GmlEdge();
+		gmlLocal.setNodes(patternGml(arrayPatterns));
+		gmlLocal.setEdges(makelink(arrayPatterns, vars));
+		gmlLocal.createComplexNetwork();
+	//	G.save(gmlLocal, "C:/Users/jorge/workspace/ClusterPe/src/Gmlevaluating.gml");
+		return gmlLocal;
+	}
 
 	public void patternGmlData(Pattern[] arrayPatterns, Integer[] vars) {
 		List<GmlNode> listNode = new ArrayList<>();

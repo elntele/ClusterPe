@@ -2,8 +2,8 @@
 <!DOCTYPE log SYSTEM "logger.dtd">
 <log>
 <record>
-  <date>2017-12-02T12:45:43</date>
-  <millis>1512229543291</millis>
+  <date>2017-12-03T13:04:00</date>
+  <millis>1512317040157</millis>
   <sequence>0</sequence>
   <logger>org.uma.jmetal.util.JMetalLogger</logger>
   <level>INFO</level>
@@ -13,13 +13,13 @@
   <message>Loggers configured with null</message>
 </record>
 <record>
-  <date>2017-12-02T12:45:43</date>
-  <millis>1512229543380</millis>
+  <date>2017-12-03T13:04:00</date>
+  <millis>1512317040199</millis>
   <sequence>1</sequence>
   <logger>org.uma.jmetal.util.JMetalLogger</logger>
   <level>INFO</level>
   <class>org.uma.jmetal.algorithm.multiobjective.nsgaiii.NSGAIII</class>
   <method>&lt;init&gt;</method>
   <thread>1</thread>
-  <message>rpssize: 91</message>
+  <message>rpssize: 455</message>
 </record>

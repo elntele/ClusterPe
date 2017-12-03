@@ -27,6 +27,7 @@ public class SearchForNetworkAndEvaluate extends AbstractIntegerProblem {
 	private Pattern[] centroids;
 	private OpticalNetworkProblem  opticalNetwoark;
 
+
 	@Override
 	public IntegerSolution createSolution() {
 		
@@ -46,16 +47,20 @@ public class SearchForNetworkAndEvaluate extends AbstractIntegerProblem {
 	public void evaluate(IntegerSolution solution) {
 		int load=80;
 		Integer[] vars = new Integer[solution.getNumberOfVariables()];
-		List<Integer> impr = new ArrayList();
-		
 		for (int i = 0; i < vars.length; i++) {
 			vars[i] = solution.getVariableValue(i);
 		}
-		this.ptg.patternGmlData(this.lineColumn,vars);
-				
-		String path="C:/Users/jorge/workspace/ClusterPe/src/Gmlevaluating.gml";
+		//this.ptg.patternGmlData(this.lineColumn,vars);
 		
-		OpticalNetworkProblem P = new OpticalNetworkProblem(load,path);
+		GmlData D= this.ptg.takeGmlData(this.lineColumn, vars);
+		GmlDao G = new GmlDao();
+		D=G.loadGmlDataFromContent(G.createFileContent(D));
+				
+		//String path="C:/Users/jorge/workspace/ClusterPe/src/Gmlevaluating.gml";
+		
+		OpticalNetworkProblem P = new OpticalNetworkProblem();
+		P.reloadProblem(load,D);
+		//OpticalNetworkProblem P = new OpticalNetworkProblem(load,path);
 //		P.setDefaultSolution(vars);
 		vars=P.getDefaultSolution();
 		Double[] objectives = P.evaluate(vars);
@@ -66,13 +71,10 @@ public class SearchForNetworkAndEvaluate extends AbstractIntegerProblem {
 		System.out.printf("Gasto energético = %.2f Watts\n", objectives[2]);
 		System.out.printf("Conectividade algébrica = %.2f\n", objectives[3]);
 		// setando a sugestão de matricula em problema preparado
-		// solution.setObjective(0, problemaPreparado.getTempoDeFormatura());
-		// solution.setObjective(1, problemaPreparado.getVarianciaTotal());
-		// solution.setObjective(2,
-		// problemaPreparado.getQtdDiscForaDaMinhaArea());
-		// solution.setObjective(3,
-		// problemaPreparado.getVariaQtdDiscPorPeriodo());
-		// solution.setObjective(4, problemaPreparado.getTempoExtraClasse());
+		 solution.setObjective(0, objectives[0]);
+		 solution.setObjective(1, objectives[1]);
+		 solution.setObjective(2,objectives[2]);
+		 solution.setObjective(3,objectives[3]);
 
 	}
 
@@ -194,12 +196,21 @@ public class SearchForNetworkAndEvaluate extends AbstractIntegerProblem {
 		}
 
 	}
-	
-	
+	public void SetNetWork(){
+		int load=80;
+		Integer[] vars = new Integer[this.getNumberOfVariables()];
+		for (int i = 0; i < vars.length; i++) {
+			vars[i] = 1;
+		}
+		this.ptg.patternGmlData(this.lineColumn,vars);
+		String path="C:/Users/jorge/workspace/ClusterPe/src/Gmlevaluating.gml";
+		this.opticalNetwoark=new OpticalNetworkProblem(load,path);
+		int j = load;
+	}
 
 	public SearchForNetworkAndEvaluate(Kmeans kmeans, GmlData gml, List<Pattern>[] clustters) {
 		super();
-		this.setNumberOfObjectives(3);
+		this.setNumberOfObjectives(4);
 		// tamanho do cromossomo
 		this.setNumberOfVariables(kmeans.getCentroids().length * (kmeans.getCentroids().length - 1) / 2);
 		this.upperBound = 1;// maior valor acomodado no cromossomo
@@ -212,6 +223,7 @@ public class SearchForNetworkAndEvaluate extends AbstractIntegerProblem {
 		testMudaMatrixInterira();
 		testMudaElementoDaMatriz();
 		this.ptg = new PatternToGml(gml);
+		SetNetWork();
 
 	}
 }

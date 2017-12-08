@@ -6,8 +6,8 @@ import java.util.Random;
 
 import org.uma.jmetal.problem.impl.AbstractIntegerProblem;
 import org.uma.jmetal.solution.IntegerSolution;
-import org.uma.jmetal.solution.LabeledIntegerSolution;
 import org.uma.jmetal.solution.impl.DefaultIntegerSolution;
+import org.uma.jmetal.util.comparator.DominanceComparator;
 
 import br.bons.core.OpticalNetworkProblem;
 //import br.clustering.LabeledIntegerSolution;
@@ -30,6 +30,23 @@ public class SearchForNetworkAndEvaluate extends AbstractIntegerProblem {
 	private OpticalNetworkProblem opticalNetwoark;
 	private int contCreate = 0;
 	private int contEvaluate = 0;
+	IntegerSolution anterior;
+	
+	
+	public void testCoparacao (IntegerSolution s1, IntegerSolution s2 ){
+		DominanceComparator comparater =new DominanceComparator();
+		int i=comparater.compare(s1, s2);
+		if (i ==-1){
+			System.out.println("s1 domina s2");
+		}
+		if (i==0){
+			System.out.println("ambras são nao dominadas");
+		}
+		if (i==1){
+			System.out.println("s2 domina s1");
+		}
+		
+	}
 
 	@Override
 	public IntegerSolution createSolution() {
@@ -98,6 +115,13 @@ public class SearchForNetworkAndEvaluate extends AbstractIntegerProblem {
 		solution.setObjective(1, objectives[1]);
 		solution.setObjective(2, objectives[2]);
 		solution.setObjective(3, 1 / (1 + objectives[3]));
+	
+		if(this.contEvaluate>3){
+		
+			testCoparacao(solution,this.anterior);
+		}
+		this.anterior=solution;
+		
 
 	}
 
@@ -248,6 +272,6 @@ public class SearchForNetworkAndEvaluate extends AbstractIntegerProblem {
 		// testMudaElementoDaMatriz();
 		this.ptg = new PatternToGml(gml);
 		SetNetWork();
-		this.setNumberOfConstraints(1);
+		//this.setNumberOfConstraints(1);
 	}
 }

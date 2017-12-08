@@ -2,8 +2,8 @@
 <!DOCTYPE log SYSTEM "logger.dtd">
 <log>
 <record>
-  <date>2017-12-03T13:04:00</date>
-  <millis>1512317040157</millis>
+  <date>2017-12-07T02:05:51</date>
+  <millis>1512623151123</millis>
   <sequence>0</sequence>
   <logger>org.uma.jmetal.util.JMetalLogger</logger>
   <level>INFO</level>
@@ -13,8 +13,8 @@
   <message>Loggers configured with null</message>
 </record>
 <record>
-  <date>2017-12-03T13:04:00</date>
-  <millis>1512317040199</millis>
+  <date>2017-12-07T02:05:51</date>
+  <millis>1512623151255</millis>
   <sequence>1</sequence>
   <logger>org.uma.jmetal.util.JMetalLogger</logger>
   <level>INFO</level>
@@ -23,3 +23,48 @@
   <thread>1</thread>
   <message>rpssize: 455</message>
 </record>
+<record>
+  <date>2017-12-07T04:40:12</date>
+  <millis>1512632412958</millis>
+  <sequence>2</sequence>
+  <logger>org.uma.jmetal.util.JMetalLogger</logger>
+  <level>INFO</level>
+  <class>br.multiobjetivo.MultiObjectivesWay</class>
+  <method>&lt;init&gt;</method>
+  <thread>1</thread>
+  <message>Total execution time: 9261690ms</message>
+</record>
+<record>
+  <date>2017-12-07T04:40:13</date>
+  <millis>1512632413027</millis>
+  <sequence>3</sequence>
+  <logger>org.uma.jmetal.util.JMetalLogger</logger>
+  <level>INFO</level>
+  <class>br.multiobjetivo.MultiObjectivesWay</class>
+  <method>printFinalSolutionSet</method>
+  <thread>1</thread>
+  <message>Random seed: 1512623151296</message>
+</record>
+<record>
+  <date>2017-12-07T04:40:13</date>
+  <millis>1512632413028</millis>
+  <sequence>4</sequence>
+  <logger>org.uma.jmetal.util.JMetalLogger</logger>
+  <level>INFO</level>
+  <class>br.multiobjetivo.MultiObjectivesWay</class>
+  <method>printFinalSolutionSet</method>
+  <thread>1</thread>
+  <message>Objectives values have been written to file FUN.tsv</message>
+</record>
+<record>
+  <date>2017-12-07T04:40:13</date>
+  <millis>1512632413030</millis>
+  <sequence>5</sequence>
+  <logger>org.uma.jmetal.util.JMetalLogger</logger>
+  <level>INFO</level>
+  <class>br.multiobjetivo.MultiObjectivesWay</class>
+  <method>printFinalSolutionSet</method>
+  <thread>1</thread>
+  <message>Variables values have been written to file VAR.tsv</message>
+</record>
+</log>

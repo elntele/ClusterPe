@@ -6,6 +6,8 @@ import java.util.Random;
 
 import org.uma.jmetal.problem.impl.AbstractIntegerProblem;
 import org.uma.jmetal.solution.IntegerSolution;
+import org.uma.jmetal.solution.LabeledIntegerSolution;
+import org.uma.jmetal.solution.impl.DefaultIntegerSolution;
 
 import br.bons.core.OpticalNetworkProblem;
 //import br.clustering.LabeledIntegerSolution;
@@ -25,56 +27,77 @@ public class SearchForNetworkAndEvaluate extends AbstractIntegerProblem {
 	private GmlDao dao;
 	private List<Pattern>[] clustters;
 	private Pattern[] centroids;
-	private OpticalNetworkProblem  opticalNetwoark;
-
+	private OpticalNetworkProblem opticalNetwoark;
+	private int contCreate = 0;
+	private int contEvaluate = 0;
 
 	@Override
 	public IntegerSolution createSolution() {
-		
-		//IntegerSolution retorno = new DefaultIntegerSolution(this);
-		IntegerSolution retorno = new labeledIntegerSolution(this);
+
+		 IntegerSolution retorno = new DefaultIntegerSolution(this);
+		//IntegerSolution retorno = new LabeledIntegerSolution(this);
 		Random gerador = new Random();
+		List<Integer> pint = new ArrayList<>();
+
+		// for (int i = 0; i < getNumberOfVariables(); i++) {
+		// retorno.setVariableValue(i, 0);
+		//// retorno.setVariableValue(i, gerador.nextInt(2));
+		// }
 
 		for (int i = 0; i < getNumberOfVariables(); i++) {
-			retorno.setVariableValue(i, gerador.nextInt(2));
+			pint.add(retorno.getVariableValue(i));
 		}
-		((labeledIntegerSolution) retorno).setLineColumn(this.lineColumn);
+		System.out.println("não vem zerada" + pint);
 
+		if (this.contCreate == 458) {
+			System.out.println("segunda vez");
+			this.contCreate += 1;
+		}
+		System.out.println(this.contCreate);
+		this.contCreate += 1;
+		retorno.setLineColumn(lineColumn);
+		//((LabeledIntegerSolution) retorno).setLineColumn(this.lineColumn);
 		return retorno;
 	}
 
+	// @Override
+	// public void evaluateConstraints(IntegerSolution Solution){
+	// Solution.set
+	// }
+
 	@Override
 	public void evaluate(IntegerSolution solution) {
-		int load=80;
+		int load = 200;
 		Integer[] vars = new Integer[solution.getNumberOfVariables()];
+		List<Integer> pint = new ArrayList<>();
 		for (int i = 0; i < vars.length; i++) {
 			vars[i] = solution.getVariableValue(i);
+			// pint.add(solution.getVariableValue(i));
 		}
-		//this.ptg.patternGmlData(this.lineColumn,vars);
+		// System.out.println(pint);
+		// System.out.println("teste"+((labeledIntegerSolution)
+		// solution).getLineColumn()[2].getId());
 		
-		GmlData D= this.ptg.takeGmlData(this.lineColumn, vars);
-		GmlDao G = new GmlDao();
-		D=G.loadGmlDataFromContent(G.createFileContent(D));
-				
-		//String path="C:/Users/jorge/workspace/ClusterPe/src/Gmlevaluating.gml";
-		
+		System.out.println("conte Evaluate: "+this.contEvaluate);
+		this.contEvaluate+=1;
+		//GmlData D = this.ptg.takeGmlData(((LabeledIntegerSolution) solution).getLineColumn(), vars);
+		GmlData D = this.ptg.takeGmlData(solution.getLineColumn(), vars);
 		OpticalNetworkProblem P = new OpticalNetworkProblem();
-		P.reloadProblem(load,D);
-		//OpticalNetworkProblem P = new OpticalNetworkProblem(load,path);
-//		P.setDefaultSolution(vars);
-		vars=P.getDefaultSolution();
+		P.reloadProblem(load, D);
+		vars = P.getDefaultSolution();
 		Double[] objectives = P.evaluate(vars);
-		System.out.println("Sumário da rede \"" + gml + "\" para a carga de " + load + " erlangs:");
+		// System.out.println("Sumário da rede \"" + gml + "\" para a carga de "
+		// + load + " erlangs:");
 		System.out.println();
 		System.out.printf("Probabilidade de bloqueio = %.6f\n", objectives[0]);
 		System.out.printf("Custo de implantação = %.2f u.m.\n", objectives[1]);
 		System.out.printf("Gasto energético = %.2f Watts\n", objectives[2]);
-		System.out.printf("Conectividade algébrica = %.2f\n", objectives[3]);
-		// setando a sugestão de matricula em problema preparado
-		 solution.setObjective(0, objectives[0]);
-		 solution.setObjective(1, objectives[1]);
-		 solution.setObjective(2,objectives[2]);
-		 solution.setObjective(3,objectives[3]);
+		System.out.printf("Conectividade algébrica = %.2f\n", 1 / (1 + objectives[3]));
+		// setando os objetivos caulculados pelo fitnes para o Jmetal
+		solution.setObjective(0, objectives[0]);
+		solution.setObjective(1, objectives[1]);
+		solution.setObjective(2, objectives[2]);
+		solution.setObjective(3, 1 / (1 + objectives[3]));
 
 	}
 
@@ -196,15 +219,16 @@ public class SearchForNetworkAndEvaluate extends AbstractIntegerProblem {
 		}
 
 	}
-	public void SetNetWork(){
-		int load=80;
+
+	public void SetNetWork() {
+		int load = 80;
 		Integer[] vars = new Integer[this.getNumberOfVariables()];
 		for (int i = 0; i < vars.length; i++) {
 			vars[i] = 1;
 		}
-		this.ptg.patternGmlData(this.lineColumn,vars);
-		String path="C:/Users/jorge/workspace/ClusterPe/src/Gmlevaluating.gml";
-		this.opticalNetwoark=new OpticalNetworkProblem(load,path);
+		this.ptg.patternGmlData(this.lineColumn, vars);
+		String path = "C:/Users/jorge/workspace/ClusterPe/src/Gmlevaluating.gml";
+		this.opticalNetwoark = new OpticalNetworkProblem(load, path);
 		int j = load;
 	}
 
@@ -219,11 +243,11 @@ public class SearchForNetworkAndEvaluate extends AbstractIntegerProblem {
 		this.clustters = clustters;
 		this.lineColumn = kmeans.getNearestPatternsFromCentroid();
 		this.centroids = kmeans.getNearestPatternsFromCentroid();
-		testCardinalidadeCentroidCluster();
-		testMudaMatrixInterira();
-		testMudaElementoDaMatriz();
+		// testCardinalidadeCentroidCluster();
+		// testMudaMatrixInterira();
+		// testMudaElementoDaMatriz();
 		this.ptg = new PatternToGml(gml);
 		SetNetWork();
-
+		this.setNumberOfConstraints(1);
 	}
 }

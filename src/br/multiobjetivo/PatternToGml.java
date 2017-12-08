@@ -35,9 +35,16 @@ public class PatternToGml {
 		return listNode;
 	}
 
-	public List<GmlEdge> makelink(Pattern[] arrayPatterns, Integer[] vars) {
+	public BooleanAndEdge makelink(Pattern[] arrayPatterns, Integer[] vars) {
 		int VarIndex = 0;
+		boolean have = false;
+		BooleanAndEdge B = new BooleanAndEdge();
 		List<GmlEdge> edges = new ArrayList<>();
+		List<GmlEdge> falseEdges = new ArrayList<>();
+		GmlEdge falseEdge = new GmlEdge();
+		falseEdge.setSource((GmlNode) this.mapNode.get(arrayPatterns[1].getId()));
+		falseEdge.setTarget((GmlNode) this.mapNode.get(arrayPatterns[2].getId()));
+		falseEdges.add(falseEdge);
 		for (int i = 0; i < arrayPatterns.length; i++) {
 			for (int j = i; j < arrayPatterns.length; j++) {
 				if (i != j) {
@@ -46,6 +53,7 @@ public class PatternToGml {
 						edge.setSource((GmlNode) this.mapNode.get(arrayPatterns[i].getId()));
 						edge.setTarget((GmlNode) this.mapNode.get(arrayPatterns[j].getId()));
 						edges.add(edge);
+						have = true;
 					}
 					VarIndex += 1;
 
@@ -54,17 +62,36 @@ public class PatternToGml {
 			}
 		}
 
-		return edges;
+		if (have) {
+			B.setEdges(edges);
+		} else {
+			B.setEdges(falseEdges);
+		}
+
+		B.setHave(have);
+
+		return B;
 	}
+
 	public GmlData takeGmlData(Pattern[] arrayPatterns, Integer[] vars) {
-		List<GmlNode> listNode = new ArrayList<>();
 		GmlDao G = new GmlDao();
 		GmlData gmlLocal = new GmlData();
-		GmlEdge edge = new GmlEdge();
 		gmlLocal.setNodes(patternGml(arrayPatterns));
-		gmlLocal.setEdges(makelink(arrayPatterns, vars));
+		BooleanAndEdge B = makelink(arrayPatterns, vars);
+		// if (B.isHave()){
+		gmlLocal.setEdges(B.getEdges());
+		// }
+
 		gmlLocal.createComplexNetwork();
-	//	G.save(gmlLocal, "C:/Users/jorge/workspace/ClusterPe/src/Gmlevaluating.gml");
+
+		// try {
+		gmlLocal = G.loadGmlDataFromContent(G.createFileContent(gmlLocal));
+		// } catch (StringIndexOutOfBoundsException e) {
+		// // TODO Auto-generated catch block
+		// System.out.println("aqui");
+		// e.printStackTrace();
+		// }
+
 		return gmlLocal;
 	}
 
@@ -74,9 +101,10 @@ public class PatternToGml {
 		GmlData gmlLocal = new GmlData();
 		GmlEdge edge = new GmlEdge();
 		gmlLocal.setNodes(patternGml(arrayPatterns));
-		gmlLocal.setEdges(makelink(arrayPatterns, vars));
+		BooleanAndEdge B = makelink(arrayPatterns, vars);
+		gmlLocal.setEdges(B.getEdges());
 		gmlLocal.createComplexNetwork();
-		G.save(gmlLocal, "C:/Users/jorge/workspace/ClusterPe/src/Gmlevaluating.gml");
+		G.save(gmlLocal, "C:/Users/jorge/workspace/ClusterPe/src/GmlevaluatingMax.gml");
 
 	}
 

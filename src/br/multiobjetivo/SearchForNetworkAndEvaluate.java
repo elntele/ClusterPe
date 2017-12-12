@@ -50,29 +50,16 @@ public class SearchForNetworkAndEvaluate extends AbstractIntegerProblem {
 
 	@Override
 	public IntegerSolution createSolution() {
-
 		 IntegerSolution retorno = new DefaultIntegerSolution(this);
-		//IntegerSolution retorno = new LabeledIntegerSolution(this);
 		Random gerador = new Random();
-		List<Integer> pint = new ArrayList<>();
-
-		// for (int i = 0; i < getNumberOfVariables(); i++) {
-		// retorno.setVariableValue(i, 0);
-		//// retorno.setVariableValue(i, gerador.nextInt(2));
-		// }
-
-		for (int i = 0; i < getNumberOfVariables(); i++) {
-			pint.add(retorno.getVariableValue(i));
-		}
-		System.out.println("não vem zerada" + pint);
-
-		if (this.contCreate == 458) {
-			System.out.println("segunda vez");
-			this.contCreate += 1;
-		}
-		System.out.println(this.contCreate);
-		this.contCreate += 1;
-		retorno.setLineColumn(lineColumn);
+//		List<Integer> pint = new ArrayList<>();
+//		for (int i = 0; i < getNumberOfVariables(); i++) {
+//			pint.add(retorno.getVariableValue(i));
+//		}
+//		System.out.println("solução" + pint);
+//		
+//		System.out.println(this.contCreate);
+		retorno.setLineColumn(lineColumn.clone());
 		//((LabeledIntegerSolution) retorno).setLineColumn(this.lineColumn);
 		return retorno;
 	}
@@ -105,22 +92,22 @@ public class SearchForNetworkAndEvaluate extends AbstractIntegerProblem {
 		Double[] objectives = P.evaluate(vars);
 		// System.out.println("Sumário da rede \"" + gml + "\" para a carga de "
 		// + load + " erlangs:");
-		System.out.println();
-		System.out.printf("Probabilidade de bloqueio = %.6f\n", objectives[0]);
-		System.out.printf("Custo de implantação = %.2f u.m.\n", objectives[1]);
-		System.out.printf("Gasto energético = %.2f Watts\n", objectives[2]);
-		System.out.printf("Conectividade algébrica = %.2f\n", 1 / (1 + objectives[3]));
+//		System.out.println();
+//		System.out.printf("Probabilidade de bloqueio = %.6f\n", objectives[0]);
+//		System.out.printf("Custo de implantação = %.2f u.m.\n", objectives[1]);
+//		System.out.printf("Gasto energético = %.2f Watts\n", objectives[2]);
+//		System.out.printf("Conectividade algébrica = %.2f\n", 1 / (1 + objectives[3]));
 		// setando os objetivos caulculados pelo fitnes para o Jmetal
 		solution.setObjective(0, objectives[0]);
 		solution.setObjective(1, objectives[1]);
 		solution.setObjective(2, objectives[2]);
 		solution.setObjective(3, 1 / (1 + objectives[3]));
 	
-		if(this.contEvaluate>3){
-		
-			testCoparacao(solution,this.anterior);
-		}
-		this.anterior=solution;
+//		if(this.contEvaluate>3){
+//		
+//			testCoparacao(solution,this.anterior);
+//		}
+//		this.anterior=solution;
 		
 
 	}
@@ -255,6 +242,25 @@ public class SearchForNetworkAndEvaluate extends AbstractIntegerProblem {
 		this.opticalNetwoark = new OpticalNetworkProblem(load, path);
 		int j = load;
 	}
+	
+
+	public GmlData getGml() {
+		return gml;
+	}
+	
+	public void printIncialCentroide(){
+		List <Integer> centros=new ArrayList<>(); 
+		for (int i=0; i<this.centroids.length;i++){
+			centros.add(this.centroids[i].getId());
+		}
+		
+		System.out.println("centoides inicial : " +centros);
+	}
+	
+
+	public int getContEvaluate() {
+		return contEvaluate;
+	}
 
 	public SearchForNetworkAndEvaluate(Kmeans kmeans, GmlData gml, List<Pattern>[] clustters) {
 		super();
@@ -273,5 +279,6 @@ public class SearchForNetworkAndEvaluate extends AbstractIntegerProblem {
 		this.ptg = new PatternToGml(gml);
 		SetNetWork();
 		//this.setNumberOfConstraints(1);
+		printIncialCentroide();
 	}
 }

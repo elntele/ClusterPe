@@ -1,6 +1,5 @@
 package br.multiobjetivo;
 
-import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,7 +21,6 @@ import org.uma.jmetal.util.fileoutput.impl.DefaultFileOutputContext;
 import org.uma.jmetal.util.pseudorandom.JMetalRandom;
 
 import br.cns.model.GmlData;
-import br.cns.model.GmlNode;
 import cbic15.Kmeans;
 import cbic15.Pattern;
 
@@ -50,12 +48,24 @@ public class MultiObjectivesWay {
 		// AlgorithmRunner algorithmRunner = new
 		// AlgorithmRunner.Executor(algorithm).execute();
 
-		algorithm = new NSGAIIIBuilder<>(problem).setCrossoverOperator(crossover).setMutationOperator(mutation)
+		algorithm = new NSGAIIIBuilder<>(problem,((SearchForNetworkAndEvaluate)problem).getGml(),clustters).setCrossoverOperator(crossover).setMutationOperator(mutation)
 				.setSelectionOperator(selection).setPopulationSize(100).setMaxIterations(40).build();
 
 		List<IntegerSolution> population;
 		AlgorithmRunner algorithmRunner = new AlgorithmRunner.Executor(algorithm).execute();
 		population = algorithm.getResult();
+		for (IntegerSolution i: population){
+			List <Integer> centros=new ArrayList<>(); 
+			for (int j=0; j<i.getLineColumn().length;j++){
+				centros.add(i.getLineColumn()[j].getId());
+			}
+			
+			System.out.println("centoides final : " +centros);
+		}
+		
+		System.out.println("numero de avaliações de fitness"+((SearchForNetworkAndEvaluate)problem).getContEvaluate());
+		
+		
 		long computingTime = algorithmRunner.getComputingTime();
 		JMetalLogger.logger.info("Total execution time: " + computingTime + "ms");
 

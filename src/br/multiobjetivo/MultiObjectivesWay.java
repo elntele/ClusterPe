@@ -54,17 +54,22 @@ public class MultiObjectivesWay {
 		List<IntegerSolution> population;
 		AlgorithmRunner algorithmRunner = new AlgorithmRunner.Executor(algorithm).execute();
 		population = algorithm.getResult();
+		int w=1;
+		
+		PatternToGml ptgLocal=((SearchForNetworkAndEvaluate)problem).getPtg();
 		for (IntegerSolution i: population){
+			String s="C:/Users/jorge/Desktop/rural 2/2017.2/tcc/testes_evolucionarios/ResultadoGML/"+Integer.toString(w)+".gml";
+			ptgLocal.saveGmlFromSolution(s, i);
 			List <Integer> centros=new ArrayList<>(); 
 			for (int j=0; j<i.getLineColumn().length;j++){
 				centros.add(i.getLineColumn()[j].getId());
 			}
-			
+			w+=1;
 			System.out.println("centoides final : " +centros);
 		}
 		
 		System.out.println("numero de avaliações de fitness"+((SearchForNetworkAndEvaluate)problem).getContEvaluate());
-		
+		System.out.println("base salva em formato GML");
 		
 		long computingTime = algorithmRunner.getComputingTime();
 		JMetalLogger.logger.info("Total execution time: " + computingTime + "ms");

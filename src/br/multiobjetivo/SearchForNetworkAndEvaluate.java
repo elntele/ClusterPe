@@ -12,6 +12,8 @@ import org.uma.jmetal.util.comparator.DominanceComparator;
 import br.bons.core.OpticalNetworkProblem;
 //import br.clustering.LabeledIntegerSolution;
 import br.cns.model.GmlData;
+import br.cns.model.GmlEdge;
+import br.cns.model.GmlNode;
 import br.cns.persistence.GmlDao;
 import cbic15.Kmeans;
 import cbic15.Pattern;
@@ -31,85 +33,92 @@ public class SearchForNetworkAndEvaluate extends AbstractIntegerProblem {
 	private int contCreate = 0;
 	private int contEvaluate = 0;
 	IntegerSolution anterior;
-	
-	
-	public void testCoparacao (IntegerSolution s1, IntegerSolution s2 ){
-		DominanceComparator comparater =new DominanceComparator();
-		int i=comparater.compare(s1, s2);
-		if (i ==-1){
+
+	public void testCoparacao(IntegerSolution s1, IntegerSolution s2) {
+		DominanceComparator comparater = new DominanceComparator();
+		int i = comparater.compare(s1, s2);
+		if (i == -1) {
 			System.out.println("s1 domina s2");
 		}
-		if (i==0){
+		if (i == 0) {
 			System.out.println("ambras são nao dominadas");
 		}
-		if (i==1){
+		if (i == 1) {
 			System.out.println("s2 domina s1");
 		}
-		
+
 	}
 
 	@Override
 	public IntegerSolution createSolution() {
-		 IntegerSolution retorno = new DefaultIntegerSolution(this);
-		Random gerador = new Random();
-//		List<Integer> pint = new ArrayList<>();
-//		for (int i = 0; i < getNumberOfVariables(); i++) {
-//			pint.add(retorno.getVariableValue(i));
-//		}
-//		System.out.println("solução" + pint);
-//		
-//		System.out.println(this.contCreate);
+		IntegerSolution retorno = new DefaultIntegerSolution(this);
+//		 for (int i = 0; i < getNumberOfVariables(); i++) {
+//		 retorno.setVariableValue(i, 0);
+//		 }
 		retorno.setLineColumn(lineColumn.clone());
-		//((LabeledIntegerSolution) retorno).setLineColumn(this.lineColumn);
 		return retorno;
 	}
 
-	// @Override
-	// public void evaluateConstraints(IntegerSolution Solution){
-	// Solution.set
+	// public boolean isolated(GmlData data) {
+	// System.out.println("pontos isolados ? "+ data.containsIsolatedNodes());
+	// for (GmlNode G : data.getNodes()) {
+	// boolean isolated = true;
+	// for (GmlEdge E : data.getEdges()) {
+	// if (E.getSource().getLabel().equals(G.getLabel()) ||
+	// E.getTarget().getLabel().equals(G.getLabel())) {
+	// isolated = false;
+	// break;
+	// }
+	// }
+	// if (isolated == false) {
+	// isolated = true;
+	// } else {
+	// return true;
+	// }
+	//
+	// }
+	// return false;
 	// }
 
 	@Override
 	public void evaluate(IntegerSolution solution) {
 		int load = 200;
 		Integer[] vars = new Integer[solution.getNumberOfVariables()];
-		List<Integer> pint = new ArrayList<>();
 		for (int i = 0; i < vars.length; i++) {
 			vars[i] = solution.getVariableValue(i);
-			// pint.add(solution.getVariableValue(i));
 		}
-		// System.out.println(pint);
-		// System.out.println("teste"+((labeledIntegerSolution)
-		// solution).getLineColumn()[2].getId());
-		
-		System.out.println("conte Evaluate: "+this.contEvaluate);
-		this.contEvaluate+=1;
-		//GmlData D = this.ptg.takeGmlData(((LabeledIntegerSolution) solution).getLineColumn(), vars);
-		GmlData D = this.ptg.takeGmlData(solution.getLineColumn(), vars);
-		OpticalNetworkProblem P = new OpticalNetworkProblem();
-		P.reloadProblem(load, D);
-		vars = P.getDefaultSolution();
-		Double[] objectives = P.evaluate(vars);
-		// System.out.println("Sumário da rede \"" + gml + "\" para a carga de "
-		// + load + " erlangs:");
-//		System.out.println();
-//		System.out.printf("Probabilidade de bloqueio = %.6f\n", objectives[0]);
-//		System.out.printf("Custo de implantação = %.2f u.m.\n", objectives[1]);
-//		System.out.printf("Gasto energético = %.2f Watts\n", objectives[2]);
-//		System.out.printf("Conectividade algébrica = %.2f\n", 1 / (1 + objectives[3]));
-		// setando os objetivos caulculados pelo fitnes para o Jmetal
-		solution.setObjective(0, objectives[0]);
-		solution.setObjective(1, objectives[1]);
-		solution.setObjective(2, objectives[2]);
-		solution.setObjective(3, 1 / (1 + objectives[3]));
-	
-//		if(this.contEvaluate>3){
-//		
-//			testCoparacao(solution,this.anterior);
-//		}
-//		this.anterior=solution;
-		
 
+		System.out.println("conte Evaluate: " + this.contEvaluate);
+		this.contEvaluate += 1;
+		GmlData D = this.ptg.takeGmlData(solution.getLineColumn(), vars);
+		if (D.containsIsolatedNodes()) {
+			solution.setObjective(0, 1.000000);
+			solution.setObjective(1, 100000.00);
+			solution.setObjective(2, 100000000.00);
+			solution.setObjective(3, 1);
+		} else {
+			OpticalNetworkProblem P = new OpticalNetworkProblem();
+			P.reloadProblem(load, D);
+			vars = P.getDefaultSolution();
+			Double[] objectives = P.evaluate(vars);
+			// System.out.println("Sumário da rede \"" + gml + "\" para a carga
+			// de "
+			// + load + " erlangs:");
+			// System.out.println();
+			// System.out.printf("Probabilidade de bloqueio = %.6f\n",
+			// objectives[0]);
+			// System.out.printf("Custo de implantação = %.2f u.m.\n",
+			// objectives[1]);
+			// System.out.printf("Gasto energético = %.2f Watts\n",
+			// objectives[2]);
+			// System.out.printf("Conectividade algébrica = %.2f\n", 1 / (1 +
+			// objectives[3]));
+			// setando os objetivos caulculados pelo fitnes para o Jmetal
+			solution.setObjective(0, objectives[0]);
+			solution.setObjective(1, objectives[1]);
+			solution.setObjective(2, objectives[2]);
+			solution.setObjective(3, 1 / (1 + objectives[3]));
+		}
 	}
 
 	// @Override
@@ -242,24 +251,28 @@ public class SearchForNetworkAndEvaluate extends AbstractIntegerProblem {
 		this.opticalNetwoark = new OpticalNetworkProblem(load, path);
 		int j = load;
 	}
-	
 
 	public GmlData getGml() {
 		return gml;
 	}
-	
-	public void printIncialCentroide(){
-		List <Integer> centros=new ArrayList<>(); 
-		for (int i=0; i<this.centroids.length;i++){
+
+	public void printIncialCentroide() {
+		List<Integer> centros = new ArrayList<>();
+		for (int i = 0; i < this.centroids.length; i++) {
 			centros.add(this.centroids[i].getId());
 		}
-		
-		System.out.println("centoides inicial : " +centros);
+
+		System.out.println("centoides inicial : " + centros);
 	}
-	
 
 	public int getContEvaluate() {
 		return contEvaluate;
+	}
+	
+	
+
+	public PatternToGml getPtg() {
+		return ptg;
 	}
 
 	public SearchForNetworkAndEvaluate(Kmeans kmeans, GmlData gml, List<Pattern>[] clustters) {
@@ -278,7 +291,7 @@ public class SearchForNetworkAndEvaluate extends AbstractIntegerProblem {
 		// testMudaElementoDaMatriz();
 		this.ptg = new PatternToGml(gml);
 		SetNetWork();
-		//this.setNumberOfConstraints(1);
+		// this.setNumberOfConstraints(1);
 		printIncialCentroide();
 	}
 }

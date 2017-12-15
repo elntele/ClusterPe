@@ -1,12 +1,11 @@
 package br.multiobjetivo;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.uma.jmetal.util.point.impl.ArrayPoint;
+import org.uma.jmetal.solution.IntegerSolution;
 
 import br.cns.model.GmlData;
 import br.cns.model.GmlEdge;
@@ -105,6 +104,29 @@ public class PatternToGml {
 		gmlLocal.setEdges(B.getEdges());
 		gmlLocal.createComplexNetwork();
 		G.save(gmlLocal, "C:/Users/jorge/workspace/ClusterPe/src/GmlevaluatingMax.gml");
+
+	}
+	
+	public void saveGmlFromSolution(String patch, IntegerSolution solution ) {
+		Pattern[] arrayPatterns=solution.getLineColumn();
+		Integer[] vars = new Integer[solution.getNumberOfVariables()];
+		for (int i = 0; i < vars.length; i++) {
+			vars[i] = solution.getVariableValue(i);
+		}
+		Map<String, String> informations =new HashMap();
+		informations.put("Country", "Brazil");
+		informations.put("PB", Double.toString(solution.getObjective(0)));
+		informations.put("Capex", Double.toString(solution.getObjective(1)));
+		informations.put("Consumo em Watts", Double.toString(solution.getObjective(2)));
+		informations.put("Conectividade Algébrica", Double.toString(solution.getObjective(3)));
+		GmlDao G = new GmlDao();
+		GmlData gmlLocal = new GmlData();
+		gmlLocal.setNodes(patternGml(arrayPatterns));
+		BooleanAndEdge B = makelink(arrayPatterns, vars);
+		gmlLocal.setEdges(B.getEdges());
+		gmlLocal.setInformations(informations);
+		gmlLocal.createComplexNetwork();
+		G.save(gmlLocal, patch);
 
 	}
 

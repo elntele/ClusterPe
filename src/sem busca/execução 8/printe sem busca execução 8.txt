@@ -1,0 +1,5 @@
+numero de avaliações de fitness228000
+numro de soluções não dominadas encontrado pela busca local: 0
+INFORMAÇÕES: Total execution time: 11588905ms
+2018-01-08 16:48:24.661 INFORMAÇÕES: Random seed: 1515429314599 centoides inicial: [91, 103, 124, 106, 56, 65, 158, 113, 164, 29, 77, 155, 61, 173, 112]
+tempo de eexecução 3 horas e 20 

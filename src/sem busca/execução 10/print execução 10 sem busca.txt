@@ -1,0 +1,5 @@
+numero de avaliações de fitness228000
+INFORMAÇÕES: Total execution time: 28440967ms
+centoides inicial: [178, 31, 164, 162, 16, 65, 124, 126, 1, 11, 133, 81, 122, 113, 99]
+2018-01-09 17:37:12.909 INFORMAÇÕES: Random seed: 1515501790323 
+tempo de execução 7: 54

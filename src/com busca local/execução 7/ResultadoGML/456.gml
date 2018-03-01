@@ -1,0 +1,362 @@
+graph [
+    PB "0.1508978421608571"
+    Capex "8622.898238457667"
+    Country "Brazil"
+    Conectividade Algébrica "0.522590518136728"
+    Consumo em Watts "1155235.7652350508"
+    node [
+        id 163
+        label "Tabira, PE"
+        Longitude -37.539444
+        Latitude -7.590833
+        Country "Brazil"
+        Internal 0
+        Population 27958
+        PIB "6836"
+        type "Node"
+        IDH "0.605"
+        GINI "0.5214"
+    ]
+    node [
+        id 162
+        label "Surubim, PE"
+        Longitude -35.755833
+        Latitude -7.831944
+        Country "Brazil"
+        Internal 0
+        Population 63166
+        PIB "9626"
+        type "Node"
+        IDH "0.635"
+        GINI "0.5362"
+    ]
+    node [
+        id 141
+        label "Santa Cruz da Baixa Verde, PE"
+        Longitude -38.152778
+        Latitude -7.820833
+        Country "Brazil"
+        Internal 0
+        Population 12375
+        PIB "4729"
+        type "Node"
+        IDH "0.612"
+        GINI "0.5080"
+    ]
+    node [
+        id 137
+        label "Salgueiro, PE"
+        Longitude -39.119167
+        Latitude -8.074167
+        Country "Brazil"
+        Internal 0
+        Population 59769
+        PIB "11763"
+        type "Node"
+        IDH "0.669"
+        GINI "0.59"
+    ]
+    node [
+        id 117
+        label "Paranatama, PE"
+        Longitude -36.6652
+        Latitude -8.89757
+        Country "Brazil"
+        Internal 0
+        Population 11357
+        PIB "5539"
+        type "Node"
+        IDH "0.537"
+        GINI "0.55"
+    ]
+    node [
+        id 93
+        label "Jupi, PE"
+        Longitude -36.415
+        Latitude -8.71166667
+        Country "Brazil"
+        Internal 0
+        Population 14525
+        PIB "7190"
+        type "Node"
+        IDH "0.575"
+        GINI "0.5"
+    ]
+    node [
+        id 91
+        label "Joaquim Nabuco, PE"
+        Longitude -35.533333333333
+        Latitude -8.622084
+        Country "Brazil"
+        Internal 0
+        Population 16021
+        PIB "5414"
+        type "Node"
+        IDH "0.554"
+        GINI "0.48"
+    ]
+    node [
+        id 81
+        label "Itaiba, PE"
+        Longitude -37.422777777778
+        Latitude -8.94585
+        Country "Brazil"
+        Internal 0
+        Population 26412
+        PIB "6090"
+        type "Node"
+        IDH "0.51"
+        GINI "0.51"
+    ]
+    node [
+        id 71
+        label "Ibimirim, PE"
+        Longitude -37.690277777778
+        Latitude -8.540168
+        Country "Brazil"
+        Internal 0
+        Population 28604
+        PIB "6599"
+        type "Node"
+        IDH "0.552"
+        GINI "0.51"
+    ]
+    node [
+        id 56
+        label "Dormentes, PE"
+        Longitude -40.76662
+        Latitude -8.44077
+        Country "Brazil"
+        Internal 0
+        Population 18321
+        PIB "8237"
+        type "Node"
+        IDH "0.589"
+        GINI "0.47"
+    ]
+    node [
+        id 29
+        label "Buique, PE"
+        Longitude -37.157275
+        Latitude -8.619937
+        Country "Brazil"
+        Internal 0
+        Population 56523
+        PIB "5403"
+        type "Node"
+        IDH "0.527"
+        GINI "0.57"
+    ]
+    node [
+        id 21
+        label "Bodoco, PE"
+        Longitude -39.938708
+        Latitude -7.777775
+        Country "Brazil"
+        Internal 0
+        Population 37317
+        PIB "5150"
+        type "Node"
+        IDH "0.565"
+        GINI "0.55"
+    ]
+    node [
+        id 18
+        label "Belo Jardim, PE"
+        Longitude -36.423989
+        Latitude -8.333519
+        Country "Brazil"
+        Internal 0
+        Population 75462
+        PIB "17078"
+        type "Node"
+        IDH "0.629"
+        GINI "0.51"
+    ]
+    node [
+        id 16
+        label "Belem de Maria, PE"
+        Longitude -35.820941
+        Latitude -8.593664
+        Country "Brazil"
+        Internal 0
+        Population 11888
+        PIB "5334"
+        type "Node"
+        IDH "0.578"
+        GINI "0.47"
+    ]
+    node [
+        id 11
+        label "Aracoiaba, PE"
+        Longitude -35.092413
+        Latitude -7.78798
+        Country "Brazil"
+        Internal 0
+        Population 19816
+        PIB "4987"
+        type "Node"
+        IDH "0.592"
+        GINI "0.45"
+    ]
+    edge[
+        source 56
+        target 117
+        LinkLabel "null"
+    ]
+    edge[
+        source 56
+        target 29
+        LinkLabel "null"
+    ]
+    edge[
+        source 91
+        target 71
+        LinkLabel "null"
+    ]
+    edge[
+        source 91
+        target 93
+        LinkLabel "null"
+    ]
+    edge[
+        source 91
+        target 117
+        LinkLabel "null"
+    ]
+    edge[
+        source 91
+        target 137
+        LinkLabel "null"
+    ]
+    edge[
+        source 91
+        target 29
+        LinkLabel "null"
+    ]
+    edge[
+        source 91
+        target 81
+        LinkLabel "null"
+    ]
+    edge[
+        source 91
+        target 141
+        LinkLabel "null"
+    ]
+    edge[
+        source 71
+        target 93
+        LinkLabel "null"
+    ]
+    edge[
+        source 71
+        target 163
+        LinkLabel "null"
+    ]
+    edge[
+        source 71
+        target 117
+        LinkLabel "null"
+    ]
+    edge[
+        source 162
+        target 93
+        LinkLabel "null"
+    ]
+    edge[
+        source 162
+        target 137
+        LinkLabel "null"
+    ]
+    edge[
+        source 162
+        target 29
+        LinkLabel "null"
+    ]
+    edge[
+        source 162
+        target 141
+        LinkLabel "null"
+    ]
+    edge[
+        source 93
+        target 137
+        LinkLabel "null"
+    ]
+    edge[
+        source 93
+        target 81
+        LinkLabel "null"
+    ]
+    edge[
+        source 93
+        target 18
+        LinkLabel "null"
+    ]
+    edge[
+        source 93
+        target 16
+        LinkLabel "null"
+    ]
+    edge[
+        source 163
+        target 137
+        LinkLabel "null"
+    ]
+    edge[
+        source 11
+        target 117
+        LinkLabel "null"
+    ]
+    edge[
+        source 117
+        target 137
+        LinkLabel "null"
+    ]
+    edge[
+        source 117
+        target 81
+        LinkLabel "null"
+    ]
+    edge[
+        source 117
+        target 21
+        LinkLabel "null"
+    ]
+    edge[
+        source 117
+        target 18
+        LinkLabel "null"
+    ]
+    edge[
+        source 137
+        target 141
+        LinkLabel "null"
+    ]
+    edge[
+        source 29
+        target 18
+        LinkLabel "null"
+    ]
+    edge[
+        source 81
+        target 141
+        LinkLabel "null"
+    ]
+    edge[
+        source 21
+        target 141
+        LinkLabel "null"
+    ]
+    edge[
+        source 141
+        target 16
+        LinkLabel "null"
+    ]
+    edge[
+        source 18
+        target 16
+        LinkLabel "null"
+    ]
+]

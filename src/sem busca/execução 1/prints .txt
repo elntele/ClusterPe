@@ -1,0 +1,16 @@
+centoides inicial : [123, 8, 77, 106, 180, 90, 69, 160, 46, 7, 65, 28, 155, 76, 113]
+
+
+tempo de execução
+
+17 horas e 2 minutos
+
+centoides final : [123, 8, 77, 106, 180, 90, 69, 160, 46, 7, 65, 28, 155, 76, 113]
+centoides final : [123, 8, 77, 106, 180, 90, 69, 160, 46, 7, 65, 28, 155, 76, 113]
+
+2017-12-22 18:14:04.600 INFORMAÇÕES: Total execution time: 61301965ms 
+numero de avaliações de fitness228000
+
+numro de soluções não dominadas encontrado pela busca local: 0
+
+centoides inicial: [123, 8, 77, 106, 180, 90, 69, 160, 46, 7, 65, 28, 155, 76, 113]

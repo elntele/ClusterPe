@@ -1,0 +1,5 @@
+numero de avaliações de fitness228000
+numro de soluções não dominadas encontrado pela busca local: 0
+2017-12-23 11:19:01.349 INFORMAÇÕES: Total execution time: 51974330ms 
+tempo de execução 14 horas e 27 minutos
+centoides inicial: [122, 16, 154, 124, 133, 138, 1, 34, 137, 11, 56, 171, 21, 35, 90]

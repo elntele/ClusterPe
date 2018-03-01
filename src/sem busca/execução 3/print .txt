@@ -1,0 +1,4 @@
+numro de soluções não dominadas encontrado pela busca local: 0
+2017-12-23 23:20:33.855 INFORMAÇÕES: Total execution time: 42021995ms centoides inicial: [49, 65, 162, 99, 29, 124, 181, 137, 155, 16, 134, 32, 140, 88, 1]
+
+tempo de execução 11 horas e 40 minutos

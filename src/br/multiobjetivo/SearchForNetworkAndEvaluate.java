@@ -82,7 +82,7 @@ public class SearchForNetworkAndEvaluate extends AbstractIntegerProblem {
 
 	@Override
 	public void evaluate(IntegerSolution solution) {
-		int load = 200;
+		int load = 120;
 		Integer[] vars = new Integer[solution.getNumberOfVariables()];
 		for (int i = 0; i < vars.length; i++) {
 			vars[i] = solution.getVariableValue(i);

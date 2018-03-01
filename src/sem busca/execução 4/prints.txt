@@ -1,0 +1,7 @@
+centoides final : [7, 36, 137, 134, 76, 52, 101, 6, 65, 1, 140, 98, 90, 32, 63]
+
+2017-12-25 17:51:19.087 
+INFORMAÇÕES: Total execution time: 149243871ms numro de 
+centoides inicial: [7, 36, 137, 134, 76, 52, 101, 6, 65, 1, 140, 98, 90, 32, 63]
+2017-12-25 17:51:19.125 INFORMAÇÕES: Random seed: 1514085828983 
+tempo de execução 41:29 minutos 

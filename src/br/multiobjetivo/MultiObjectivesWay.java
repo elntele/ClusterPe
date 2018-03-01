@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.uma.jmetal.algorithm.Algorithm;
+import org.uma.jmetal.algorithm.multiobjective.nsgaiii.NSGAIII;
 import org.uma.jmetal.algorithm.multiobjective.nsgaiii.NSGAIIIBuilder;
 import org.uma.jmetal.operator.CrossoverOperator;
 import org.uma.jmetal.operator.MutationOperator;
@@ -49,7 +50,7 @@ public class MultiObjectivesWay {
 		// AlgorithmRunner.Executor(algorithm).execute();
 
 		algorithm = new NSGAIIIBuilder<>(problem,((SearchForNetworkAndEvaluate)problem).getGml(),clustters).setCrossoverOperator(crossover).setMutationOperator(mutation)
-				.setSelectionOperator(selection).setPopulationSize(100).setMaxIterations(40).build();
+				.setSelectionOperator(selection).setPopulationSize(40).setMaxIterations(500).build();
 
 		List<IntegerSolution> population;
 		AlgorithmRunner algorithmRunner = new AlgorithmRunner.Executor(algorithm).execute();
@@ -70,11 +71,12 @@ public class MultiObjectivesWay {
 		
 		System.out.println("numero de avaliações de fitness"+((SearchForNetworkAndEvaluate)problem).getContEvaluate());
 		System.out.println("base salva em formato GML");
+		System.out.println("numro de soluções não dominadas encontrado pela busca local: "+((NSGAIII)algorithm).getLocalSeachFoundNoDominated() );
 		
 		long computingTime = algorithmRunner.getComputingTime();
 		JMetalLogger.logger.info("Total execution time: " + computingTime + "ms");
 
-		printFinalSolutionSet(population);
+		printFinalSolutionSet(population,kmeans);
 
 	}
 
@@ -83,12 +85,17 @@ public class MultiObjectivesWay {
 	 * 
 	 * @param population
 	 */
-	public static void printFinalSolutionSet(List<? extends Solution<?>> population) {
+	public static void printFinalSolutionSet(List<? extends Solution<?>> population, Kmeans kmeans) {
 
 		new SolutionListOutput(population).setSeparator("\t")
 				.setVarFileOutputContext(new DefaultFileOutputContext("VAR.tsv"))
 				.setFunFileOutputContext(new DefaultFileOutputContext("FUN.tsv")).print();
-
+		
+		List<Integer> centros = new ArrayList<>();
+		for (int i = 0; i < kmeans.getNearestPatternsFromCentroid().length; i++) {
+			centros.add(kmeans.getNearestPatternsFromCentroid()[i].getId());
+		}
+		System.out.println("centoides inicial: " + centros);
 		JMetalLogger.logger.info("Random seed: " + JMetalRandom.getInstance().getSeed());
 		JMetalLogger.logger.info("Objectives values have been written to file FUN.tsv");
 		JMetalLogger.logger.info("Variables values have been written to file VAR.tsv");

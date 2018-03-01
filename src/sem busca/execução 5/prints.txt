@@ -1,0 +1,5 @@
+centoides final : [171, 16, 43, 36, 139, 140, 7, 9, 137, 124, 134, 1, 175, 90, 65]
+numero de avaliações de fitness228000
+2017-12-26 07:44:44.433 INFORMAÇÕES: Total execution time: 47873496ms centoides inicial: [171, 16, 43, 36, 139, 140, 7, 9, 137, 124, 134, 1, 175, 90, 65]
+2017-12-26 07:44:44.465 INFORMAÇÕES: Random seed: 1514237209608
+tempo de execução 13 horas e 18 minutos 

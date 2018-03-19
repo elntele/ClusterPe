@@ -140,14 +140,14 @@ public class AlgClusterX {
 				String patchCluster="C:/Users/jorge/Desktop/rural 2/2018.1/artigos/kmens e FCM/cities_clustering/algorithm_KMeans/clusters_k_"+i+"_exec_"+w+".csv";
 				String patchCentroid="C:/Users/jorge/Desktop/rural 2/2018.1/artigos/kmens e FCM/cities_clustering/algorithm_KMeans/centroids_k_"+i+"_exec_"+w+".csv";;
 				
-				clustters = tableToList.retrievCluster(patchCluster).getCluster();
+				//clustters = tableToList.retrievCluster(patchCluster).getCluster() ; // jorge
 				
 				
 				Kmeans kmeans = new Kmeans(i, listPatterns);// subtituir este
-				//clustters = kmeans.execute(200);// substituir este // descomentar depois
+				clustters = kmeans.execute(200);// substituir este jorge
 				// List<String> litleCluster = new ArrayList<>();
 				if (w == 29) {
-					// montando a lista com os nomes das cidades de cada cluster
+					// montando a lista com os nomes das cidades de cada cluster 
 					String stringCluster = "";
 					for (int u = 0; u < clustters.length; u++) {// descomentar depois
 						stringCluster += "{";
@@ -162,10 +162,10 @@ public class AlgClusterX {
 					// calculando a distância mínima, máxima e média entre os
 					// centrois
 					
-					// comenta esse dois
-					Pattern[] centroids =tableToList.retrievCentroid(patchCentroid).getCentroids();
-					kmeans.setCentroids(centroids);
-					/*Pattern[]*/ centroids = kmeans.getNearestPatternsFromCentroid();
+					// comenta esse dois jorge
+					//Pattern[] centroids =tableToList.retrievCentroid(patchCentroid).getCentroids();
+					//kmeans.setCentroids(centroids);
+					Pattern[] centroids = kmeans.getNearestPatternsFromCentroid(); // jorge
 					
 					
 					AllDistancesCLuster node = new AllDistancesCLuster(centroids, gml,clustters);

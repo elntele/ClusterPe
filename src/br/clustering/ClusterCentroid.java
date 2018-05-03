@@ -7,7 +7,7 @@ import cbic15.Pattern;
 public class ClusterCentroid {
 	private List<Pattern>[] cluster;
 	private Pattern[] centroids;
-	
+	private int interation;
 	
 	public ClusterCentroid() {
 		super();
@@ -24,6 +24,14 @@ public class ClusterCentroid {
 	}
 	public void setCentroids(Pattern[] centroids) {
 		this.centroids = centroids;
+	}
+
+	public int getInteration() {
+		return interation;
+	}
+
+	public void setInteration(int interation) {
+		this.interation = interation;
 	}
 	
 

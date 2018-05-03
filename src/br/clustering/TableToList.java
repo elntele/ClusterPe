@@ -13,10 +13,38 @@ public class TableToList {
 	public TableToList() {
 
 	}
+	
+	public Pattern[] takeSelfObject(Pattern[] centroids,List<Pattern>[] cluster){
+		Pattern[] copyCentroids=new Pattern[centroids.length];
+		
+		for (int i=0;i<centroids.length;i++){
+			for (Pattern p:cluster[i]){
+				if (p.getId()==centroids[i].getId()){
+					copyCentroids[i]=p;
+				}
+				
+			}
+		}
+//		for (int i=0;i<centroids.length;i++){
+//			System.out.println("centroid"+copyCentroids[i].getName());
+//		} 
+		
+		return copyCentroids;
+	}
+	
+	
+	/**
+	 * este é o metodo que preenche o cluster
+	 * @param csvData
+	 * @return
+	 */
 
 	public ClusterCentroid listClusterToPatternList(List<List<String>> csvData) {
 		List<Pattern> listPatterns = new ArrayList<>();
 		int size = 0;
+		int i=0;
+//		System.out.println("array"+csvData); //é este print que tem que decomentar
+		
 		for (List s : csvData) {
 			if (!s.get(0).equals("Brazil")) {
 				size += 1;
@@ -33,13 +61,18 @@ public class TableToList {
 			if (begin) {
 				begin = false;
 			} else {
+				// se for colocar mais informações no pattern tem que ser aqui
+				// descomente o printi acima pra se basear nas possições da lista
 				if (s.get(0).equals("Brazil")) {
 					double[] variables = { Double.parseDouble((String) s.get(3)),
 							Double.parseDouble((String) s.get(4)) };
-					Pattern pattern = new Pattern(s.get(2).toString(), variables, null);
-					pattern.setId(0);
+					Pattern pattern = new Pattern(s.get(2).toString().trim()+","+" "+"PE", variables, null);
+					double X=Double.parseDouble((String) s.get(9));
+					pattern.setId((int)X);
 					listPatterns.add(pattern);
 				}else{
+					double z=Double.parseDouble((String) s.get(0));
+					i=(int)z;
 					cluster[k].addAll(listPatterns);
 					listPatterns.removeAll(listPatterns);
 					k+=1;
@@ -57,12 +90,12 @@ public class TableToList {
 //		}
 		ClusterCentroid clusterCentroid=new ClusterCentroid();
 		clusterCentroid.setCluster(cluster);
-
+		clusterCentroid.setInteration(i);
 		return clusterCentroid;
 	}
 
 	/**
-	 * aqui
+	 * método que preenche o centroid
 	 * 
 	 * @param csvData
 	 * @return

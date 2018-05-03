@@ -86,8 +86,15 @@ public class AllDistancesCLuster {
 		GmlNode Arraynode[] = new GmlNode[centroids.length];
 		for (int j = 0; j < centroids.length; j++) {
 			for (GmlNode g : gml.getNodes()) {
-				if (centroids[j].getName().equals(g.getLabel())) {
-					Arraynode[j] = g;
+				
+				try {
+					if (/*centroids[j].getName().equals(g.getLabel())*/ centroids[j].getId()==g.getId()) {
+						Arraynode[j] = g;
+					}
+				} catch (NullPointerException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+					
 				}
 			}
 		}
@@ -116,6 +123,11 @@ public class AllDistancesCLuster {
 		maxMinAverangeDisntance.add(averageDistance / distanceCount);
 		return maxMinAverangeDisntance;
 	}
+	
+	public void praClodomir(){
+		
+	}
+	
 
 	public List<List<Double>>  distanceBetweenCentroidAndNodesInCluster() {
 

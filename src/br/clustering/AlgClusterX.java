@@ -9,6 +9,8 @@ import java.util.List;
 import java.util.Random;
 import java.util.Vector;
 
+import javax.swing.plaf.synth.SynthStyle;
+
 import br.cns.model.GmlData;
 import br.cns.model.GmlNode;
 import br.cns.persistence.GmlDao;
@@ -22,41 +24,7 @@ public class AlgClusterX {
 		GmlData gml = new GmlDao().loadGmlData(patch); // novo
 		List<Pattern> listPatterns = new ArrayList<>();
 		List<GmlNode> listCity = gml.getNodes();// novo
-		
 		TableToList tableToList =new TableToList();
-//		String patch2 ="C:/Users/jorge/Desktop/rural 2/2018.1/artigos/kmens e FCM/cities_clustering/algorithm_KMeans/centroids_k_4_exec_0.csv";
-//		String patch3 ="C:/Users/jorge/Desktop/rural 2/2018.1/artigos/kmens e FCM/cities_clustering/algorithm_KMeans/clusters_k_4_exec_0.csv";
-		
-//		String patch1 ="C:/Users/jorge/workspace/ClusterPe/src/br/sourceClustered/centroids_k_2_exec_0.csv";
-		//tableToList.retrievCentroid(patch2);
-//		tableToList.retrievCluster(patch3);
-		
-
-//		/**
-//		 * este parte será realocada mais a frente
-//		 */
-//		String line = null;
-//	    BufferedReader stream = null;
-//	    List<List<String>> csvData = new ArrayList<List<String>>();
-//	    String patch1 ="C:/Users/jorge/workspace/ClusterPe/src/br/sourceClustered/centroids_k_2_exec_0.csv";
-//	    try {
-//	        stream = new BufferedReader(new FileReader(patch1)); // Podes usar BufferedReader ao invés do CSVReader 
-//	        while ((line = stream.readLine()) != null) {
-//	            String[] splitted = line.split(","); // Provavelmente teu separador é , ou ; depende do teu arquivo
-//	            List<String> dataLine = new ArrayList<String>(splitted.length); // Note que assim ele irá pegar todas as colunas, independente de quantas
-//	            for (String data : splitted)
-//	                dataLine.add(data);
-//	                csvData.add(dataLine);
-//	        }
-//	    } finally {
-//	        if (stream != null)
-//	            stream.close();
-//	    }
-//	    
-//	    System.out.println("teste numero 1 "+csvData);
-//	   //**************************************************************
-	    
-	    
 	    
 	    for (GmlNode c : listCity) {
 			double[] variables = { c.getLatitude(), c.getLongitude() };
@@ -64,34 +32,6 @@ public class AlgClusterX {
 			pattern.setId(c.getId());
 			listPatterns.add(pattern);
 		}
-	    
-//	    /**
-//	     * fabricação de um cluster depois será removido
-//	     * 
-//	     */
-//	    
-//	    for (Pattern p: listPatterns){
-//	    	System.out.println("teste2 :"+p.getName());
-//	    }
-//	    
-//	    Pattern[] fakeCentroids=new Pattern[4];
-//	    List<Pattern>[] fakeCluster = new List[4];
-//	    for (int k=0;k<fakeCluster.length;k++){
-//	    	fakeCluster[k] = new ArrayList<Pattern>(); 
-//	    }
-//	    Random gerator = new Random();
-//	    for (Pattern p: listPatterns){
-//	    	int i=gerator.nextInt(4);
-//	    	fakeCluster[i].add(p);
-//	    }
-//	    fakeCentroids[0]=fakeCluster[0].get(0);
-//	    fakeCentroids[1]=fakeCluster[1].get(0);
-//	    fakeCentroids[2]=fakeCluster[2].get(0);
-//	    fakeCentroids[3]=fakeCluster[3].get(0);
-//	    //********************************************************************
-	    
-	    
-	    
 	    
 	    gml.createComplexNetwork();
 		List<List<Double>> globalResultSillhouetteAverange = new ArrayList();
@@ -137,14 +77,17 @@ public class AlgClusterX {
 				
 				System.out.println("%%%%%%%%%%%%%%%%%%numero de clusters= " + i + " %%%%%%%%%%%%%%%%%%%");
 				
-				String patchCluster="C:/Users/jorge/Desktop/rural 2/2018.1/artigos/kmens e FCM/cities_clustering/algorithm_KMeans/clusters_k_"+i+"_exec_"+w+".csv";
-				String patchCentroid="C:/Users/jorge/Desktop/rural 2/2018.1/artigos/kmens e FCM/cities_clustering/algorithm_KMeans/centroids_k_"+i+"_exec_"+w+".csv";;
+				String patchCluster="C:/Users/jorge/Desktop/rural 2/2018.1/artigos/kmens e FCM/cities_clustering/algorithm_PSC/clusters_k_"+i+"_exec_"+w+".csv";
+				String patchCentroid="C:/Users/jorge/Desktop/rural 2/2018.1/artigos/kmens e FCM/cities_clustering/algorithm_PSC/centroids_k_"+i+"_exec_"+w+".csv";;
 				
+				ClusterCentroid clusterCentroidCluster=new ClusterCentroid();
+				clusterCentroidCluster=tableToList.retrievCluster(patchCluster);
+				clustters = clusterCentroidCluster.getCluster();
+				int interation =clusterCentroidCluster.getInteration();
 				//clustters = tableToList.retrievCluster(patchCluster).getCluster() ; // jorge
-				
-				
+
 				Kmeans kmeans = new Kmeans(i, listPatterns);// subtituir este
-				clustters = kmeans.execute(200);// substituir este jorge
+			//	clustters = kmeans.execute(200);// substituir este jorge
 				// List<String> litleCluster = new ArrayList<>();
 				if (w == 29) {
 					// montando a lista com os nomes das cidades de cada cluster 
@@ -163,11 +106,30 @@ public class AlgClusterX {
 					// centrois
 					
 					// comenta esse dois jorge
+					ClusterCentroid clusterCentroidCentroid=new ClusterCentroid();
+					clusterCentroidCentroid=tableToList.retrievCentroid(patchCentroid);
+					Pattern[] centroids =clusterCentroidCentroid.getCentroids();
 					//Pattern[] centroids =tableToList.retrievCentroid(patchCentroid).getCentroids();
-					//kmeans.setCentroids(centroids);
-					Pattern[] centroids = kmeans.getNearestPatternsFromCentroid(); // jorge
-					
-					
+					kmeans.setCentroids(centroids);
+		//		/*	Pattern[] */ centroids = kmeans.getNearestPatternsFromCentroid(); // jorge
+					//para psc
+			//		centroids = kmeans.getNearestPatternsFromCentroid(clustters,centroids); // jorge
+					// teste apagar depois
+					if (i==21 && w==29){// foi pra só pra  colocar um breakpoint na condição do if
+						centroids = kmeans.getNearestPatternsFromCentroid(clustters,centroids);
+					} else{
+						centroids = kmeans.getNearestPatternsFromCentroid(clustters,centroids);
+					}
+				// teste apagar depois	
+				System.out.println("este é o i " +i);
+				System.out.println("este é o w " +w);
+				// teste apagar depois
+				if (i==21 && w==29){
+					centroids=tableToList.takeSelfObject(centroids, clustters);
+				} else{
+					centroids=tableToList.takeSelfObject(centroids, clustters);
+				}
+		
 					AllDistancesCLuster node = new AllDistancesCLuster(centroids, gml,clustters);
 
 					maxMinAverangeDisntanceInterCentroids.add(node.distanceInterCentroids());
@@ -199,7 +161,8 @@ public class AlgClusterX {
 				}
 
 				silhouetteAverage += kmeans.getSilhouetteIndex(clustters);
-				listIteration.add(kmeans.getCountItaration());
+				listIteration.add(interation);
+				//listIteration.add(kmeans.getCountItaration());
 				w += 1;
 			}
 			listIteration.sort(null);

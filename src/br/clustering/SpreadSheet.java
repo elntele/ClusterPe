@@ -6,10 +6,10 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Set;
 
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
-import org.apache.poi.ss.formula.functions.MinaMaxa;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 
@@ -26,6 +26,7 @@ public class SpreadSheet {
 	private static final String fileNameMiMaAveDisIntraCluster = "C:/Users/jorge/workspace/ClusterPe/src/distanciaIntraCluster.xls";
 	private static final String fileNameMiMaAveDisBetweenCentroidsAndNode = "C:/Users/jorge/workspace/ClusterPe/src/distanciaEntre_Centroid_E_no.xls";
 	private static final String fileNameTableToTheGoogleMap = "C:/Users/jorge/workspace/ClusterPe/src/tabela_para_mapa.xls";
+	private static final String fileNameCountClusterEmpt = "C:/Users/jorge/workspace/ClusterPe/src/tabela_de_clusters_vazios.xls";
 
 	private String clusterString[];
 
@@ -325,6 +326,113 @@ public class SpreadSheet {
 		}
 
 	}
+	
+	
+	
+//	public void createSpreedSheetCountEmptCluster(ClusterEmptData c) {
+//		HSSFWorkbook workTable = new HSSFWorkbook();
+//		HSSFSheet sheet = workTable.createSheet("clusterEmpt");
+//		int rownum = 0;
+//		int count = 0;
+//		Set <Integer> chaves=c.getkAndexecution().keySet();
+//		for (Integer chave : chaves) {
+//			Row row = sheet.createRow(rownum++);
+//			int cellnum = 0;
+//			if (count == 0) {
+//				Cell kNumber = row.createCell(cellnum++);
+//				kNumber.setCellValue("K");
+//				Cell execucao = row.createCell(cellnum++);
+//				execucao.setCellValue("execução");
+//				Cell cluster = row.createCell(cellnum++);
+//				cluster.setCellValue("cluster");
+//				Row row2 = sheet.createRow(rownum++);
+//				kNumber = row2.createCell(cellnum - 3);
+//				kNumber.setCellValue(chave);
+//				execucao = row2.createCell(cellnum - 2);
+//				execucao.setCellValue((double) c.getkAndexecution().get(chave).get(0));
+//				cluster = row2.createCell(cellnum - 1);
+//				cluster.setCellValue((double) c.getkAndexecution().get(chave).get(1));
+//			} else {
+//				Cell kNumber = row.createCell(cellnum++);
+//				kNumber.setCellValue(chave);
+//				Cell execucao = row.createCell(cellnum++);
+//				execucao.setCellValue((double) c.getkAndexecution().get(chave).get(0));
+//				Cell cluster = row.createCell(cellnum++);
+//				cluster.setCellValue((double) c.getkAndexecution().get(chave).get(1));
+//			}
+//			count++;
+//		}
+//
+//		try {
+//			FileOutputStream out = new FileOutputStream(
+//					new File(SpreadSheet.fileNameCountClusterEmpt));
+//			workTable.write(out);
+//			out.close();
+//			System.out.println("tabela de clusters vazios criada com sucesso!");
+//
+//		} catch (FileNotFoundException e) {
+//			e.printStackTrace();
+//			System.out.println("Arquivo não encontrado!");
+//		} catch (IOException e) {
+//			e.printStackTrace();
+//			System.out.println("Erro na edição do arquivo!");
+//		}
+//
+//	}
+	
+	
+	public void createSpreedSheetCountEmptCluster(ClusterEmptData c) {
+		HSSFWorkbook workTable = new HSSFWorkbook();
+		HSSFSheet sheet = workTable.createSheet("clusterEmpt");
+		int rownum = 0;
+		int count = 0;
+		Set <Integer> chaves=c.getkAndexecution().keySet();
+		for (Integer chave : chaves) {
+			Row row = sheet.createRow(rownum++);
+			int cellnum = 0;
+			if (count == 0) {
+				Cell kNumber = row.createCell(cellnum++);
+				kNumber.setCellValue("K");
+				Cell execucao = row.createCell(cellnum++);
+				execucao.setCellValue("execução");
+//				Cell cluster = row.createCell(cellnum++);
+//				cluster.setCellValue("cluster");
+				Row row2 = sheet.createRow(rownum++);
+				kNumber = row2.createCell(cellnum - 2);
+				kNumber.setCellValue((double) c.getkAndexecution().get(chave).get(0));
+				execucao = row2.createCell(cellnum - 1);
+				execucao.setCellValue((double) c.getkAndexecution().get(chave).get(1));
+//				cluster = row2.createCell(cellnum - 1);
+//				cluster.setCellValue((double) c.getkAndexecution().get(chave).get(1));
+			} else {
+				Cell kNumber = row.createCell(cellnum++);
+				kNumber.setCellValue((double) c.getkAndexecution().get(chave).get(0));
+				Cell execucao = row.createCell(cellnum++);
+				execucao.setCellValue((double) c.getkAndexecution().get(chave).get(1));
+//				Cell cluster = row.createCell(cellnum++);
+//				cluster.setCellValue((double) c.getkAndexecution().get(chave).get(1));
+			}
+			count++;
+		}
+
+		try {
+			FileOutputStream out = new FileOutputStream(
+					new File(SpreadSheet.fileNameCountClusterEmpt));
+			workTable.write(out);
+			out.close();
+			System.out.println("tabela de clusters vazios criada com sucesso!");
+
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+			System.out.println("Arquivo não encontrado!");
+		} catch (IOException e) {
+			e.printStackTrace();
+			System.out.println("Erro na edição do arquivo!");
+		}
+
+	}
+
+
 
 	public void createSpreadForMapGoogle() {
 		int SafeBiggger = 0;

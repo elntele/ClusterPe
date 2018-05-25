@@ -1,15 +1,9 @@
 package br.clustering;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Random;
-import java.util.Vector;
-
-import javax.swing.plaf.synth.SynthStyle;
 
 import br.cns.model.GmlData;
 import br.cns.model.GmlNode;
@@ -51,16 +45,20 @@ public class AlgClusterX {
 		 * Silhouette.
 		 * 
 		 */
-		int kSizeMin = 4;
-		int kSizeMax = 30;
+		int kSizeMin = 8;
+		int kSizeMax = 8;
+		ClusterEmptData clusterEmptData=new ClusterEmptData();
 		for (int i = kSizeMin; i <= kSizeMax; i++) {
 			List<Pattern> listCentroids = new ArrayList<>();
 			List<Double> resultSilhouetteAverage = new ArrayList();// lista pra pegar a média 
 			List<Integer> listIteration = new ArrayList<>();
 			int w = 0;
+			int numClusterSize0=0;
 			double silhouetteAverage = 0;
 			double DistanceAverange = 0;
+			MetricsIntraCluster metrics= new MetricsIntraCluster();
 			while (w < 30) {
+				boolean clusterEmptSignal=false;
 				// array de listas do tipo pattern sendo preparado para ser
 				// passado
 				// (mais a frente) como parametro para o método
@@ -83,56 +81,89 @@ public class AlgClusterX {
 				ClusterCentroid clusterCentroidCluster=new ClusterCentroid();
 				clusterCentroidCluster=tableToList.retrievCluster(patchCluster);
 				clustters = clusterCentroidCluster.getCluster();
-				int interation =clusterCentroidCluster.getInteration();
+				
+				// guardando dados de quando houver cluster vazio
+				Kmeans kmeans = new Kmeans(i, listPatterns);// subtituir este
+	//			MetricsIntraCluster metrics= new MetricsIntraCluster();
+				if (tableToList.clusterEmpte(clustters)>0){
+					numClusterSize0-=1;
+					clusterEmptSignal=true;
+					clusterEmptData.setkAndexecution(clustters, w);
+					System.out.println("numero de vazios: "+clusterEmptData.getkAndexecution().size());
+					System.out.println("numClusterSize0: "+numClusterSize0);
+				}else{
+					metrics.setStringCluster(clustters);
+					listStringCluster.add(metrics.getStringCluster());
+					Pattern[] centroids =metrics.monteCentroids(patchCentroid, tableToList, kmeans, clustters);
+					metrics.setCluster(clustters);
+				}
+				
+					int interation =clusterCentroidCluster.getInteration();
 				//clustters = tableToList.retrievCluster(patchCluster).getCluster() ; // jorge
 
-				Kmeans kmeans = new Kmeans(i, listPatterns);// subtituir este
+//				Kmeans kmeans = new Kmeans(i, listPatterns);// subtituir este
 			//	clustters = kmeans.execute(200);// substituir este jorge
 				// List<String> litleCluster = new ArrayList<>();
-				if (w == 29) {
-					// montando a lista com os nomes das cidades de cada cluster 
-					String stringCluster = "";
-					for (int u = 0; u < clustters.length; u++) {// descomentar depois
-						stringCluster += "{";
-						for (Pattern p : clustters[u]) {
-							stringCluster += p.getName();
-							stringCluster += ", ";
-						}
-						stringCluster += "} ";
-					}
-					listStringCluster.add(stringCluster);
+//				(!clusterEmptSignal) 
+				if (w == 29){
+					Pattern[] centroids;
+					if (!clusterEmptSignal){
+						MetricsIntraCluster metrics1= new MetricsIntraCluster();
+						metrics1.setStringCluster(clustters);
+						listStringCluster.add(metrics1.getStringCluster());
+						centroids =metrics1.monteCentroids(patchCentroid, tableToList, kmeans, clustters);
+					}else{
+						 clustters=metrics.getCluster();
+						 centroids =metrics.getCentroids();
+					}	
+					
+					
+//					// montando a lista com os nomes das cidades de cada cluster 
+//					String stringCluster = "";
+//					for (int u = 0; u < clustters.length; u++) {// descomentar depois
+//						stringCluster += "{";
+//						for (Pattern p : clustters[u]) {
+//							stringCluster += p.getName();
+//							stringCluster += ", ";
+//						}
+//						stringCluster += "} ";
+//					}
+//					listStringCluster.add(stringCluster);
+//					metrics.setStringCluster(clustters);
+//					listStringCluster.add(metrics.getStringCluster());
 
 					// calculando a distância mínima, máxima e média entre os
 					// centrois
 					
-					// comenta esse dois jorge
-					ClusterCentroid clusterCentroidCentroid=new ClusterCentroid();
-					clusterCentroidCentroid=tableToList.retrievCentroid(patchCentroid);
-					Pattern[] centroids =clusterCentroidCentroid.getCentroids();
-					//Pattern[] centroids =tableToList.retrievCentroid(patchCentroid).getCentroids();
-					kmeans.setCentroids(centroids);
-		//		/*	Pattern[] */ centroids = kmeans.getNearestPatternsFromCentroid(); // jorge
-					//para psc
-			//		centroids = kmeans.getNearestPatternsFromCentroid(clustters,centroids); // jorge
-					// teste apagar depois
-					if (i==21 && w==29){// foi pra só pra  colocar um breakpoint na condição do if
-						centroids = kmeans.getNearestPatternsFromCentroid(clustters,centroids);
-					} else{
-						centroids = kmeans.getNearestPatternsFromCentroid(clustters,centroids);
-					}
-				// teste apagar depois	
-				System.out.println("este é o i " +i);
-				System.out.println("este é o w " +w);
-				// teste apagar depois
-				if (i==21 && w==29){
-					centroids=tableToList.takeSelfObject(centroids, clustters);
-				} else{
-					centroids=tableToList.takeSelfObject(centroids, clustters);
-				}
-		
+//					// comenta esse dois jorge
+//					ClusterCentroid clusterCentroidCentroid=new ClusterCentroid();
+//					clusterCentroidCentroid=tableToList.retrievCentroid(patchCentroid);
+//					Pattern[] centroids =clusterCentroidCentroid.getCentroids();
+//					//Pattern[] centroids =tableToList.retrievCentroid(patchCentroid).getCentroids();
+//					kmeans.setCentroids(centroids);
+//		//		/*	Pattern[] */ centroids = kmeans.getNearestPatternsFromCentroid(); // jorge
+//					//para psc
+//			//		centroids = kmeans.getNearestPatternsFromCentroid(clustters,centroids); // jorge
+//					// teste apagar depois
+//					if (i==21 && w==29){// foi pra só pra  colocar um breakpoint na condição do if
+//						centroids = kmeans.getNearestPatternsFromCentroid(clustters,centroids);
+//					} else{
+//						centroids = kmeans.getNearestPatternsFromCentroid(clustters,centroids);
+//					}
+//				// teste apagar depois	
+//				System.out.println("este é o i " +i);
+//				System.out.println("este é o w " +w);
+//				// teste apagar depois
+//				if (i==21 && w==29){
+//					centroids=tableToList.takeSelfObject(centroids, clustters);
+//				} else{
+//					centroids=tableToList.takeSelfObject(centroids, clustters);
+//				}
+//					Pattern[] centroids =metrics.monteCentroids(patchCentroid, tableToList, kmeans, clustters);
 					AllDistancesCLuster node = new AllDistancesCLuster(centroids, gml,clustters);
+						maxMinAverangeDisntanceInterCentroids.add(node.distanceInterCentroids());	
 
-					maxMinAverangeDisntanceInterCentroids.add(node.distanceInterCentroids());
+					
 					if (i == kSizeMax) {
 						copyFinalclustters = clustters;
 						maxMindistanceBetweenCentroidsAndNodes = node.distanceBetweenCentroidAndNodesInCluster();
@@ -159,15 +190,17 @@ public class AlgClusterX {
 
 					}
 				}
-
+				
+				if (!clusterEmptSignal){
 				silhouetteAverage += kmeans.getSilhouetteIndex(clustters);
 				listIteration.add(interation);
+				}
 				//listIteration.add(kmeans.getCountItaration());
 				w += 1;
 			}
 			listIteration.sort(null);
 			mapIteration.put(i, listIteration);
-			resultSilhouetteAverage.add(silhouetteAverage / w);
+			resultSilhouetteAverage.add(silhouetteAverage / (w-numClusterSize0));
 			resultSilhouetteAverage.add((double) i);
 			globalResultSillhouetteAverange.add(resultSilhouetteAverage);
 		}
@@ -178,6 +211,7 @@ public class AlgClusterX {
 		dataSheet.createSpreedSheetMMAverangeDistanceIntraCluster(maxMindistanceIntraCluster);
 		dataSheet.createSpreedSheetItereation(mapIteration, kSizeMin, kSizeMax);
 		dataSheet.createSpreadForMapGoogle();
+		dataSheet.createSpreedSheetCountEmptCluster(clusterEmptData);
 	}
 	    
 	    

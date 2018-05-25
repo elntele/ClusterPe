@@ -150,6 +150,10 @@ public class AllDistancesCLuster {
 								minDistance = CurrentDistance;
 							averageDistance += CurrentDistance;
 							distanceCount += 1;
+						} else if((centroids[i].getId() == p.getId())&&(clustters[i].size()==1)){
+							maxDistance=0;
+							minDistance=0;
+							distanceCount=1;
 						}
 					}
 				}

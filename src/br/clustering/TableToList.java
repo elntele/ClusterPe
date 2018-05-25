@@ -32,6 +32,23 @@ public class TableToList {
 		return copyCentroids;
 	}
 	
+	/**
+	 * método verifica se há cluster vazio
+	 * @param cluster
+	 * @return
+	 */
+	
+	public int clusterEmpte( List<Pattern>[] cluster){
+		int size=0;
+		for (int i=0;i<cluster.length;i++){
+			if (cluster[i].size()==0){
+				size+=1;
+			}
+		}
+		
+		return size;
+	}
+	
 	
 	/**
 	 * este é o metodo que preenche o cluster

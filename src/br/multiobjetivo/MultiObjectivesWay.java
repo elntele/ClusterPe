@@ -59,7 +59,8 @@ public class MultiObjectivesWay {
 		
 		PatternToGml ptgLocal=((SearchForNetworkAndEvaluate)problem).getPtg();
 		for (IntegerSolution i: population){
-			String s="C:/Users/jorge/Desktop/rural 2/2017.2/tcc/testes_evolucionarios/ResultadoGML/"+Integer.toString(w)+".gml";
+//			String s="C:/Users/jorge/Desktop/rural 2/2017.2/tcc/testes_evolucionarios/ResultadoGML/"+Integer.toString(w)+".gml";
+			String s="src/ResultadoGML/"+Integer.toString(w)+".gml";
 			ptgLocal.saveGmlFromSolution(s, i);
 			List <Integer> centros=new ArrayList<>(); 
 			for (int j=0; j<i.getLineColumn().length;j++){

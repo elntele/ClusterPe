@@ -20,7 +20,8 @@ import cbic15.Pattern;
 public class ClusterAlgXDeliveryManager {
 
 	public static void main(String[] args) throws IOException {
-		String patch = "C:/Users/jorge/workspace/ClusterPe/src/MunicipiosDePernambucoTec.RedesFinalizado.gml";
+		String patch = "src/MunicipiosDePernambucoTec.RedesFinalizado.gml";
+	//	String patch = "C:/Users/jorge/workspace/ClusterPe/src/MunicipiosDePernambucoTec.RedesFinalizado.gml";
 		GmlData gml = new GmlDao().loadGmlData(patch); // novo
 		List<Pattern> listPatterns = new ArrayList<>();
 		List<GmlNode> listCity = gml.getNodes();// novo
@@ -51,7 +52,7 @@ public class ClusterAlgXDeliveryManager {
 		 * 
 		 */
 		int kSize = 15; // numero de cluster
-		int execucao = 10;// uma das execuções de clodomir, vai de 1 a 30,
+		int execucao = 16;// uma das execuções de clodomir, vai de 1 a 30,
 							// chutei a 10
 
 		MetricsIntraCluster metrics = new MetricsIntraCluster();
@@ -76,8 +77,8 @@ public class ClusterAlgXDeliveryManager {
 		 */
 		
 		String [] alg={"algorithm_PSC","algorithm_KMeans","algorithm_FCMeans"};
-		String algselected =alg[1];
-		System.out.println("algoritmo selecionad0: " +algselected);
+		String algselected =alg[2];
+		System.out.println("algoritmo selecionado: " +algselected);
 		
 		String patchCluster = "src/"+algselected+"/clusters_k_" + kSize + "_exec_" + execucao + ".csv";
 		String patchCentroid = "src/"+algselected+"/centroids_k_" + kSize + "_exec_" + execucao + ".csv";
@@ -96,6 +97,11 @@ public class ClusterAlgXDeliveryManager {
 										// serem os que retornam das tabelas
 		AllDistancesCLuster node = new AllDistancesCLuster(centroids, gml, clustters);
 		maxMinAverangeDisntanceInterCentroids.add(node.distanceInterCentroids());
+		for (int i=0;i<clustters.length;i++){
+			System.out.println("tamanho dos clusters "+ clustters[i].size());
+			
+		}
+		System.out.println();
 		MultiObjectivesWay multi = new MultiObjectivesWay(kmeans, gml, clustters);
 		// ate aqui
 

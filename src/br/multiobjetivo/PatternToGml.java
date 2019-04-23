@@ -103,7 +103,8 @@ public class PatternToGml {
 		BooleanAndEdge B = makelink(arrayPatterns, vars);
 		gmlLocal.setEdges(B.getEdges());
 		gmlLocal.createComplexNetwork();
-		G.save(gmlLocal, "C:/Users/jorge/workspace/ClusterPe/src/GmlevaluatingMax.gml");
+		G.save(gmlLocal, "src/GmlevaluatingMax.gml");
+		//G.save(gmlLocal, "C:/Users/jorge/workspace/ClusterPe/src/GmlevaluatingMax.gml");
 
 	}
 	

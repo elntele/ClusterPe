@@ -247,7 +247,8 @@ public class SearchForNetworkAndEvaluate extends AbstractIntegerProblem {
 			vars[i] = 1;
 		}
 		this.ptg.patternGmlData(this.lineColumn, vars);
-		String path = "C:/Users/jorge/workspace/ClusterPe/src/Gmlevaluating.gml";
+		//String path = "C:/Users/jorge/workspace/ClusterPe/src/Gmlevaluating.gml";
+		String path = "src/Gmlevaluating.gml";
 		this.opticalNetwoark = new OpticalNetworkProblem(load, path);
 		int j = load;
 	}

@@ -45,8 +45,8 @@ public class AlgClusterX {
 		 * Silhouette.
 		 * 
 		 */
-		int kSizeMin = 8;
-		int kSizeMax = 8;
+		int kSizeMin = 4;
+		int kSizeMax = 30;
 		ClusterEmptData clusterEmptData=new ClusterEmptData();
 		for (int i = kSizeMin; i <= kSizeMax; i++) {
 			List<Pattern> listCentroids = new ArrayList<>();

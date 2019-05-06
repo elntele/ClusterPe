@@ -1,9 +1,9 @@
 graph [
-    PB "0.14539110206455366"
-    Capex "15873.483915229373"
+    PB "0.3000300030003"
+    Capex "13674.903622164307"
     Country "Brazil"
-    Conectividade Algébrica "0.20327700027292553"
-    Consumo em Watts "924852.3430280499"
+    Conectividade Algébrica "0.27414805117501767"
+    Consumo em Watts "972106.5698550182"
     node [
         id 176
         label "Tuparetama, PE"
@@ -201,72 +201,62 @@ graph [
     ]
     edge[
         source 83
-        target 61
+        target 170
         LinkLabel "null"
     ]
     edge[
         source 83
-        target 106
-        LinkLabel "null"
-    ]
-    edge[
-        source 83
-        target 129
-        LinkLabel "null"
-    ]
-    edge[
-        source 83
-        target 21
-        LinkLabel "null"
-    ]
-    edge[
-        source 83
-        target 99
-        LinkLabel "null"
-    ]
-    edge[
-        source 83
-        target 176
-        LinkLabel "null"
-    ]
-    edge[
-        source 83
-        target 49
-        LinkLabel "null"
-    ]
-    edge[
-        source 170
         target 126
         LinkLabel "null"
     ]
     edge[
+        source 83
+        target 12
+        LinkLabel "null"
+    ]
+    edge[
+        source 83
+        target 106
+        LinkLabel "null"
+    ]
+    edge[
+        source 83
+        target 47
+        LinkLabel "null"
+    ]
+    edge[
+        source 83
+        target 49
+        LinkLabel "null"
+    ]
+    edge[
+        source 83
+        target 80
+        LinkLabel "null"
+    ]
+    edge[
+        source 83
+        target 118
+        LinkLabel "null"
+    ]
+    edge[
         source 170
         target 61
         LinkLabel "null"
     ]
     edge[
         source 170
-        target 12
-        LinkLabel "null"
-    ]
-    edge[
-        source 170
-        target 106
-        LinkLabel "null"
-    ]
-    edge[
-        source 170
         target 129
         LinkLabel "null"
     ]
     edge[
         source 170
-        target 21
+        target 49
         LinkLabel "null"
     ]
     edge[
         source 170
-        target 176
+        target 155
         LinkLabel "null"
     ]
     edge[
@@ -281,27 +271,27 @@ graph [
     ]
     edge[
         source 126
+        target 61
+        LinkLabel "null"
+    ]
+    edge[
+        source 126
+        target 106
+        LinkLabel "null"
+    ]
+    edge[
+        source 126
         target 129
         LinkLabel "null"
     ]
     edge[
         source 126
-        target 99
+        target 21
         LinkLabel "null"
     ]
     edge[
         source 126
-        target 176
-        LinkLabel "null"
-    ]
-    edge[
-        source 126
-        target 49
-        LinkLabel "null"
-    ]
-    edge[
-        source 61
-        target 12
+        target 80
         LinkLabel "null"
     ]
     edge[
@@ -311,7 +301,12 @@ graph [
     ]
     edge[
         source 61
-        target 129
+        target 21
+        LinkLabel "null"
+    ]
+    edge[
+        source 61
+        target 176
         LinkLabel "null"
     ]
     edge[
@@ -320,38 +315,18 @@ graph [
         LinkLabel "null"
     ]
     edge[
-        source 61
-        target 118
+        source 12
+        target 106
         LinkLabel "null"
     ]
     edge[
         source 12
-        target 129
-        LinkLabel "null"
-    ]
-    edge[
-        source 12
-        target 21
+        target 99
         LinkLabel "null"
     ]
     edge[
         source 12
         target 47
-        LinkLabel "null"
-    ]
-    edge[
-        source 12
-        target 176
-        LinkLabel "null"
-    ]
-    edge[
-        source 12
-        target 155
-        LinkLabel "null"
-    ]
-    edge[
-        source 12
-        target 80
         LinkLabel "null"
     ]
     edge[
@@ -361,27 +336,22 @@ graph [
     ]
     edge[
         source 106
-        target 47
-        LinkLabel "null"
-    ]
-    edge[
-        source 106
         target 80
         LinkLabel "null"
     ]
     edge[
+        source 106
+        target 118
+        LinkLabel "null"
+    ]
+    edge[
+        source 129
+        target 21
+        LinkLabel "null"
+    ]
+    edge[
         source 129
         target 47
-        LinkLabel "null"
-    ]
-    edge[
-        source 129
-        target 49
-        LinkLabel "null"
-    ]
-    edge[
-        source 129
-        target 155
         LinkLabel "null"
     ]
     edge[
@@ -396,12 +366,17 @@ graph [
     ]
     edge[
         source 21
-        target 80
+        target 99
         LinkLabel "null"
     ]
     edge[
         source 21
-        target 118
+        target 49
+        LinkLabel "null"
+    ]
+    edge[
+        source 21
+        target 155
         LinkLabel "null"
     ]
     edge[
@@ -420,16 +395,6 @@ graph [
         LinkLabel "null"
     ]
     edge[
-        source 99
-        target 155
-        LinkLabel "null"
-    ]
-    edge[
-        source 99
-        target 80
-        LinkLabel "null"
-    ]
-    edge[
         source 47
         target 49
         LinkLabel "null"
@@ -440,13 +405,8 @@ graph [
         LinkLabel "null"
     ]
     edge[
-        source 176
-        target 155
-        LinkLabel "null"
-    ]
-    edge[
-        source 176
-        target 80
+        source 47
+        target 118
         LinkLabel "null"
     ]
     edge[
@@ -461,12 +421,12 @@ graph [
     ]
     edge[
         source 49
-        target 118
+        target 80
         LinkLabel "null"
     ]
     edge[
-        source 155
-        target 80
+        source 80
+        target 118
         LinkLabel "null"
     ]
 ]

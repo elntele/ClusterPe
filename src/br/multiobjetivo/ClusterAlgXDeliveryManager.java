@@ -52,7 +52,7 @@ public class ClusterAlgXDeliveryManager {
 		 * 
 		 */
 		int kSize = 15; // numero de cluster
-		int execucao = 16;// uma das execuções de clodomir, vai de 1 a 30,
+		int execucao = 5;// uma das execuções de clodomir, vai de 1 a 30,
 							// chutei a 10
 
 		MetricsIntraCluster metrics = new MetricsIntraCluster();
@@ -77,7 +77,7 @@ public class ClusterAlgXDeliveryManager {
 		 */
 		
 		String [] alg={"algorithm_PSC","algorithm_KMeans","algorithm_FCMeans"};
-		String algselected =alg[2];
+		String algselected =alg[0];
 		System.out.println("algoritmo selecionado: " +algselected);
 		
 		String patchCluster = "src/"+algselected+"/clusters_k_" + kSize + "_exec_" + execucao + ".csv";

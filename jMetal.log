@@ -2,8 +2,8 @@
 <!DOCTYPE log SYSTEM "logger.dtd">
 <log>
 <record>
-  <date>2019-05-05T20:51:08</date>
-  <millis>1557100268653</millis>
+  <date>2019-05-09T17:56:44</date>
+  <millis>1557435404389</millis>
   <sequence>0</sequence>
   <logger>org.uma.jmetal.util.JMetalLogger</logger>
   <level>INFO</level>
@@ -13,8 +13,8 @@
   <message>Loggers configured with null</message>
 </record>
 <record>
-  <date>2019-05-05T20:51:08</date>
-  <millis>1557100268726</millis>
+  <date>2019-05-09T17:56:44</date>
+  <millis>1557435404445</millis>
   <sequence>1</sequence>
   <logger>org.uma.jmetal.util.JMetalLogger</logger>
   <level>INFO</level>

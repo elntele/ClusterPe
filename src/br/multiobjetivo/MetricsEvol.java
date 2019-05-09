@@ -32,7 +32,10 @@ public class MetricsEvol {
 			for (int j = 1; j <= 11; j++) {
 //				double hvma = 0;// cometa esse pra pegar a media jorge
 //				double hvmb = 0;// cometa esse pra pegar a media jorge
-				String path = "C:/Users/jorge/Desktop/rural 2/2018.2/pic/k2/execução " + j + "/FUN" + i + ".tsv";
+				
+//				String path = "C:/Users/jorge/Desktop/rural 2/mestrado/2019.1/computação evolutiva/BRACIS/com busca/psc/execução " 
+//				+ j + "/FUN" + i + ".tsv";
+				String path = "C:/Users/jorge/Desktop/rural 2/2018.2/pic/resultado/k2/execução " + j + "/FUN" + i + ".tsv";
 //				String path = "C:/Users/jorge/workspace/ClusterPe/src/sem busca/execução " + j + "/FUN" + i + ".tsv";
 //				String path = "C:/UFRPE/graduação/tcc/jorge/sem busca/execução " + j + "/FUN" + i + ".tsv";
 				try {
@@ -48,8 +51,9 @@ public class MetricsEvol {
 				}
 				List<PointSolution> normalizedPopulation = FrontUtils.convertFrontToSolutionList(normalizedFront);
 				hvma += hypervolume.evaluate(normalizedPopulation);
-				
-				path = "C:/Users/jorge/Desktop/rural 2/2018.2/pic/k4/execução " + j + "/FUN" + i + ".tsv";
+//				path = "C:/Users/jorge/Desktop/rural 2/mestrado/2019.1/computação evolutiva/BRACIS/com busca/kMeans/execução " 
+//						+ j + "/FUN" + i + ".tsv";
+				path = "C:/Users/jorge/Desktop/rural 2/2018.2/pic/resultado/k4/execução " + j + "/FUN" + i + ".tsv";
 //				path = "C:/Users/jorge/workspace/ClusterPe/src/com busca local/execução " + j + "/FUN" + i + ".tsv";
 				// String path =
 				// "C:/UFRPE/pesquisas/submissões/bracis16elliackin/docs/root_maopso/root_maopso/fronts_run_"
@@ -74,9 +78,9 @@ public class MetricsEvol {
 //				System.out.printf("%.4f ", hvma) ;
 //				System.out.printf("%.4f\n", hvmb);
 
-				
-				
-				path = "C:/Users/jorge/Desktop/rural 2/2018.2/pic/k8/execução " + j + "/FUN" + i + ".tsv";
+//				path = "C:/Users/jorge/Desktop/rural 2/mestrado/2019.1/computação evolutiva/BRACIS/com busca/FCmeans/execução " 
+//						+ j + "/FUN" + i + ".tsv";
+				path = "C:/Users/jorge/Desktop/rural 2/2018.2/pic/resultado/sem busca/execução " + j + "/FUN" + i + ".tsv";
 				try {
 					normalizedFront = new ArrayFront(path);
 				} catch (FileNotFoundException e) {

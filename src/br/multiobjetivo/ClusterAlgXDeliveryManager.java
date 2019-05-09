@@ -1,9 +1,12 @@
 package br.multiobjetivo;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Properties;
 
 import br.clustering.AllDistancesCLuster;
 import br.clustering.ClusterCentroid;
@@ -21,11 +24,24 @@ public class ClusterAlgXDeliveryManager {
 
 	public static void main(String[] args) throws IOException {
 		String patch = "src/MunicipiosDePernambucoTec.RedesFinalizado.gml";
-	//	String patch = "C:/Users/jorge/workspace/ClusterPe/src/MunicipiosDePernambucoTec.RedesFinalizado.gml";
+		// String patch =
+		// "C:/Users/jorge/workspace/ClusterPe/src/MunicipiosDePernambucoTec.RedesFinalizado.gml";
 		GmlData gml = new GmlDao().loadGmlData(patch); // novo
 		List<Pattern> listPatterns = new ArrayList<>();
 		List<GmlNode> listCity = gml.getNodes();// novo
 		TableToList tableToList = new TableToList();
+		//**********planos futuros******************
+//		criar o primeiro dados.properties dentro 
+//		de qualquera area de trabalho independente do
+//		cominho:
+//		FileSystemView system = FileSystemView.getFileSystemView();
+//		System.out.println(system.getHomeDirectory().getPath());
+//		isso retona o caminha da area de trabalho
+		//************************************
+		Properties prop = new Properties();
+		FileInputStream file = new FileInputStream("src/dados.properties");
+		prop.load(file);
+		
 
 		for (GmlNode c : listCity) {
 			double[] variables = { c.getLatitude(), c.getLongitude() };
@@ -69,42 +85,55 @@ public class ClusterAlgXDeliveryManager {
 		 * precisa ser o kmeans, porém, o tratamento de cluster vazios, que
 		 * apareceram com frequência no PSC, não foi considerando aqui, já que
 		 * isso quebraria a busca local na etapa evolucionária, então esse
-		 * código requer resultado, do alg. de cluster, com clusteres não vazios.
-		 * sugestão para futura busca de cluster não vazio, varre as pastas de 
-		 * tabelas até encontrar uma clusterização válida, se olhar na primeira 
-		 * parte do projeto verá que já tem método que observa se existe cluster vario.
-		 * se for usar o PSC, é bom impplementar esta varredura.
+		 * código requer resultado, do alg. de cluster, com clusteres não
+		 * vazios. sugestão para futura busca de cluster não vazio, varre as
+		 * pastas de tabelas até encontrar uma clusterização válida, se olhar na
+		 * primeira parte do projeto verá que já tem método que observa se
+		 * existe cluster vario. se for usar o PSC, é bom impplementar esta
+		 * varredura.
 		 */
-		
-		String [] alg={"algorithm_PSC","algorithm_KMeans","algorithm_FCMeans"};
-		String algselected =alg[0];
-		System.out.println("algoritmo selecionado: " +algselected);
-		
-		String patchCluster = "src/"+algselected+"/clusters_k_" + kSize + "_exec_" + execucao + ".csv";
-		String patchCentroid = "src/"+algselected+"/centroids_k_" + kSize + "_exec_" + execucao + ".csv";
+		String[] alg = { "algorithm_PSC", "algorithm_KMeans", "algorithm_FCMeans" };
+		int algNumber = Integer.parseInt(prop.getProperty("alg"));
+		String algselected = alg[algNumber];
+		prop.setProperty("algName", algselected);
+		new File (prop.getProperty("local")+prop.getProperty("algName")+"/"+prop.getProperty("modo")).mkdirs();
 
-		ClusterCentroid clusterCentroidCluster = new ClusterCentroid();
-		clusterCentroidCluster = tableToList.retrievCluster(patchCluster);
-		clustters = clusterCentroidCluster.getCluster();
-		Kmeans kmeans = new Kmeans(kSize, listPatterns);
-		Pattern[] centroids;
-		metrics.setStringCluster(clustters);
-		listStringCluster.add(metrics.getStringCluster());
-		centroids = metrics.monteCentroids(patchCentroid, tableToList, kmeans, clustters);
-		metrics.setCluster(clustters);
-		centroids = metrics.getCentroids();
-		kmeans.setCentroids(centroids);// este passo é novo, para os centroids
-										// serem os que retornam das tabelas
-		AllDistancesCLuster node = new AllDistancesCLuster(centroids, gml, clustters);
-		maxMinAverangeDisntanceInterCentroids.add(node.distanceInterCentroids());
-		for (int i=0;i<clustters.length;i++){
-			System.out.println("tamanho dos clusters "+ clustters[i].size());
+		for (int i = 1; i <= Integer.parseInt(prop.getProperty("numeroDeExec")); i++) {
 			
-		}
-		System.out.println();
-		MultiObjectivesWay multi = new MultiObjectivesWay(kmeans, gml, clustters);
-		// ate aqui
+			System.out.println("algoritmo selecionado: " + algselected);
+			prop.setProperty("alg", alg[algNumber]);
 
+			String patchCluster = "src/" + algselected + "/clusters_k_" + kSize + "_exec_" + execucao + ".csv";
+			String patchCentroid = "src/" + algselected + "/centroids_k_" + kSize + "_exec_" + execucao + ".csv";
+
+			ClusterCentroid clusterCentroidCluster = new ClusterCentroid();
+			clusterCentroidCluster = tableToList.retrievCluster(patchCluster);
+			clustters = clusterCentroidCluster.getCluster();
+			Kmeans kmeans = new Kmeans(kSize, listPatterns);
+			Pattern[] centroids;
+			metrics.setStringCluster(clustters);
+			listStringCluster.add(metrics.getStringCluster());
+			centroids = metrics.monteCentroids(patchCentroid, tableToList, kmeans, clustters);
+			metrics.setCluster(clustters);
+			centroids = metrics.getCentroids();
+			kmeans.setCentroids(centroids);// este passo é novo, para os
+											// centroids
+											// serem os que retornam das tabelas
+			AllDistancesCLuster node = new AllDistancesCLuster(centroids, gml, clustters);
+			maxMinAverangeDisntanceInterCentroids.add(node.distanceInterCentroids());
+			for (int l = 0; l < clustters.length; l++) {
+				System.out.println("tamanho dos clusters " + clustters[l].size());
+
+			}
+			
+			prop.setProperty("execucao", "execução "+i);
+			new File (prop.getProperty("local")+prop.getProperty("algName")
+			+"/"+prop.getProperty("modo")+"/"+prop.getProperty("execucao")).mkdir();
+
+			MultiObjectivesWay multi = new MultiObjectivesWay(kmeans, gml, clustters, prop);
+			// ate aqui
+
+		}
 	}
 
 }

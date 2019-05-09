@@ -1,7 +1,11 @@
 package br.multiobjetivo;
 
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Properties;
 
 import org.uma.jmetal.algorithm.Algorithm;
 import org.uma.jmetal.algorithm.multiobjective.nsgaiii.NSGAIII;
@@ -27,7 +31,7 @@ import cbic15.Pattern;
 
 public class MultiObjectivesWay {
 	
-	public MultiObjectivesWay(Kmeans kmeans, GmlData gml,List<Pattern>[] clustters) {
+	public MultiObjectivesWay(Kmeans kmeans, GmlData gml,List<Pattern>[] clustters,Properties prop) throws IOException {
 		Problem<IntegerSolution> problem; // do Jmetal
 		Algorithm<List<IntegerSolution>> algorithm; // do Jmetal
 		CrossoverOperator<IntegerSolution> crossover; // do Jmetal
@@ -49,13 +53,21 @@ public class MultiObjectivesWay {
 		// AlgorithmRunner algorithmRunner = new
 		// AlgorithmRunner.Executor(algorithm).execute();
 
-		algorithm = new NSGAIIIBuilder<>(problem,((SearchForNetworkAndEvaluate)problem).getGml(),clustters).setCrossoverOperator(crossover).setMutationOperator(mutation)
+		algorithm = new NSGAIIIBuilder<>(problem,((SearchForNetworkAndEvaluate)problem).getGml(),clustters, prop).setCrossoverOperator(crossover).setMutationOperator(mutation)
 				.setSelectionOperator(selection).setPopulationSize(40).setMaxIterations(500).build();
 
 		List<IntegerSolution> population;
 		AlgorithmRunner algorithmRunner = new AlgorithmRunner.Executor(algorithm).execute();
 		population = algorithm.getResult();
 		int w=1;
+		
+		 String path=prop.getProperty("local")+prop.getProperty("algName")
+			+"/"+prop.getProperty("modo")+"/"+prop.getProperty("execucao")+"/"+"print.txt";
+
+	    FileWriter arq = new FileWriter(path);
+	    PrintWriter gravarArq = new PrintWriter(arq);
+	    
+	   
 		
 		PatternToGml ptgLocal=((SearchForNetworkAndEvaluate)problem).getPtg();
 		for (IntegerSolution i: population){
@@ -67,17 +79,20 @@ public class MultiObjectivesWay {
 				centros.add(i.getLineColumn()[j].getId());
 			}
 			w+=1;
-			System.out.println("centoides final : " +centros);
+			System.out.println("centroides final : " +centros);
+			 gravarArq.printf("centroides final : " +centros+'\n');
+			 
 		}
 		
 		System.out.println("numero de avaliações de fitness"+((SearchForNetworkAndEvaluate)problem).getContEvaluate());
+		gravarArq.printf("numero de avaliações de fitness"+((SearchForNetworkAndEvaluate)problem).getContEvaluate()+'\n');
 		System.out.println("base salva em formato GML");
-		System.out.println("numro de soluções não dominadas encontrado pela busca local: "+((NSGAIII)algorithm).getLocalSeachFoundNoDominated() );
-		
+		System.out.println("numero de soluções não dominadas encontrado pela busca local: "+((NSGAIII)algorithm).getLocalSeachFoundNoDominated() );
+		gravarArq.printf("numero de soluções não dominadas encontrado pela busca local: "+((NSGAIII)algorithm).getLocalSeachFoundNoDominated()+'\n');
 		long computingTime = algorithmRunner.getComputingTime();
 		JMetalLogger.logger.info("Total execution time: " + computingTime + "ms");
-
-		printFinalSolutionSet(population,kmeans);
+		gravarArq.printf("Total execution time: " + computingTime + "ms"+'\n');
+		printFinalSolutionSet(population,kmeans, arq, gravarArq, prop);
 
 	}
 
@@ -85,19 +100,26 @@ public class MultiObjectivesWay {
 	 * Write the population into two files and prints some data on screen
 	 * 
 	 * @param population
+	 * @throws IOException 
 	 */
-	public static void printFinalSolutionSet(List<? extends Solution<?>> population, Kmeans kmeans) {
+	public static void printFinalSolutionSet(List<? extends Solution<?>> population, Kmeans kmeans,
+			FileWriter arq,PrintWriter gravarArq,Properties prop) throws IOException {
+		String path=prop.getProperty("local")+prop.getProperty("algName")
+		+"/"+prop.getProperty("modo")+"/"+prop.getProperty("execucao"); 
 
 		new SolutionListOutput(population).setSeparator("\t")
-				.setVarFileOutputContext(new DefaultFileOutputContext("VAR.tsv"))
-				.setFunFileOutputContext(new DefaultFileOutputContext("FUN.tsv")).print();
+				.setVarFileOutputContext(new DefaultFileOutputContext(path+"/"+"VAR.tsv"))
+				.setFunFileOutputContext(new DefaultFileOutputContext(path+"/"+"FUN.tsv")).print();
 		
 		List<Integer> centros = new ArrayList<>();
 		for (int i = 0; i < kmeans.getNearestPatternsFromCentroid().length; i++) {
 			centros.add(kmeans.getNearestPatternsFromCentroid()[i].getId());
 		}
 		System.out.println("centoides inicial: " + centros);
+		gravarArq.printf("centoides inicial: " + centros+'\n');
 		JMetalLogger.logger.info("Random seed: " + JMetalRandom.getInstance().getSeed());
+		gravarArq.printf("Random seed: " + JMetalRandom.getInstance().getSeed()+'\n');
+		arq.close();
 		JMetalLogger.logger.info("Objectives values have been written to file FUN.tsv");
 		JMetalLogger.logger.info("Variables values have been written to file VAR.tsv");
 	}

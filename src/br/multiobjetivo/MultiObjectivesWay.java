@@ -1,5 +1,6 @@
 package br.multiobjetivo;
 
+import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -70,9 +71,14 @@ public class MultiObjectivesWay {
 	   
 		
 		PatternToGml ptgLocal=((SearchForNetworkAndEvaluate)problem).getPtg();
+		new File (prop.getProperty("local")+prop.getProperty("algName")+"/"
+		+prop.getProperty("modo")+"/"+prop.getProperty("execucao")+
+		"/ResultadoGML").mkdir();
+		String pathTogml=prop.getProperty("local")+prop.getProperty("algName")
+		+"/"+prop.getProperty("modo")+"/"+prop.getProperty("execucao");
 		for (IntegerSolution i: population){
 //			String s="C:/Users/jorge/Desktop/rural 2/2017.2/tcc/testes_evolucionarios/ResultadoGML/"+Integer.toString(w)+".gml";
-			String s="src/ResultadoGML/"+Integer.toString(w)+".gml";
+			String s=pathTogml+"/ResultadoGML/"+Integer.toString(w)+".gml";
 			ptgLocal.saveGmlFromSolution(s, i);
 			List <Integer> centros=new ArrayList<>(); 
 			for (int j=0; j<i.getLineColumn().length;j++){

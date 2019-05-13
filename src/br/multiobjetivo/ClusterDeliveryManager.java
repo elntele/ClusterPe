@@ -58,7 +58,7 @@ public class ClusterDeliveryManager {
 		Pattern[] centroids = kmeans.getNearestPatternsFromCentroid();
 		AllDistancesCLuster node = new AllDistancesCLuster(centroids, gml, clustters);
 
-		MultiObjectivesWay multi =new MultiObjectivesWay(kmeans, gml,clustters);
+//		MultiObjectivesWay multi =new MultiObjectivesWay(kmeans, gml,clustters);
 
 	}
 }

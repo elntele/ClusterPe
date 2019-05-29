@@ -1,5 +1,9 @@
 package br.multiobjetivo;
 
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -12,8 +16,6 @@ import org.uma.jmetal.util.comparator.DominanceComparator;
 import br.bons.core.OpticalNetworkProblem;
 //import br.clustering.LabeledIntegerSolution;
 import br.cns.model.GmlData;
-import br.cns.model.GmlEdge;
-import br.cns.model.GmlNode;
 import br.cns.persistence.GmlDao;
 import cbic15.Kmeans;
 import cbic15.Pattern;
@@ -26,14 +28,16 @@ public class SearchForNetworkAndEvaluate extends AbstractIntegerProblem {
 	private GmlData gml;
 	private Pattern[] lineColumn;
 	private PatternToGml ptg;
-	private GmlDao dao;
+//	private GmlDao dao= new GmlDao();
 	private List<Pattern>[] clustters;
 	private Pattern[] centroids;
 	private OpticalNetworkProblem opticalNetwoark;
-	private int contCreate = 0;
+//	private int contCreate = 0;
 	private int contEvaluate = 0;
 	IntegerSolution anterior;
-
+	private List <String> fixedNetworkConections;
+	private boolean FixedInitiallinks;
+	
 	public void testCoparacao(IntegerSolution s1, IntegerSolution s2) {
 		DominanceComparator comparater = new DominanceComparator();
 		int i = comparater.compare(s1, s2);
@@ -48,16 +52,64 @@ public class SearchForNetworkAndEvaluate extends AbstractIntegerProblem {
 		}
 
 	}
+	/**
+	 * este método é nativo da classe problem, ele ja recebe solution por solution
+	 * que vem de algum lugar com a criação inicial de forma aletória. Até onde eu lembro
+	 * ela não vem zerada na linnha da invocação IntegerSolution retorno = new DefaultIntegerSolution(this);
+	 * mas se precisar modificar essa solutio "retorno" de alguma forma excepcional, o lugar é neste método.
+	 * no nosso caso, ele usar o método alwaysTheSameSolution pra partir com os mesmos links
+	 * sempre.
+	 * obs: dependendo do alg de cluster do pre processamento as cidades podem mudar, mas a linkagem
+	 * sempre virar de um arquivo var com o o nome de fixedSolution.tsv
+	 */
 
 	@Override
 	public IntegerSolution createSolution() {
 		IntegerSolution retorno = new DefaultIntegerSolution(this);
-//		 for (int i = 0; i < getNumberOfVariables(); i++) {
-//		 retorno.setVariableValue(i, 0);
-//		 }
+		if (this.FixedInitiallinks) {
+			retorno=this.alwaysTheSameSolution(retorno);
+		}
 		retorno.setLineColumn(lineColumn.clone());
 		return retorno;
 	}
+	
+	/**
+	 * metodo lê as conexões da polução iniciala partir de um array list no atributos
+	 * Observe que ele só pode fazer isso uma vez já que ele remove a cabeça da lista 
+	 * fixedNetworkConections, que guarda a lista de strings recuperada de um arquivo var.tsv
+	 * pelo método retrieveTheFixedInitialNetworks.
+	 * Uu seja, apos carregar a população inicial a lista fixedNetworkConections será 
+	 * esvaziada.
+	 * @param s
+	 * @return
+	 */
+	
+	public IntegerSolution alwaysTheSameSolution(IntegerSolution s)  {
+		
+		String[] rede=new String[this.getNumberOfVariables()];
+		rede=this.fixedNetworkConections.get(0).split(" ");
+		
+		for (int i=0;i<rede.length;i++) {
+			s.setVariableValue(i, Integer.parseInt(rede[i]));
+		}
+		this.fixedNetworkConections.remove(0);
+		return s;
+	}
+	
+
+	
+	public void retrieveTheFixedInitialNetworks()throws IOException {
+		BufferedReader br = new BufferedReader(new		 
+				   FileReader("src/fixedSolution.tsv"));
+		String linha;
+		List <String> lista = new ArrayList();
+		while ((linha = br.readLine()) != null) {
+			lista.add(linha);
+		    
+		}	
+		this.fixedNetworkConections	=lista;
+	}
+	
 
 	// public boolean isolated(GmlData data) {
 	// System.out.println("pontos isolados ? "+ data.containsIsolatedNodes());
@@ -276,7 +328,7 @@ public class SearchForNetworkAndEvaluate extends AbstractIntegerProblem {
 		return ptg;
 	}
 
-	public SearchForNetworkAndEvaluate(Kmeans kmeans, GmlData gml, List<Pattern>[] clustters) {
+	public SearchForNetworkAndEvaluate(Kmeans kmeans, GmlData gml, List<Pattern>[] clustters, String fixedLinks) {
 		super();
 		this.setNumberOfObjectives(4);
 		// tamanho do cromossomo
@@ -287,12 +339,20 @@ public class SearchForNetworkAndEvaluate extends AbstractIntegerProblem {
 		this.clustters = clustters;
 		this.lineColumn = kmeans.getNearestPatternsFromCentroid();
 		this.centroids = kmeans.getNearestPatternsFromCentroid();
-		// testCardinalidadeCentroidCluster();
-		// testMudaMatrixInterira();
-		// testMudaElementoDaMatriz();
+		try {
+			retrieveTheFixedInitialNetworks();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		if (fixedLinks.equals("y")) {
+			this.FixedInitiallinks=true;
+		}else {
+			this.FixedInitiallinks=false;
+		}
+		
 		this.ptg = new PatternToGml(gml);
 		SetNetWork();
-		// this.setNumberOfConstraints(1);
 		printIncialCentroide();
 	}
 }

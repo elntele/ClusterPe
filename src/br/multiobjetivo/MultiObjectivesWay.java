@@ -38,7 +38,7 @@ public class MultiObjectivesWay {
 		CrossoverOperator<IntegerSolution> crossover; // do Jmetal
 		MutationOperator<IntegerSolution> mutation; // do Jmetal
 		SelectionOperator<List<IntegerSolution>, IntegerSolution> selection; // do
-		problem = new SearchForNetworkAndEvaluate(kmeans, gml,clustters);
+		problem = new SearchForNetworkAndEvaluate(kmeans, gml,clustters, prop.get("solucaoInicialUnica").toString());
 
 		// ****************************
 		double crossoverProbability = 1.0;

@@ -1,9 +1,10 @@
-<?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
+<?xml version="1.0" encoding="windows-1252" standalone="no"?>
 <!DOCTYPE log SYSTEM "logger.dtd">
 <log>
 <record>
-  <date>2019-05-09T17:56:44</date>
-  <millis>1557435404389</millis>
+  <date>2019-05-29T18:33:21.309904800Z</date>
+  <millis>1559154801309</millis>
+  <nanos>904800</nanos>
   <sequence>0</sequence>
   <logger>org.uma.jmetal.util.JMetalLogger</logger>
   <level>INFO</level>
@@ -13,8 +14,9 @@
   <message>Loggers configured with null</message>
 </record>
 <record>
-  <date>2019-05-09T17:56:44</date>
-  <millis>1557435404445</millis>
+  <date>2019-05-29T18:33:21.343814200Z</date>
+  <millis>1559154801343</millis>
+  <nanos>814200</nanos>
   <sequence>1</sequence>
   <logger>org.uma.jmetal.util.JMetalLogger</logger>
   <level>INFO</level>

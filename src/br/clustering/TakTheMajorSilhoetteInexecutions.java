@@ -43,7 +43,7 @@ public class TakTheMajorSilhoetteInexecutions {
 		 * inclusive o silhette, tudo é salvo nas tabelas dentro do projeto
 		 */
 		int NumberClusterSelected = 15;
-		int ExecutionSelected = 0;
+//		int ExecutionSelected = 0;
 		String[] alg = { "algorithm_PSC", "algorithm_KMeans", "algorithm_FCMeans" };
 		String algselected = alg[2];
 		System.out.println("algoritmo selecionado: " + algselected);

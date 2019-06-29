@@ -34,7 +34,7 @@ public class MetricsEvol {
 //				double hvmb = 0;// cometa esse pra pegar a media jorge
 	
 				
-				String path = "C:/Users/elnte/OneDrive/Área de Trabalho/rural 2/mestrado/2019.1/computação evolutiva/BRACIS/nova rodada/kmeans da maquina rápida/resultados/algorithm_KMeans/sem busca/execução " 
+				String path = "C:/Users/elnte/OneDrive/Área de Trabalho/rural 2/mestrado/2019.1/computação evolutiva/teste de tempo busca seletiva/resultados busca seletiva/algorithm_KMeans/com busca/execução " 
 				+ j + "/FUN" + i + ".tsv";
 //				String path = "C:/Users/jorge/Desktop/rural 2/2018.2/pic/resultado/k2/execução " + j + "/FUN" + i + ".tsv";
 //				String path = "C:/Users/jorge/workspace/ClusterPe/src/sem busca/execução " + j + "/FUN" + i + ".tsv";
@@ -53,7 +53,7 @@ public class MetricsEvol {
 				List<PointSolution> normalizedPopulation = FrontUtils.convertFrontToSolutionList(normalizedFront);
 				hvma += hypervolume.evaluate(normalizedPopulation);
 				
-				path = "C:/Users/elnte/OneDrive/Área de Trabalho/rural 2/mestrado/2019.1/computação evolutiva/BRACIS/nova rodada/FcMeans/resultados/algorithm_FCMeans/sem busca/execução " 
+				path = "C:/Users/elnte/OneDrive/Área de Trabalho/rural 2/mestrado/2019.1/computação evolutiva/teste de tempo busca seletiva/Resultados busca populaçao inteira/algorithm_KMeans/com busca/execução " 
 						+ j + "/FUN" + i + ".tsv";
 //			
 //				path = "C:/Users/jorge/Desktop/rural 2/2018.2/pic/rCesultado/k4/execução " + j + "/FUN" + i + ".tsv";
@@ -109,8 +109,8 @@ public class MetricsEvol {
 			//descomenta esse pra pegar a media jorge
 			System.out.print(i + " ");
 			System.out.printf("%.4f ", hvma/11) ;
-			System.out.printf("%.4f ", hvmb/11);
-			System.out.printf("%.4f\n", hvmc/11);
+			System.out.printf("%.4f \n", hvmb/11);
+			//System.out.printf("%.4f\n", hvmc/11);
 		}
 
 	}

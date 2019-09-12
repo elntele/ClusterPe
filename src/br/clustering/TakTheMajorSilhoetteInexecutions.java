@@ -42,10 +42,10 @@ public class TakTheMajorSilhoetteInexecutions {
 		 * parametros ClusterSelected e algselected. Então recupera as metricas
 		 * inclusive o silhette, tudo é salvo nas tabelas dentro do projeto
 		 */
-		int NumberClusterSelected = 15;
+		int NumberClusterSelected = 21;
 //		int ExecutionSelected = 0;
 		String[] alg = { "algorithm_PSC", "algorithm_KMeans", "algorithm_FCMeans" };
-		String algselected = alg[2];
+		String algselected = alg[0];
 		System.out.println("algoritmo selecionado: " + algselected);
 		Double maiorSilhouette=Double.MIN_VALUE;
 		int NumeroDAExecucao=0;

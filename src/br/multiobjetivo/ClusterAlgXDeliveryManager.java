@@ -67,8 +67,8 @@ public class ClusterAlgXDeliveryManager {
 		 * Silhouette.
 		 * 
 		 */
-		int kSize = 15; // numero de cluster
-		int execucao = 5;// uma das execuções de clodomir, vai de 1 a 30,
+		int kSize = 21; // numero de cluster
+		int execucao = 2;// uma das execuções de clodomir, vai de 1 a 30,
 							// chutei a 10
 
 		MetricsIntraCluster metrics = new MetricsIntraCluster();

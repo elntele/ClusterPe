@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import br.cns.experiments.centrality.CentralizationComparison;
 import br.cns.model.GmlData;
 import br.cns.model.GmlNode;
 import br.cns.persistence.GmlDao;
@@ -14,156 +15,117 @@ import cbic15.Pattern;
 public class AlgClusterX {
 
 	public static void main(String[] args) throws IOException {
-		String patch = "C:/Users/jorge/workspace/ClusterPe/src/MunicipiosDePernambucoTec.RedesFinalizado.gml";
+		String patch = "src/MunicipiosDePernambucoTec.RedesFinalizado.gml";
 		GmlData gml = new GmlDao().loadGmlData(patch); // novo
 		List<Pattern> listPatterns = new ArrayList<>();
 		List<GmlNode> listCity = gml.getNodes();// novo
-		TableToList tableToList =new TableToList();
-	    
-	    for (GmlNode c : listCity) {
+		TableToList tableToList = new TableToList();
+		Pattern[] centroidsExternoParaUsarEmOutroIndices;
+		int SeletorIndexQaulity = 1; // para selecionar a string em nameTable
+		String[] nameTable = { "silhouette", "dunn" };
+
+		for (GmlNode c : listCity) {
 			double[] variables = { c.getLatitude(), c.getLongitude() };
 			Pattern pattern = new Pattern(c.getLabel(), variables, null);
 			pattern.setId(c.getId());
 			listPatterns.add(pattern);
 		}
-	    
-	    gml.createComplexNetwork();
-		List<List<Double>> globalResultSillhouetteAverange = new ArrayList();
+
+		gml.createComplexNetwork();
+		List<List<Double>> globalResultQualityIndexAverange = new ArrayList();
 		List<String> listStringCluster = new ArrayList<>();
 		HashMap<Integer, List<Integer>> mapIteration = new HashMap<Integer, List<Integer>>();
 		List<List<Double>> maxMinAverangeDisntanceInterCentroids = new ArrayList<>();
 		List<List<Double>> maxMindistanceIntraCluster = new ArrayList();
 		List<List<Double>> maxMindistanceBetweenCentroidsAndNodes = new ArrayList();
 		List<Pattern>[] copyFinalclustters = null;
-	    
-	    
+
 		/**
-		 * loop executa o kmeans com k de 4 a 20, ou seja com 4 a 20 clusters ha
-		 * uma lista de centroids que esta sendo montada, impressa e
-		 * reinicializada a cada k do loop até o ultimo k onde ela não é mais
-		 * reinicializada. no final de cada iteração ha um impressão do Index
-		 * Silhouette.
+		 * loop executa o kmeans com k de 4 a 20, ou seja com 4 a 20 clusters ha uma
+		 * lista de centroids que esta sendo montada, impressa e reinicializada a cada k
+		 * do loop até o ultimo k onde ela não é mais reinicializada. no final de cada
+		 * iteração ha um impressão do Index Silhouette.
 		 * 
 		 */
 		int kSizeMin = 4;
 		int kSizeMax = 30;
-		ClusterEmptData clusterEmptData=new ClusterEmptData();
+		ClusterEmptData clusterEmptData = new ClusterEmptData();
 		for (int i = kSizeMin; i <= kSizeMax; i++) {
 			List<Pattern> listCentroids = new ArrayList<>();
-			List<Double> resultSilhouetteAverage = new ArrayList();// lista pra pegar a média 
+			List<Double> resultQualityIndexAverage = new ArrayList();// lista pra pegar a média
 			List<Integer> listIteration = new ArrayList<>();
 			int w = 0;
-			int numClusterSize0=0;
-			double silhouetteAverage = 0;
+			int numClusterSize0 = 0;
+			double qualityIndexAverage = 0;
 			double DistanceAverange = 0;
-			MetricsIntraCluster metrics= new MetricsIntraCluster();
+			MetricsIntraCluster metrics = new MetricsIntraCluster();
 			while (w < 30) {
-				boolean clusterEmptSignal=false;
+				boolean clusterEmptSignal = false;
 				// array de listas do tipo pattern sendo preparado para ser
 				// passado
 				// (mais a frente) como parametro para o método
 				// getSilhouetteIndex da classe Kmeans
-		 		List<Pattern>[] clustters = new List[i];// descomentar depois
-				
+				List<Pattern>[] clustters = new List[i];// descomentar depois
+
 				/**
-				 * neste parte tem que chamar a aplicação em python com i de 4 a 40 de acordo com o for externo
-				 * ela tel que substituir as linas marcadas:
-				 *  Kmeans kmeans = new Kmeans(i, listPatterns);
-				 * 	clustters = kmeans.execute(200);
+				 * neste parte tem que chamar a aplicação em python com i de 4 a 40 de acordo
+				 * com o for externo ela tel que substituir as linas marcadas: Kmeans kmeans =
+				 * new Kmeans(i, listPatterns); clustters = kmeans.execute(200);
 				 * 
 				 */
-				
+
 				System.out.println("%%%%%%%%%%%%%%%%%%numero de clusters= " + i + " %%%%%%%%%%%%%%%%%%%");
-				
-				String patchCluster="C:/Users/jorge/Desktop/rural 2/2018.1/artigos/kmens e FCM/cities_clustering/algorithm_PSC/clusters_k_"+i+"_exec_"+w+".csv";
-				String patchCentroid="C:/Users/jorge/Desktop/rural 2/2018.1/artigos/kmens e FCM/cities_clustering/algorithm_PSC/centroids_k_"+i+"_exec_"+w+".csv";;
-				
-				ClusterCentroid clusterCentroidCluster=new ClusterCentroid();
-				clusterCentroidCluster=tableToList.retrievCluster(patchCluster);
+				String[] alg = { "algorithm_PSC", "algorithm_KMeans", "algorithm_FCMeans" };
+
+				String patchCluster = "src/" + alg[2] + "/clusters_k_" + i + "_exec_" + w + ".csv";
+				String patchCentroid = "src/" + alg[2] + "/centroids_k_" + i + "_exec_" + w + ".csv";
+				;
+
+				ClusterCentroid clusterCentroidCluster = new ClusterCentroid();
+				clusterCentroidCluster = tableToList.retrievCluster(patchCluster);
 				clustters = clusterCentroidCluster.getCluster();
-				
+
 				// guardando dados de quando houver cluster vazio
 				Kmeans kmeans = new Kmeans(i, listPatterns);// subtituir este
-	//			MetricsIntraCluster metrics= new MetricsIntraCluster();
-				if (tableToList.clusterEmpte(clustters)>0){
-					numClusterSize0-=1;
-					clusterEmptSignal=true;
+				// MetricsIntraCluster metrics= new MetricsIntraCluster();
+				if (tableToList.clusterEmpte(clustters) > 0) {
+					numClusterSize0 -= 1;
+					clusterEmptSignal = true;
 					clusterEmptData.setkAndexecution(clustters, w);
-					System.out.println("numero de vazios: "+clusterEmptData.getkAndexecution().size());
-					System.out.println("numClusterSize0: "+numClusterSize0);
-				}else{
+					System.out.println("numero de vazios: " + clusterEmptData.getkAndexecution().size());
+					System.out.println("numClusterSize0: " + numClusterSize0);
+				} else {
 					metrics.setStringCluster(clustters);
 					listStringCluster.add(metrics.getStringCluster());
-					Pattern[] centroids =metrics.monteCentroids(patchCentroid, tableToList, kmeans, clustters);
+					Pattern[] centroids = metrics.monteCentroids(patchCentroid, tableToList, kmeans, clustters);
 					metrics.setCluster(clustters);
 				}
-				
-					int interation =clusterCentroidCluster.getInteration();
-				//clustters = tableToList.retrievCluster(patchCluster).getCluster() ; // jorge
+
+				int interation = clusterCentroidCluster.getInteration();
+				// clustters = tableToList.retrievCluster(patchCluster).getCluster() ; // jorge
 
 //				Kmeans kmeans = new Kmeans(i, listPatterns);// subtituir este
-			//	clustters = kmeans.execute(200);// substituir este jorge
+				// clustters = kmeans.execute(200);// substituir este jorge
 				// List<String> litleCluster = new ArrayList<>();
 //				(!clusterEmptSignal) 
-				if (w == 29){
-					Pattern[] centroids;
-					if (!clusterEmptSignal){
-						MetricsIntraCluster metrics1= new MetricsIntraCluster();
-						metrics1.setStringCluster(clustters);
-						listStringCluster.add(metrics1.getStringCluster());
-						centroids =metrics1.monteCentroids(patchCentroid, tableToList, kmeans, clustters);
-					}else{
-						 clustters=metrics.getCluster();
-						 centroids =metrics.getCentroids();
-					}	
-					
-					
-//					// montando a lista com os nomes das cidades de cada cluster 
-//					String stringCluster = "";
-//					for (int u = 0; u < clustters.length; u++) {// descomentar depois
-//						stringCluster += "{";
-//						for (Pattern p : clustters[u]) {
-//							stringCluster += p.getName();
-//							stringCluster += ", ";
-//						}
-//						stringCluster += "} ";
-//					}
-//					listStringCluster.add(stringCluster);
-//					metrics.setStringCluster(clustters);
-//					listStringCluster.add(metrics.getStringCluster());
 
-					// calculando a distância mínima, máxima e média entre os
-					// centrois
-					
-//					// comenta esse dois jorge
-//					ClusterCentroid clusterCentroidCentroid=new ClusterCentroid();
-//					clusterCentroidCentroid=tableToList.retrievCentroid(patchCentroid);
-//					Pattern[] centroids =clusterCentroidCentroid.getCentroids();
-//					//Pattern[] centroids =tableToList.retrievCentroid(patchCentroid).getCentroids();
-//					kmeans.setCentroids(centroids);
-//		//		/*	Pattern[] */ centroids = kmeans.getNearestPatternsFromCentroid(); // jorge
-//					//para psc
-//			//		centroids = kmeans.getNearestPatternsFromCentroid(clustters,centroids); // jorge
-//					// teste apagar depois
-//					if (i==21 && w==29){// foi pra só pra  colocar um breakpoint na condição do if
-//						centroids = kmeans.getNearestPatternsFromCentroid(clustters,centroids);
-//					} else{
-//						centroids = kmeans.getNearestPatternsFromCentroid(clustters,centroids);
-//					}
-//				// teste apagar depois	
-//				System.out.println("este é o i " +i);
-//				System.out.println("este é o w " +w);
-//				// teste apagar depois
-//				if (i==21 && w==29){
-//					centroids=tableToList.takeSelfObject(centroids, clustters);
-//				} else{
-//					centroids=tableToList.takeSelfObject(centroids, clustters);
-//				}
+				Pattern[] centroids;
+				if (!clusterEmptSignal) {
+					MetricsIntraCluster metrics1 = new MetricsIntraCluster();
+					metrics1.setStringCluster(clustters);
+					listStringCluster.add(metrics1.getStringCluster());
+					centroids = metrics1.monteCentroids(patchCentroid, tableToList, kmeans, clustters);
+				} else {
+					clustters = metrics.getCluster();
+					centroids = metrics.getCentroids();
+				}
+				if (w == 29) {
+
 //					Pattern[] centroids =metrics.monteCentroids(patchCentroid, tableToList, kmeans, clustters);
-					AllDistancesCLuster node = new AllDistancesCLuster(centroids, gml,clustters);
-						maxMinAverangeDisntanceInterCentroids.add(node.distanceInterCentroids());	
+					AllDistancesCLuster node = new AllDistancesCLuster(centroids, gml, clustters);
+					maxMinAverangeDisntanceInterCentroids.add(node.distanceInterCentroids());
 
-					
+					// essa parte é só para imprimir nomes de cidades
 					if (i == kSizeMax) {
 						copyFinalclustters = clustters;
 						maxMindistanceBetweenCentroidsAndNodes = node.distanceBetweenCentroidAndNodesInCluster();
@@ -190,22 +152,35 @@ public class AlgClusterX {
 
 					}
 				}
-				
-				if (!clusterEmptSignal){
-				silhouetteAverage += kmeans.getSilhouetteIndex(clustters);
-				listIteration.add(interation);
+
+				if (!clusterEmptSignal) {
+					switch (nameTable[SeletorIndexQaulity]) {
+					case "silhouette":
+						qualityIndexAverage += kmeans.getSilhouetteIndex(clustters);
+						break;
+					case "dunn":
+						Dunn dunn = new Dunn(centroids, gml, clustters);
+						qualityIndexAverage += dunn.dunnBiggerBetwennTwoPoints();
+
+						break;
+
+					default:
+						break;
+					}
+					listIteration.add(interation);
 				}
-				//listIteration.add(kmeans.getCountItaration());
+				// listIteration.add(kmeans.getCountItaration());
 				w += 1;
 			}
 			listIteration.sort(null);
 			mapIteration.put(i, listIteration);
-			resultSilhouetteAverage.add(silhouetteAverage / (w-numClusterSize0));
-			resultSilhouetteAverage.add((double) i);
-			globalResultSillhouetteAverange.add(resultSilhouetteAverage);
+			resultQualityIndexAverage.add(qualityIndexAverage / (w - numClusterSize0));
+			resultQualityIndexAverage.add((double) i);
+			globalResultQualityIndexAverange.add(resultQualityIndexAverage);
 		}
 
-		SpreadSheet dataSheet = new SpreadSheet(globalResultSillhouetteAverange, listStringCluster, copyFinalclustters);
+		SpreadSheet dataSheet = new SpreadSheet(globalResultQualityIndexAverange, listStringCluster, copyFinalclustters,
+				nameTable[SeletorIndexQaulity]);
 		dataSheet.createSpreedSheetMMAverangeDistanceBetweenCentroids(maxMinAverangeDisntanceInterCentroids, kSizeMin);
 		dataSheet.createSpreedSheetMMAverangeDistanceBetweenCentroidAndNode(maxMindistanceBetweenCentroidsAndNodes);
 		dataSheet.createSpreedSheetMMAverangeDistanceIntraCluster(maxMindistanceIntraCluster);
@@ -213,10 +188,5 @@ public class AlgClusterX {
 		dataSheet.createSpreadForMapGoogle();
 		dataSheet.createSpreedSheetCountEmptCluster(clusterEmptData);
 	}
-	    
-	    
-	    
-	   
-	}
 
-
+}

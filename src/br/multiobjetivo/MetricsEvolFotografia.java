@@ -10,6 +10,13 @@ import org.uma.jmetal.util.front.util.FrontUtils;
 import org.uma.jmetal.util.point.Point;
 import org.uma.jmetal.util.point.impl.ArrayPoint;
 import org.uma.jmetal.util.point.util.PointSolution;
+/**
+ * essa classe tira a media da interação x a ser configurada con parametro i
+ * nas n execuções a ser configurada no parametro j fo for
+ * é uma fotografia da média em um dado momento ou melhor dada iteração nas n execuções 
+ * @author elnte
+ *
+ */
 
 public class MetricsEvolFotografia {
 	
@@ -24,7 +31,7 @@ public class MetricsEvolFotografia {
 		HypervolumeConc hypervolume = new HypervolumeConc(frontRef);
 
 		Front normalizedFront = null;
-		int i =200; // esse i é a itreração fotografada
+		int i =500; // esse i é a itreração fotografada
 			
 			for (int j = 1; j <= 11; j++) { 
 				double hvma = 0;// cometa esse pra pegar a media jorge
@@ -68,27 +75,31 @@ public class MetricsEvolFotografia {
 				hvmb += hypervolume.evaluate(normalizedPopulation);
 
 				
-//				path = "C:/Users/jorge/Desktop/rural 2/2018.2/pic/resultado/sem busca/execução " + j + "/FUN" + i + ".tsv";
-//				try {
-//					normalizedFront = new ArrayFront(path);
-//				} catch (FileNotFoundException e) {
-//					e.printStackTrace();
-//				}
-//
-//				for (int s = 0; s < normalizedFront.getNumberOfPoints(); s++) {
-//					normalizedFront.getPoint(s).setDimensionValue(0, normalizedFront.getPoint(s).getDimensionValue(0));
-//					normalizedFront.getPoint(s).setDimensionValue(1, normalizedFront.getPoint(s).getDimensionValue(1)/29340);
-//					normalizedFront.getPoint(s).setDimensionValue(2, normalizedFront.getPoint(s).getDimensionValue(2)/3795187.303);
-//					normalizedFront.getPoint(s).setDimensionValue(3, normalizedFront.getPoint(s).getDimensionValue(3)/0.943406697);
-//				}
-//				normalizedPopulation = FrontUtils.convertFrontToSolutionList(normalizedFront);
-//
-//				hvmc += hypervolume.evaluate(normalizedPopulation);
+				path = "C:/Users/elnte/OneDrive/Área de Trabalho/rural 2/mestrado/2019.1/computação evolutiva/teste de tempo busca seletiva/"
+						+ "resultados busca seletiva aleatoria/algorithm_KMeans/com busca/execução " + j 
+						+ "/FUN" + i + ".tsv";
+				try {
+					normalizedFront = new ArrayFront(path);
+				} catch (FileNotFoundException e) {
+					e.printStackTrace();
+				}
+
+				for (int s = 0; s < normalizedFront.getNumberOfPoints(); s++) {
+					normalizedFront.getPoint(s).setDimensionValue(0, normalizedFront.getPoint(s).getDimensionValue(0));
+					normalizedFront.getPoint(s).setDimensionValue(1, normalizedFront.getPoint(s).getDimensionValue(1)/29340);
+					normalizedFront.getPoint(s).setDimensionValue(2, normalizedFront.getPoint(s).getDimensionValue(2)/3795187.303);
+					normalizedFront.getPoint(s).setDimensionValue(3, normalizedFront.getPoint(s).getDimensionValue(3)/0.943406697);
+				}
+				normalizedPopulation = FrontUtils.convertFrontToSolutionList(normalizedFront);
+
+				hvmc += hypervolume.evaluate(normalizedPopulation);
 				//comenta esse pra pegar a media jorge
 				System.out.print(j + " ");// mude pra i jorge
 				System.out.printf("%.4f ", hvma) ;
-				System.out.printf("%.4f\n", hvmb);
-
+				System.out.printf("%.4f ", hvmb);
+				System.out.printf("%.4f\n", hvmc);
+				
+				
 			}
 
 	}

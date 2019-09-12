@@ -152,7 +152,7 @@ public class SilhuetteOfJustOneClustter {
 		resultSilhouetteAverage.add((double) NumberClusterSelected);
 		globalResultSillhouetteAverange.add(resultSilhouetteAverage);
 
-		SpreadSheet dataSheet = new SpreadSheet(globalResultSillhouetteAverange, listStringCluster, copyFinalclustters);
+		SpreadSheet dataSheet = new SpreadSheet(globalResultSillhouetteAverange, listStringCluster, copyFinalclustters,"silhouette");
 		dataSheet.createSpreedSheetMMAverangeDistanceBetweenCentroids(maxMinAverangeDisntanceInterCentroids,
 				NumberClusterSelected);
 		dataSheet.createSpreedSheetMMAverangeDistanceBetweenCentroidAndNode(maxMindistanceBetweenCentroidsAndNodes);

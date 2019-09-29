@@ -20,17 +20,17 @@ public class SpreadSheet {
 	// Criando o arquivo e uma planilha chamada "Silhouette"
 	List<Pattern>[] clustters;
 	private List<List<Double>> silhouetteClusters = new ArrayList();
-	private static final String fileNameCsC = "C:/Users/jorge/workspace/ClusterPe/src/cluster_silhouette_cidade.xls";
-	private static final String fileNameIte = "C:/Users/jorge/workspace/ClusterPe/src/Iteratio_MaxMim .xls";
-	private static final String fileNameMiMaAveDisCentoids = "C:/Users/jorge/workspace/ClusterPe/src/distanciaEntreCentroids.xls";
-	private static final String fileNameMiMaAveDisIntraCluster = "C:/Users/jorge/workspace/ClusterPe/src/distanciaIntraCluster.xls";
-	private static final String fileNameMiMaAveDisBetweenCentroidsAndNode = "C:/Users/jorge/workspace/ClusterPe/src/distanciaEntre_Centroid_E_no.xls";
-	private static final String fileNameTableToTheGoogleMap = "C:/Users/jorge/workspace/ClusterPe/src/tabela_para_mapa.xls";
-	private static final String fileNameCountClusterEmpt = "C:/Users/jorge/workspace/ClusterPe/src/tabela_de_clusters_vazios.xls";
+	private static final String fileNameCsC = "src/tabelasRespostasDaclusterização/";
+	private static final String fileNameIte = "src/tabelasRespostasDaclusterização/Iteratio_MaxMim .xls";
+	private static final String fileNameMiMaAveDisCentoids = "src/tabelasRespostasDaclusterização/distanciaEntreCentroids.xls";
+	private static final String fileNameMiMaAveDisIntraCluster = "src/tabelasRespostasDaclusterização/distanciaIntraCluster.xls";
+	private static final String fileNameMiMaAveDisBetweenCentroidsAndNode = "src/tabelasRespostasDaclusterização/distanciaEntre_Centroid_E_no.xls";
+	private static final String fileNameTableToTheGoogleMap = "src/tabelasRespostasDaclusterização/tabela_para_mapa.xls";
+	private static final String fileNameCountClusterEmpt = "src/tabelasRespostasDaclusterização/tabela_de_clusters_vazios.xls";
 
 	private String clusterString[];
 
-	public SpreadSheet(List<List<Double>> silhouetteClusters, List<String> list, List<Pattern>[] clustters) {
+	public SpreadSheet(List<List<Double>> silhouetteClusters, List<String> list, List<Pattern>[] clustters, String name) {
 		super();
 		this.silhouetteClusters = silhouetteClusters;
 		this.clustters = clustters;
@@ -42,7 +42,8 @@ public class SpreadSheet {
 
 		}
 		this.clusterString = clusString;
-		createSpreadSheetSillhouetteClusterK();
+		//cria cria tabela com indice, tipo silhouette
+		createSpreadSheetIndexClusterK(name);
 
 	}
 
@@ -108,7 +109,7 @@ public class SpreadSheet {
 
 	}
 
-	public void createSpreadSheetSillhouetteClusterK() {
+	public void createSpreadSheetIndexClusterK(String name) {
 		HSSFWorkbook workTable = new HSSFWorkbook();
 		HSSFSheet sheet = workTable.createSheet("Silhouette");
 		int rownum = 0;
@@ -119,7 +120,7 @@ public class SpreadSheet {
 			int cellnum = 0;
 			if (count == 0) {
 				Cell numClus = row.createCell(cellnum++);
-				numClus.setCellValue("Silhouette");
+				numClus.setCellValue(name);
 				Cell silhouette = row.createCell(cellnum++);
 				silhouette.setCellValue("nº de clusters");
 				Cell clusterGroup = row.createCell(cellnum++);
@@ -145,7 +146,7 @@ public class SpreadSheet {
 		}
 
 		try {
-			FileOutputStream out = new FileOutputStream(new File(SpreadSheet.fileNameCsC));
+			FileOutputStream out = new FileOutputStream(new File(SpreadSheet.fileNameCsC+name+".xls"));
 			workTable.write(out);
 			out.close();
 			System.out.println("Tabela Cluster versus silhouette criado com sucesso!");

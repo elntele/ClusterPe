@@ -23,9 +23,9 @@ public class AllDistancesCLuster {
 	}
 
 	/**
-	 * calcuca distancias dos dós dentro de cada cluster
+	 * calcula distâncias dos nós dentro de cada cluster
 	 * 
-	 * @return o maximo valor, o minimo e a méda de cada cluster em uma lista de
+	 * @return o máximo valor, o mínimo e a méda de cada cluster em uma lista de
 	 *         lista Obs: deve ser usado no final do loop principal quando o
 	 *         Cluster já estiver todo montado
 	 */
@@ -115,6 +115,11 @@ public class AllDistancesCLuster {
 						minDistance = CurrentDistance;
 					averageDistance += CurrentDistance;
 					distanceCount += 1;
+					if (Arraynode[j].getId()==143 && Arraynode[g].getId()==170) {
+						System.out.println(Arraynode[j].getLabel());
+						System.out.println(Arraynode[g].getLabel());
+					}
+					
 				}
 			}
 		}

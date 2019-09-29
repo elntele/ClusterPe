@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import br.cns.experiments.centrality.CentralizationComparison;
 import br.cns.model.GmlData;
 import br.cns.model.GmlNode;
 import br.cns.persistence.GmlDao;
@@ -21,7 +20,7 @@ public class AlgClusterX {
 		List<GmlNode> listCity = gml.getNodes();// novo
 		TableToList tableToList = new TableToList();
 		Pattern[] centroidsExternoParaUsarEmOutroIndices;
-		int SeletorIndexQaulity = 1; // para selecionar a string em nameTable
+		int SeletorIndexQaulity = 0; // para selecionar a string em nameTable
 		String[] nameTable = { "silhouette", "dunn" };
 
 		for (GmlNode c : listCity) {
@@ -49,17 +48,25 @@ public class AlgClusterX {
 		 */
 		int kSizeMin = 4;
 		int kSizeMax = 30;
+		TakeTheMajorSilhouetteExecutionAndReturn Takeexecution = new TakeTheMajorSilhouetteExecutionAndReturn();
 		ClusterEmptData clusterEmptData = new ClusterEmptData();
 		for (int i = kSizeMin; i <= kSizeMax; i++) {
 			List<Pattern> listCentroids = new ArrayList<>();
 			List<Double> resultQualityIndexAverage = new ArrayList();// lista pra pegar a média
 			List<Integer> listIteration = new ArrayList<>();
-			int w = 0;
+			int w = 0;// isso é a execução
+
 			int numClusterSize0 = 0;
 			double qualityIndexAverage = 0;
 			double DistanceAverange = 0;
 			MetricsIntraCluster metrics = new MetricsIntraCluster();
-			while (w < 30) {
+			String[] alg = { "algorithm_PSC", "algorithm_KMeans", "algorithm_FCMeans" };
+			String algX = alg[2];
+
+			int betterExecution = Takeexecution.TakeTheEexecution(algX, i);
+
+			while (w <= 29) {
+
 				boolean clusterEmptSignal = false;
 				// array de listas do tipo pattern sendo preparado para ser
 				// passado
@@ -75,10 +82,8 @@ public class AlgClusterX {
 				 */
 
 				System.out.println("%%%%%%%%%%%%%%%%%%numero de clusters= " + i + " %%%%%%%%%%%%%%%%%%%");
-				String[] alg = { "algorithm_PSC", "algorithm_KMeans", "algorithm_FCMeans" };
-
-				String patchCluster = "src/" + alg[2] + "/clusters_k_" + i + "_exec_" + w + ".csv";
-				String patchCentroid = "src/" + alg[2] + "/centroids_k_" + i + "_exec_" + w + ".csv";
+				String patchCluster = "src/" + algX + "/clusters_k_" + i + "_exec_" + w + ".csv";
+				String patchCentroid = "src/" + algX + "/centroids_k_" + i + "_exec_" + w + ".csv";
 				;
 
 				ClusterCentroid clusterCentroidCluster = new ClusterCentroid();
@@ -119,7 +124,9 @@ public class AlgClusterX {
 					clustters = metrics.getCluster();
 					centroids = metrics.getCentroids();
 				}
-				if (w == 29) {
+					
+					
+				if (w == betterExecution&& !clusterEmptSignal) {
 
 //					Pattern[] centroids =metrics.monteCentroids(patchCentroid, tableToList, kmeans, clustters);
 					AllDistancesCLuster node = new AllDistancesCLuster(centroids, gml, clustters);

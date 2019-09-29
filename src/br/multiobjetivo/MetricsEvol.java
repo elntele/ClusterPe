@@ -1,4 +1,5 @@
 package br.multiobjetivo;
+
 import java.io.FileNotFoundException;
 import java.util.List;
 
@@ -24,18 +25,20 @@ public class MetricsEvol {
 		HypervolumeConc hypervolume = new HypervolumeConc(frontRef);
 
 		Front normalizedFront = null;
-		for (int i = 20; i <= 500; i += 20) {//aqui
-			// cada um desses hvm representa o hypervolume de uma abordagem, no estudo de k vizinho, hvma, hvmb e hvec eram respectivamente as médias de k2,k4 e k8 vizinhos
+		for (int i = 20; i <= 500; i += 20) {// aqui
+			// cada um desses hvm representa o hypervolume de uma abordagem, no estudo de k
+			// vizinho, hvma, hvmb e hvec eram respectivamente as médias de k2,k4 e k8
+			// vizinhos
 			double hvma = 0;// descomenta esse pra pegar a media jorge
 			double hvmb = 0;// descomenta esse pra pegar a media jorge
 			double hvmc = 0;// descomenta esse pra pegar a media jorge
-			for (int j = 1; j <= 11; j++) {
+			for (int j = 1; j <= 3; j++) {
 //				double hvma = 0;// cometa esse pra pegar a media jorge
 //				double hvmb = 0;// cometa esse pra pegar a media jorge
-	
-				
-				String path = "C:/Users/elnte/OneDrive/Área de Trabalho/rural 2/mestrado/2019.1/computação evolutiva/teste de tempo busca seletiva/resultados busca seletiva/algorithm_KMeans/com busca/execução " 
-				+ j + "/FUN" + i + ".tsv";
+
+				String path = "C:/Users/elnte/OneDrive/Área de Trabalho/rural 2/mestrado/2019.2/orientação/teste inicial k em 21/algorithm_FCMeans/sem busca/execução "
+						+ j + "/FUN" + i + ".tsv";
+
 //				String path = "C:/Users/jorge/Desktop/rural 2/2018.2/pic/resultado/k2/execução " + j + "/FUN" + i + ".tsv";
 //				String path = "C:/Users/jorge/workspace/ClusterPe/src/sem busca/execução " + j + "/FUN" + i + ".tsv";
 //				String path = "C:/UFRPE/graduação/tcc/jorge/sem busca/execução " + j + "/FUN" + i + ".tsv";
@@ -46,14 +49,16 @@ public class MetricsEvol {
 				}
 				for (int s = 0; s < normalizedFront.getNumberOfPoints(); s++) {
 					normalizedFront.getPoint(s).setDimensionValue(0, normalizedFront.getPoint(s).getDimensionValue(0));
-					normalizedFront.getPoint(s).setDimensionValue(1, normalizedFront.getPoint(s).getDimensionValue(1)/29340);
-					normalizedFront.getPoint(s).setDimensionValue(2, normalizedFront.getPoint(s).getDimensionValue(2)/3795187.303);
+					normalizedFront.getPoint(s).setDimensionValue(1,
+							normalizedFront.getPoint(s).getDimensionValue(1) / 38750.91883950791);
+					normalizedFront.getPoint(s).setDimensionValue(2,
+							normalizedFront.getPoint(s).getDimensionValue(2) / 4051403.5722048553);
 					normalizedFront.getPoint(s).setDimensionValue(3, normalizedFront.getPoint(s).getDimensionValue(3));
 				}
 				List<PointSolution> normalizedPopulation = FrontUtils.convertFrontToSolutionList(normalizedFront);
 				hvma += hypervolume.evaluate(normalizedPopulation);
-				
-				path = "C:/Users/elnte/OneDrive/Área de Trabalho/rural 2/mestrado/2019.1/computação evolutiva/teste de tempo busca seletiva/Resultados busca populaçao inteira/algorithm_KMeans/com busca/execução " 
+
+				path = "C:/Users/elnte/OneDrive/Área de Trabalho/rural 2/mestrado/2019.2/orientação/teste inicial k em 21/algorithm_KMeans/sem busca/execução "
 						+ j + "/FUN" + i + ".tsv";
 //			
 //				path = "C:/Users/jorge/Desktop/rural 2/2018.2/pic/rCesultado/k4/execução " + j + "/FUN" + i + ".tsv";
@@ -69,20 +74,22 @@ public class MetricsEvol {
 
 				for (int s = 0; s < normalizedFront.getNumberOfPoints(); s++) {
 					normalizedFront.getPoint(s).setDimensionValue(0, normalizedFront.getPoint(s).getDimensionValue(0));
-					normalizedFront.getPoint(s).setDimensionValue(1, normalizedFront.getPoint(s).getDimensionValue(1)/29340);
-					normalizedFront.getPoint(s).setDimensionValue(2, normalizedFront.getPoint(s).getDimensionValue(2)/3795187.303);
-					normalizedFront.getPoint(s).setDimensionValue(3, normalizedFront.getPoint(s).getDimensionValue(3)/0.943406697);
+					normalizedFront.getPoint(s).setDimensionValue(1,
+							normalizedFront.getPoint(s).getDimensionValue(1) / 38750.91883950791);
+					normalizedFront.getPoint(s).setDimensionValue(2,
+							normalizedFront.getPoint(s).getDimensionValue(2) / 4051403.5722048553);
+					normalizedFront.getPoint(s).setDimensionValue(3,
+							normalizedFront.getPoint(s).getDimensionValue(3) /* / 0.943406697 */);
 				}
 				normalizedPopulation = FrontUtils.convertFrontToSolutionList(normalizedFront);
 
 				hvmb += hypervolume.evaluate(normalizedPopulation);
-				//comenta esse pra pegar a media jorge
+				// comenta esse pra pegar a media jorge
 //				System.out.print(/*i*/j + " ");// mude pra i jorge
 //				System.out.printf("%.4f ", hvma) ;
 //				System.out.printf("%.4f\n", hvmb);
 
-				
-				path = "C:/Users/elnte/OneDrive/Área de Trabalho/rural 2/mestrado/2019.1/computação evolutiva/BRACIS/nova rodada/FcMeans/resultados1/algorithm_FCMeans/com busca/execução " 
+				path = "C:/Users/elnte/OneDrive/Área de Trabalho/rural 2/mestrado/2019.2/orientação/teste inicial k em 21/algorithm_PSC/sem busca/execução "
 						+ j + "/FUN" + i + ".tsv";
 //				path = "C:/Users/jorge/Desktop/rural 2/2018.2/pic/resultado/sem busca/execução " + j + "/FUN" + i + ".tsv";
 				try {
@@ -93,24 +100,26 @@ public class MetricsEvol {
 
 				for (int s = 0; s < normalizedFront.getNumberOfPoints(); s++) {
 					normalizedFront.getPoint(s).setDimensionValue(0, normalizedFront.getPoint(s).getDimensionValue(0));
-					normalizedFront.getPoint(s).setDimensionValue(1, normalizedFront.getPoint(s).getDimensionValue(1)/29340);
-					normalizedFront.getPoint(s).setDimensionValue(2, normalizedFront.getPoint(s).getDimensionValue(2)/3795187.303);
-					normalizedFront.getPoint(s).setDimensionValue(3, normalizedFront.getPoint(s).getDimensionValue(3)/0.943406697);
+					normalizedFront.getPoint(s).setDimensionValue(1,
+							normalizedFront.getPoint(s).getDimensionValue(1) / 38750.91883950791);
+					normalizedFront.getPoint(s).setDimensionValue(2,
+							normalizedFront.getPoint(s).getDimensionValue(2) / 4051403.5722048553);
+					normalizedFront.getPoint(s).setDimensionValue(3, normalizedFront.getPoint(s).getDimensionValue(3));
 				}
 				normalizedPopulation = FrontUtils.convertFrontToSolutionList(normalizedFront);
 
 				hvmc += hypervolume.evaluate(normalizedPopulation);
-				//comenta esse pra pegar a media jorge
+				// comenta esse pra pegar a media jorge
 //				System.out.print(/*i*/j + " ");// mude pra i jorge
 //				System.out.printf("%.4f ", hvma) ;
 //				System.out.printf("%.4f\n", hvmb);
 
 			}
-			//descomenta esse pra pegar a media jorge
+			// descomenta esse pra pegar a media jorge
 			System.out.print(i + " ");
-			System.out.printf("%.4f ", hvma/11) ;
-			System.out.printf("%.4f \n", hvmb/11);
-			//System.out.printf("%.4f\n", hvmc/11);
+			System.out.printf("%.4f ", hvma / 3);
+			System.out.printf("%.4f ", hvmb / 3);
+			System.out.printf("%.4f\n", hvmc / 3);
 		}
 
 	}

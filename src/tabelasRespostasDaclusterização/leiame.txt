@@ -1,0 +1,1 @@
+este arquivo foi criado para upar a pasta que não estava aparecendo para o git quando não tinha aqruivo dentro

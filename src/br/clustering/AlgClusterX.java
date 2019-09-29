@@ -12,16 +12,33 @@ import cbic15.Kmeans;
 import cbic15.Pattern;
 
 public class AlgClusterX {
+	/**
+	 * ficou meio complicado, mas dá pra entender se olhar com atenção:
+	 * se a rede referenciada em patch for a midia net o pais vai ser germany e tem que selecionar
+	 * germany na lista countryNameInGml pelo seletor countrySelector. Também é preciso selecionar
+	 * a base de dados do algoritmo correto na lista alg, por equanto o midiadia net só tem oalgorithm_KMeans_medianet.
+	 * Se a rede for a de pernambuco em patch, o pais tem que ser brasil e tem que selecionar brasil em countryNameInGml.
+	 * e a base correta de algs que pode ser a pso, kmeans e fcmeans.
+	 * 1 selecione a rede
+	 * 2 selecione o país
+	 * 3 selecione a base do alg
+	 * @param args
+	 * @throws IOException
+	 */
 
 	public static void main(String[] args) throws IOException {
-		String patch = "src/MunicipiosDePernambucoTec.RedesFinalizado.gml";
+//		String patch = "src/MunicipiosDePernambucoTec.RedesFinalizado.gml";
+		String patch = "src/meniaNetGermanyAmpliada.gml";
 		GmlData gml = new GmlDao().loadGmlData(patch); // novo
 		List<Pattern> listPatterns = new ArrayList<>();
 		List<GmlNode> listCity = gml.getNodes();// novo
-		TableToList tableToList = new TableToList();
+		String[] countryNameInGml = { "Brazil", "Germany" };
+		int countrySelector=1;
+		TableToList tableToList = new TableToList(countryNameInGml[countrySelector]);
 		Pattern[] centroidsExternoParaUsarEmOutroIndices;
 		int SeletorIndexQaulity = 0; // para selecionar a string em nameTable
 		String[] nameTable = { "silhouette", "dunn" };
+		
 
 		for (GmlNode c : listCity) {
 			double[] variables = { c.getLatitude(), c.getLongitude() };
@@ -60,10 +77,10 @@ public class AlgClusterX {
 			double qualityIndexAverage = 0;
 			double DistanceAverange = 0;
 			MetricsIntraCluster metrics = new MetricsIntraCluster();
-			String[] alg = { "algorithm_PSC", "algorithm_KMeans", "algorithm_FCMeans" };
-			String algX = alg[2];
+			String[] alg = { "algorithm_PSC", "algorithm_KMeans", "algorithm_FCMeans","algorithm_KMeans_medianet"};
+			String algX = alg[3];
 
-			int betterExecution = Takeexecution.TakeTheEexecution(algX, i);
+			int betterExecution = Takeexecution.TakeTheEexecution(algX, i,countryNameInGml[countrySelector],patch);
 
 			while (w <= 29) {
 

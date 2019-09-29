@@ -27,7 +27,6 @@ public class SpreadSheet {
 	private static final String fileNameMiMaAveDisBetweenCentroidsAndNode = "src/tabelasRespostasDaclusterização/distanciaEntre_Centroid_E_no.xls";
 	private static final String fileNameTableToTheGoogleMap = "src/tabelasRespostasDaclusterização/tabela_para_mapa.xls";
 	private static final String fileNameCountClusterEmpt = "src/tabelasRespostasDaclusterização/tabela_de_clusters_vazios.xls";
-
 	private String clusterString[];
 
 	public SpreadSheet(List<List<Double>> silhouetteClusters, List<String> list, List<Pattern>[] clustters, String name) {

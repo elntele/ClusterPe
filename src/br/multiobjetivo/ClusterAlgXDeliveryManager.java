@@ -23,13 +23,16 @@ import cbic15.Pattern;
 public class ClusterAlgXDeliveryManager {
 
 	public static void main(String[] args) throws IOException {
-		String patch = "src/MunicipiosDePernambucoTec.RedesFinalizado.gml";
+//		String patch = "src/MunicipiosDePernambucoTec.RedesFinalizado.gml";
+		String patch = "src/meniaNetGermanyAmpliada.gml";
 		// String patch =
 		// "C:/Users/jorge/workspace/ClusterPe/src/MunicipiosDePernambucoTec.RedesFinalizado.gml";
 		GmlData gml = new GmlDao().loadGmlData(patch); // novo
 		List<Pattern> listPatterns = new ArrayList<>();
 		List<GmlNode> listCity = gml.getNodes();// novo
-		TableToList tableToList = new TableToList();
+		String[] countryNameInGml = { "Brazil", "Germany" };
+		int countrySelector=1;
+		TableToList tableToList = new TableToList(countryNameInGml[countrySelector]);
 		//**********planos futuros******************
 //		criar o primeiro dados.properties dentro 
 //		de qualquera area de trabalho independente do
@@ -67,8 +70,8 @@ public class ClusterAlgXDeliveryManager {
 		 * Silhouette.
 		 * 
 		 */
-		int kSize = 21; // numero de cluster
-		int execucao = 2;// uma das execuções de clodomir, vai de 1 a 30,
+		int kSize = 18; // numero de cluster
+		int execucao = 9;// uma das execuções de clodomir, vai de 0 a 29,
 							// chutei a 10
 
 		MetricsIntraCluster metrics = new MetricsIntraCluster();
@@ -92,7 +95,7 @@ public class ClusterAlgXDeliveryManager {
 		 * existe cluster vario. se for usar o PSC, é bom impplementar esta
 		 * varredura.
 		 */
-		String[] alg = { "algorithm_PSC", "algorithm_KMeans", "algorithm_FCMeans" };
+		String[] alg = { "algorithm_PSC", "algorithm_KMeans", "algorithm_FCMeans","algorithm_KMeans_medianet"};
 		int algNumber = Integer.parseInt(prop.getProperty("alg"));
 		String algselected = alg[algNumber];
 		prop.setProperty("algName", algselected);

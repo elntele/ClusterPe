@@ -18,7 +18,9 @@ public class SilhuetteOfJustOneClustter {
 		GmlData gml = new GmlDao().loadGmlData(patch); // novo
 		List<Pattern> listPatterns = new ArrayList<>();
 		List<GmlNode> listCity = gml.getNodes();// novo
-		TableToList tableToList = new TableToList();
+		String[] countryNameInGml = { "Brazil", "Germany" };
+		int countrySelector=0;
+		TableToList tableToList = new TableToList(countryNameInGml[countrySelector]);
 
 		for (GmlNode c : listCity) {
 			double[] variables = { c.getLatitude(), c.getLongitude() };

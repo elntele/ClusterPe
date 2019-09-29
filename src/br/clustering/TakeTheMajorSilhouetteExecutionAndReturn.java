@@ -17,13 +17,14 @@ public class TakeTheMajorSilhouetteExecutionAndReturn {
 
 	}
 
-	public int TakeTheEexecution(String alg, int kClusterNumber) {
+	public int TakeTheEexecution(String alg, int kClusterNumber, String countryNameInGml, String patch) {
 
-		String patch = "src/MunicipiosDePernambucoTec.RedesFinalizado.gml";
+		//String patch = "src/MunicipiosDePernambucoTec.RedesFinalizado.gml";
 		GmlData gml = new GmlDao().loadGmlData(patch); // novo
 		List<Pattern> listPatterns = new ArrayList<>();
 		List<GmlNode> listCity = gml.getNodes();// novo
-		TableToList tableToList = new TableToList();
+		
+		TableToList tableToList = new TableToList(countryNameInGml);
 		Pattern[] centroidsCopia = null;
 
 		for (GmlNode c : listCity) {

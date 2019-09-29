@@ -9,8 +9,10 @@ import java.util.List;
 import cbic15.Pattern;
 
 public class TableToList {
+	private String countryNameInGml;
 
-	public TableToList() {
+	public TableToList(String countryNameInGml) {
+		this.countryNameInGml=countryNameInGml;
 
 	}
 	
@@ -63,7 +65,7 @@ public class TableToList {
 //		System.out.println("array"+csvData); //é este print que tem que decomentar
 		
 		for (List s : csvData) {
-			if (!s.get(0).equals("Brazil")) {
+			if (!s.get(0).equals(this.countryNameInGml)) {
 				size += 1;
 			}
 		}
@@ -80,7 +82,7 @@ public class TableToList {
 			} else {
 				// se for colocar mais informações no pattern tem que ser aqui
 				// descomente o printi acima pra se basear nas possições da lista
-				if (s.get(0).equals("Brazil")) {
+				if (s.get(0).equals(this.countryNameInGml)) {
 					double[] variables = { Double.parseDouble((String) s.get(3)),
 							Double.parseDouble((String) s.get(4)) };
 					Pattern pattern = new Pattern(s.get(2).toString().trim()+","+" "+"PE", variables, null);

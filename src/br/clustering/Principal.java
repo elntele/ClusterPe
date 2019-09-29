@@ -16,6 +16,8 @@ public class Principal {
 		List<Pattern> listPatterns = new ArrayList<>();
 		GmlData gml = new GmlDao().loadGmlData(patch); // novo
 		List<GmlNode> listCity = gml.getNodes();// novo
+		int SeletorIndexQaulity = 0; // para selecionar a string em nameTable
+		String[] nameTable = { "silhouette", "dunn" };
 
 		/**
 		 * lista de cidades sendo converdida em lista de Pattern
@@ -122,7 +124,7 @@ public class Principal {
 			globalResultSillhouetteAverange.add(resultSilhouetteAverage);
 		}
 
-		SpreadSheet dataSheet = new SpreadSheet(globalResultSillhouetteAverange, listStringCluster, copyFinalclustters);
+		SpreadSheet dataSheet = new SpreadSheet(globalResultSillhouetteAverange, listStringCluster, copyFinalclustters,nameTable[SeletorIndexQaulity]);
 		dataSheet.createSpreedSheetMMAverangeDistanceBetweenCentroids(maxMinAverangeDisntanceInterCentroids, kSizeMin);
 		dataSheet.createSpreedSheetMMAverangeDistanceBetweenCentroidAndNode(maxMindistanceBetweenCentroidsAndNodes);
 		dataSheet.createSpreedSheetMMAverangeDistanceIntraCluster(maxMindistanceIntraCluster);

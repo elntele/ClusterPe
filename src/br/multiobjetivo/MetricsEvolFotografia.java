@@ -37,9 +37,9 @@ public class MetricsEvolFotografia {
 				double hvma = 0;// cometa esse pra pegar a media jorge
 				double hvmb = 0;// cometa esse pra pegar a media jorge
 				double hvmc = 0;
-				String path = "C:/Users/elnte/OneDrive/Área de Trabalho/rural 2/mestrado/2019.1/computação evolutiva/teste de tempo busca seletiva/"
-						+ "resultados busca seletiva/algorithm_KMeans/com busca/execução "+j 
-				+ "/FUN" + i + ".tsv";
+				String path = "C:/Users/elnte/OneDrive/Área de Trabalho/rural 2/graduação/2018.2/pic/resultudados nova abordagem/resultudados nova abordagem/exploratoria exaustiva/resultados k2/algorithm_KMeans/com busca/execução "
+						+ j + "/FUN" + i + ".tsv";
+				
 
 				try {
 					normalizedFront = new ArrayFront(path);
@@ -48,16 +48,15 @@ public class MetricsEvolFotografia {
 				}
 				for (int s = 0; s < normalizedFront.getNumberOfPoints(); s++) {
 					normalizedFront.getPoint(s).setDimensionValue(0, normalizedFront.getPoint(s).getDimensionValue(0));
-					normalizedFront.getPoint(s).setDimensionValue(1, normalizedFront.getPoint(s).getDimensionValue(1)/29340);
+					normalizedFront.getPoint(s).setDimensionValue(1, normalizedFront.getPoint(s).getDimensionValue(1)/29340); 
 					normalizedFront.getPoint(s).setDimensionValue(2, normalizedFront.getPoint(s).getDimensionValue(2)/3795187.303);
 					normalizedFront.getPoint(s).setDimensionValue(3, normalizedFront.getPoint(s).getDimensionValue(3));
 				}
 				List<PointSolution> normalizedPopulation = FrontUtils.convertFrontToSolutionList(normalizedFront);
 				hvma += hypervolume.evaluate(normalizedPopulation);
 
-				path = "C:/Users/elnte/OneDrive/Área de Trabalho/rural 2/mestrado/2019.1/computação evolutiva/"
-						+ "teste de tempo busca seletiva/Resultados busca populaçao inteira/algorithm_KMeans/com busca/execução "+j 
-						+ "/FUN" + i + ".tsv";
+				path = "C:/Users/elnte/OneDrive/Área de Trabalho/rural 2/graduação/2018.2/pic/resultudados nova abordagem/resultudados nova abordagem/exploratoria exaustiva/resultados k4/algorithm_KMeans/com busca/execução "
+						+ j + "/FUN" + i + ".tsv";
 				try {
 					normalizedFront = new ArrayFront(path);
 				} catch (FileNotFoundException e) {
@@ -68,16 +67,15 @@ public class MetricsEvolFotografia {
 					normalizedFront.getPoint(s).setDimensionValue(0, normalizedFront.getPoint(s).getDimensionValue(0));
 					normalizedFront.getPoint(s).setDimensionValue(1, normalizedFront.getPoint(s).getDimensionValue(1)/29340);
 					normalizedFront.getPoint(s).setDimensionValue(2, normalizedFront.getPoint(s).getDimensionValue(2)/3795187.303);
-					normalizedFront.getPoint(s).setDimensionValue(3, normalizedFront.getPoint(s).getDimensionValue(3)/0.943406697);
+					normalizedFront.getPoint(s).setDimensionValue(3, normalizedFront.getPoint(s).getDimensionValue(3));
 				}
 				normalizedPopulation = FrontUtils.convertFrontToSolutionList(normalizedFront);
 
 				hvmb += hypervolume.evaluate(normalizedPopulation);
 
 				
-				path = "C:/Users/elnte/OneDrive/Área de Trabalho/rural 2/mestrado/2019.1/computação evolutiva/teste de tempo busca seletiva/"
-						+ "resultados busca seletiva aleatoria/algorithm_KMeans/com busca/execução " + j 
-						+ "/FUN" + i + ".tsv";
+				path ="C:/Users/elnte/OneDrive/Área de Trabalho/rural 2/graduação/2018.2/pic/resultudados nova abordagem/resultudados nova abordagem/exploratoria exaustiva/resultados k8/algorithm_KMeans/com busca/execução "
+						+ j + "/FUN" + i + ".tsv";
 				try {
 					normalizedFront = new ArrayFront(path);
 				} catch (FileNotFoundException e) {
@@ -88,7 +86,7 @@ public class MetricsEvolFotografia {
 					normalizedFront.getPoint(s).setDimensionValue(0, normalizedFront.getPoint(s).getDimensionValue(0));
 					normalizedFront.getPoint(s).setDimensionValue(1, normalizedFront.getPoint(s).getDimensionValue(1)/29340);
 					normalizedFront.getPoint(s).setDimensionValue(2, normalizedFront.getPoint(s).getDimensionValue(2)/3795187.303);
-					normalizedFront.getPoint(s).setDimensionValue(3, normalizedFront.getPoint(s).getDimensionValue(3)/0.943406697);
+					normalizedFront.getPoint(s).setDimensionValue(3, normalizedFront.getPoint(s).getDimensionValue(3));
 				}
 				normalizedPopulation = FrontUtils.convertFrontToSolutionList(normalizedFront);
 

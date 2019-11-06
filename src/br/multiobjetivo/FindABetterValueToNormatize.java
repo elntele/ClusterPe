@@ -10,8 +10,7 @@ import java.util.List;
 public class FindABetterValueToNormatize {
 
 	public static void main(String[] args) {
-		String path = "C:/Users/elnte/OneDrive/Área de Trabalho/rural 2/mestrado/2019.2/orientação/"
-				+ "teste inicial k em 21/algorithm_FCMeans/sem busca/execução ";
+		String path = "C:/Users/elnte/OneDrive/Área de Trabalho/rural 2/graduação/2018.2/pic/resultudados nova abordagem/resultudados nova abordagem/exploratoria exaustiva/resultados k8/algorithm_KMeans/com busca/execução ";
 		List<List<String>> fourGreaterValue = new ArrayList();
 		double valueOne = Double.MIN_VALUE;
 		double valueTwo = Double.MIN_VALUE;

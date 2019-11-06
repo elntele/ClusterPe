@@ -493,7 +493,7 @@ graph [
   ]
   node [
     id 41
-    label "Carnaíba, PE"
+    label "Carnaúba, PE"
     Country "Brazil"
     Longitude -37.79388889
     Latitude -7.80527778

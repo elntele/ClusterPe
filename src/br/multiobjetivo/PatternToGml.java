@@ -1,5 +1,8 @@
 package br.multiobjetivo;
 
+import java.io.Serializable;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -13,11 +16,11 @@ import br.cns.model.GmlNode;
 import br.cns.persistence.GmlDao;
 import cbic15.Pattern;
 
-public class PatternToGml {
+public class PatternToGml implements Serializable{
 	private GmlData gml;
 	private Map mapNode;
-
-	public PatternToGml(GmlData gml) {
+	@JsonCreator
+	public PatternToGml(@JsonProperty("gml")GmlData gml) {
 		Map<Integer, GmlNode> map = new HashMap<Integer, GmlNode>();
 		this.gml = gml;
 		for (GmlNode G : gml.getNodes()) {
@@ -29,6 +32,7 @@ public class PatternToGml {
 	public List<GmlNode> patternGml(Pattern[] ArrayPatterns) {
 		List<GmlNode> listNode = new ArrayList<>();
 		for (int i = 0; i < ArrayPatterns.length; i++) {
+			Integer id=ArrayPatterns[i].getId();
 			listNode.add((GmlNode) this.mapNode.get(ArrayPatterns[i].getId()));
 		}
 		return listNode;
@@ -130,5 +134,31 @@ public class PatternToGml {
 		G.save(gmlLocal, patch);
 
 	}
+
+	public GmlData getGml() {
+		return gml;
+	}
+
+	public void setGml(GmlData gml) {
+		this.gml = gml;
+	}
+
+	public Map getMapNode() {
+		return mapNode;
+	}
+
+	public void setMapNode(Map mapNode) {
+		this.mapNode = mapNode;
+	}
+	
+	/**
+	 * gerando os gts e sets
+	
+	 * 
+	 */
+	
+	
+	
+	//***************************************
 
 }

@@ -70,7 +70,7 @@ public class ClusterAlgXDeliveryManager {
 		 * Silhouette.
 		 * 
 		 */
-		int kSize = 18; // numero de cluster
+		int kSize = 15; // numero de cluster
 		int execucao = 9;// uma das execuções de clodomir, vai de 0 a 29,
 							// chutei a 10
 

@@ -1,6 +1,8 @@
 package br.multiobjetivo;
 
 import java.io.BufferedReader;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
@@ -327,8 +329,94 @@ public class SearchForNetworkAndEvaluate extends AbstractIntegerProblem {
 	public PatternToGml getPtg() {
 		return ptg;
 	}
-
-	public SearchForNetworkAndEvaluate(Kmeans kmeans, GmlData gml, List<Pattern>[] clustters, String fixedLinks) {
+	/**
+	 * 
+	 * nesta parte serão gerados um monte de gaet e set pra satisfazer o jackson
+	 * @param kmeans
+	 * @param gml
+	 * @param clustters
+	 * @param fixedLinks
+	 */
+	public int getLowerBound() {
+		return lowerBound;
+	}
+	public void setLowerBound(int lowerBound) {
+		this.lowerBound = lowerBound;
+	}
+	public int getUpperBound() {
+		return upperBound;
+	}
+	public void setUpperBound(int upperBound) {
+		this.upperBound = upperBound;
+	}
+	public Kmeans getKmeans() {
+		return kmeans;
+	}
+	public void setKmeans(Kmeans kmeans) {
+		this.kmeans = kmeans;
+	}
+	public Pattern[] getLineColumn() {
+		return lineColumn;
+	}
+	public void setLineColumn(Pattern[] lineColumn) {
+		this.lineColumn = lineColumn;
+	}
+	public List<Pattern>[] getClustters() {
+		return clustters;
+	}
+	public void setClustters(List<Pattern>[] clustters) {
+		this.clustters = clustters;
+	}
+	public Pattern[] getCentroids() {
+		return centroids;
+	}
+	public void setCentroids(Pattern[] centroids) {
+		this.centroids = centroids;
+	}
+	public OpticalNetworkProblem getOpticalNetwoark() {
+		return opticalNetwoark;
+	}
+	public void setOpticalNetwoark(OpticalNetworkProblem opticalNetwoark) {
+		this.opticalNetwoark = opticalNetwoark;
+	}
+	public IntegerSolution getAnterior() {
+		return anterior;
+	}
+	public void setAnterior(IntegerSolution anterior) {
+		this.anterior = anterior;
+	}
+	public List<String> getFixedNetworkConections() {
+		return fixedNetworkConections;
+	}
+	public void setFixedNetworkConections(List<String> fixedNetworkConections) {
+		this.fixedNetworkConections = fixedNetworkConections;
+	}
+	public boolean isFixedInitiallinks() {
+		return FixedInitiallinks;
+	}
+	public void setFixedInitiallinks(boolean fixedInitiallinks) {
+		FixedInitiallinks = fixedInitiallinks;
+	}
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
+	public void setGml(GmlData gml) {
+		this.gml = gml;
+	}
+	public void setPtg(PatternToGml ptg) {
+		this.ptg = ptg;
+	}
+	public void setContEvaluate(int contEvaluate) {
+		this.contEvaluate = contEvaluate;
+	}
+	
+	
+	
+	//********************************************************************************************
+	
+	
+//	@JsonCreator
+	public SearchForNetworkAndEvaluate(@JsonProperty("kmeans") Kmeans kmeans,@JsonProperty("gml") GmlData gml,@JsonProperty("clustters") List<Pattern>[] clustters, @JsonProperty("fixedInitiallinks")String fixedLinks) {
 		super();
 		this.setNumberOfObjectives(4);
 		// tamanho do cromossomo
@@ -355,4 +443,16 @@ public class SearchForNetworkAndEvaluate extends AbstractIntegerProblem {
 		SetNetWork();
 		printIncialCentroide();
 	}
+	
+	/**
+	 * construtor vazio colocado apenas por causa do mapeamento do json Jackson
+	 * para a parte de paralelistmo, antes isso não existia no projeto, não use para outra coisa
+	 */
+
+//	public SearchForNetworkAndEvaluate() {
+//		super();
+//		
+//	}
+	
+	
 }

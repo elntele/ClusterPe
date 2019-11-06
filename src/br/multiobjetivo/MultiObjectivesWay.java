@@ -1,12 +1,19 @@
 package br.multiobjetivo;
 
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.io.EOFException;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.net.Socket;
+import java.net.UnknownHostException;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
+import java.util.UUID;
 
 import org.uma.jmetal.algorithm.Algorithm;
 import org.uma.jmetal.algorithm.multiobjective.nsgaiii.NSGAIII;
@@ -26,19 +33,93 @@ import org.uma.jmetal.util.fileoutput.SolutionListOutput;
 import org.uma.jmetal.util.fileoutput.impl.DefaultFileOutputContext;
 import org.uma.jmetal.util.pseudorandom.JMetalRandom;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import br.cns.model.GmlData;
 import cbic15.Kmeans;
 import cbic15.Pattern;
 
 public class MultiObjectivesWay {
-	
-	public MultiObjectivesWay(Kmeans kmeans, GmlData gml,List<Pattern>[] clustters,Properties prop) throws IOException {
+
+	public MultiObjectivesWay(Kmeans kmeans, GmlData gml, List<Pattern>[] clustters, Properties prop)
+			throws IOException {
 		Problem<IntegerSolution> problem; // do Jmetal
 		Algorithm<List<IntegerSolution>> algorithm; // do Jmetal
 		CrossoverOperator<IntegerSolution> crossover; // do Jmetal
 		MutationOperator<IntegerSolution> mutation; // do Jmetal
 		SelectionOperator<List<IntegerSolution>, IntegerSolution> selection; // do
-		problem = new SearchForNetworkAndEvaluate(kmeans, gml,clustters, prop.get("solucaoInicialUnica").toString());
+		problem = new SearchForNetworkAndEvaluate(kmeans, gml, clustters, prop.get("solucaoInicialUnica").toString());
+		UUID ParallelEvaluateId = null;
+		List<List<String>> severList = new ArrayList<>();
+		List <UUID>ParallelEvaluateIdList=new ArrayList<>();
+
+		for (int i = 1; i <= Integer.parseInt(prop.getProperty("severNumber")); i++) {
+			String server = "adress" + i;
+			String door = "door" + 1;
+			List local = new ArrayList<>();
+			local.add(prop.getProperty(server));
+			local.add(prop.getProperty(door));
+			severList.add(local);
+		}
+		System.out.println(severList);
+
+		/**
+		 * parte relacionada a nova funcionalidade: o paralelismo com tcp
+		 */
+		if (prop.get("parallelFitness").equals("y")) {
+			for (int i = 0; i <  Integer.parseInt(prop.getProperty("severNumber")); i++) {
+				Socket soc = null;
+				ObjectMapper mapper = new ObjectMapper();
+				List<String> l = new ArrayList<>();
+				String textOut = null;
+
+				try {
+					textOut = mapper.writeValueAsString(kmeans);
+					l.add(textOut);
+					textOut = mapper.writeValueAsString(gml);
+					l.add(textOut);
+					textOut = mapper.writeValueAsString(clustters);
+					l.add(textOut);
+					textOut = mapper.writeValueAsString(prop.get("solucaoInicialUnica").toString());
+					l.add(textOut);
+					textOut = mapper.writeValueAsString(l);
+				} catch (JsonProcessingException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+
+//				String adress = "localhost";
+				String adress = severList.get(i).get(0).toString();
+				try {
+//					int serverPort = 7896;
+					int serverPort =Integer.parseInt(severList.get(i).get(1));
+					soc = new Socket(adress, serverPort);
+					DataInputStream in = new DataInputStream(soc.getInputStream());
+					DataOutputStream out = new DataOutputStream(soc.getOutputStream());
+					byte[] b = textOut.getBytes(StandardCharsets.UTF_8);
+					out.writeInt(b.length); // write length of the message
+					out.write(b);
+					String data = in.readUTF(); // read a line of data from the stream
+					ParallelEvaluateId = UUID.fromString(data);
+					ParallelEvaluateIdList.add(ParallelEvaluateId);
+					System.out.println("Received: " + data);
+				} catch (UnknownHostException e) {
+					System.out.println("Socket:" + e.getMessage());
+				} catch (EOFException e) {
+					System.out.println("EOF:" + e.getMessage());
+				} catch (IOException e) {
+					System.out.println("readline:" + e.getMessage());
+				} finally {
+					if (soc != null)
+						try {
+							soc.close();
+						} catch (IOException e) {
+							System.out.println("close:" + e.getMessage());
+						}
+				}
+			}
+		}
 
 		// ****************************
 		double crossoverProbability = 1.0;
@@ -54,51 +135,53 @@ public class MultiObjectivesWay {
 		// AlgorithmRunner algorithmRunner = new
 		// AlgorithmRunner.Executor(algorithm).execute();
 
-		algorithm = new NSGAIIIBuilder<>(problem,((SearchForNetworkAndEvaluate)problem).getGml(),clustters, prop).setCrossoverOperator(crossover).setMutationOperator(mutation)
-				.setSelectionOperator(selection).setPopulationSize(40).setMaxIterations(500).build();
+		algorithm = new NSGAIIIBuilder<>(problem, ((SearchForNetworkAndEvaluate) problem).getGml(), clustters, prop,
+				ParallelEvaluateIdList).setCrossoverOperator(crossover).setMutationOperator(mutation)
+						.setSelectionOperator(selection).setPopulationSize(40).setMaxIterations(10).build();
 
 		List<IntegerSolution> population;
 		AlgorithmRunner algorithmRunner = new AlgorithmRunner.Executor(algorithm).execute();
 		population = algorithm.getResult();
-		int w=1;
-		
-		 String path=prop.getProperty("local")+prop.getProperty("algName")
-			+"/"+prop.getProperty("modo")+"/"+prop.getProperty("execucao")+"/"+"print.txt";
+		int w = 1;
 
-	    FileWriter arq = new FileWriter(path);
-	    PrintWriter gravarArq = new PrintWriter(arq);
-	    
-	   
-		
-		PatternToGml ptgLocal=((SearchForNetworkAndEvaluate)problem).getPtg();
-		new File (prop.getProperty("local")+prop.getProperty("algName")+"/"
-		+prop.getProperty("modo")+"/"+prop.getProperty("execucao")+
-		"/ResultadoGML").mkdir();
-		String pathTogml=prop.getProperty("local")+prop.getProperty("algName")
-		+"/"+prop.getProperty("modo")+"/"+prop.getProperty("execucao");
-		for (IntegerSolution i: population){
+		String path = prop.getProperty("local") + prop.getProperty("algName") + "/" + prop.getProperty("modo") + "/"
+				+ prop.getProperty("execucao") + "/" + "print.txt";
+
+		FileWriter arq = new FileWriter(path);
+		PrintWriter gravarArq = new PrintWriter(arq);
+
+		PatternToGml ptgLocal = ((SearchForNetworkAndEvaluate) problem).getPtg();
+		new File(prop.getProperty("local") + prop.getProperty("algName") + "/" + prop.getProperty("modo") + "/"
+				+ prop.getProperty("execucao") + "/ResultadoGML").mkdir();
+		String pathTogml = prop.getProperty("local") + prop.getProperty("algName") + "/" + prop.getProperty("modo")
+				+ "/" + prop.getProperty("execucao");
+		for (IntegerSolution i : population) {
 //			String s="C:/Users/jorge/Desktop/rural 2/2017.2/tcc/testes_evolucionarios/ResultadoGML/"+Integer.toString(w)+".gml";
-			String s=pathTogml+"/ResultadoGML/"+Integer.toString(w)+".gml";
+			String s = pathTogml + "/ResultadoGML/" + Integer.toString(w) + ".gml";
 			ptgLocal.saveGmlFromSolution(s, i);
-			List <Integer> centros=new ArrayList<>(); 
-			for (int j=0; j<i.getLineColumn().length;j++){
+			List<Integer> centros = new ArrayList<>();
+			for (int j = 0; j < i.getLineColumn().length; j++) {
 				centros.add(i.getLineColumn()[j].getId());
 			}
-			w+=1;
-			System.out.println("centroides final : " +centros);
-			 gravarArq.printf("centroides final : " +centros+'\n');
-			 
+			w += 1;
+			System.out.println("centroides final : " + centros);
+			gravarArq.printf("centroides final : " + centros + '\n');
+
 		}
-		
-		System.out.println("numero de avaliações de fitness"+((SearchForNetworkAndEvaluate)problem).getContEvaluate());
-		gravarArq.printf("numero de avaliações de fitness"+((SearchForNetworkAndEvaluate)problem).getContEvaluate()+'\n');
+
+		System.out
+				.println("numero de avaliações de fitness" + ((SearchForNetworkAndEvaluate) problem).getContEvaluate());
+		gravarArq.printf(
+				"numero de avaliações de fitness" + ((SearchForNetworkAndEvaluate) problem).getContEvaluate() + '\n');
 		System.out.println("base salva em formato GML");
-		System.out.println("numero de soluções não dominadas encontrado pela busca local: "+((NSGAIII)algorithm).getLocalSeachFoundNoDominated() );
-		gravarArq.printf("numero de soluções não dominadas encontrado pela busca local: "+((NSGAIII)algorithm).getLocalSeachFoundNoDominated()+'\n');
+		System.out.println("numero de soluções não dominadas encontrado pela busca local: "
+				+ ((NSGAIII) algorithm).getLocalSeachFoundNoDominated());
+		gravarArq.printf("numero de soluções não dominadas encontrado pela busca local: "
+				+ ((NSGAIII) algorithm).getLocalSeachFoundNoDominated() + '\n');
 		long computingTime = algorithmRunner.getComputingTime();
 		JMetalLogger.logger.info("Total execution time: " + computingTime + "ms");
-		gravarArq.printf("Total execution time: " + computingTime + "ms"+'\n');
-		printFinalSolutionSet(population,kmeans, arq, gravarArq, prop);
+		gravarArq.printf("Total execution time: " + computingTime + "ms" + '\n');
+		printFinalSolutionSet(population, kmeans, arq, gravarArq, prop);
 
 	}
 
@@ -106,25 +189,25 @@ public class MultiObjectivesWay {
 	 * Write the population into two files and prints some data on screen
 	 * 
 	 * @param population
-	 * @throws IOException 
+	 * @throws IOException
 	 */
-	public static void printFinalSolutionSet(List<? extends Solution<?>> population, Kmeans kmeans,
-			FileWriter arq,PrintWriter gravarArq,Properties prop) throws IOException {
-		String path=prop.getProperty("local")+prop.getProperty("algName")
-		+"/"+prop.getProperty("modo")+"/"+prop.getProperty("execucao"); 
+	public static void printFinalSolutionSet(List<? extends Solution<?>> population, Kmeans kmeans, FileWriter arq,
+			PrintWriter gravarArq, Properties prop) throws IOException {
+		String path = prop.getProperty("local") + prop.getProperty("algName") + "/" + prop.getProperty("modo") + "/"
+				+ prop.getProperty("execucao");
 
 		new SolutionListOutput(population).setSeparator("\t")
-				.setVarFileOutputContext(new DefaultFileOutputContext(path+"/"+"VAR.tsv"))
-				.setFunFileOutputContext(new DefaultFileOutputContext(path+"/"+"FUN.tsv")).print();
-		
+				.setVarFileOutputContext(new DefaultFileOutputContext(path + "/" + "VAR.tsv"))
+				.setFunFileOutputContext(new DefaultFileOutputContext(path + "/" + "FUN.tsv")).print();
+
 		List<Integer> centros = new ArrayList<>();
 		for (int i = 0; i < kmeans.getNearestPatternsFromCentroid().length; i++) {
 			centros.add(kmeans.getNearestPatternsFromCentroid()[i].getId());
 		}
 		System.out.println("centoides inicial: " + centros);
-		gravarArq.printf("centoides inicial: " + centros+'\n');
+		gravarArq.printf("centoides inicial: " + centros + '\n');
 		JMetalLogger.logger.info("Random seed: " + JMetalRandom.getInstance().getSeed());
-		gravarArq.printf("Random seed: " + JMetalRandom.getInstance().getSeed()+'\n');
+		gravarArq.printf("Random seed: " + JMetalRandom.getInstance().getSeed() + '\n');
 		arq.close();
 		JMetalLogger.logger.info("Objectives values have been written to file FUN.tsv");
 		JMetalLogger.logger.info("Variables values have been written to file VAR.tsv");

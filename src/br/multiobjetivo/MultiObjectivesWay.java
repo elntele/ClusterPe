@@ -29,6 +29,7 @@ import org.uma.jmetal.solution.IntegerSolution;
 import org.uma.jmetal.solution.Solution;
 import org.uma.jmetal.util.AlgorithmRunner;
 import org.uma.jmetal.util.JMetalLogger;
+import org.uma.jmetal.util.evaluator.impl.SeverAndId;
 import org.uma.jmetal.util.fileoutput.SolutionListOutput;
 import org.uma.jmetal.util.fileoutput.impl.DefaultFileOutputContext;
 import org.uma.jmetal.util.pseudorandom.JMetalRandom;
@@ -52,8 +53,9 @@ public class MultiObjectivesWay {
 		problem = new SearchForNetworkAndEvaluate(kmeans, gml, clustters, prop.get("solucaoInicialUnica").toString());
 		UUID ParallelEvaluateId = null;
 		List<List<String>> severList = new ArrayList<>();
+		//organizar e deletar
 		List <UUID>ParallelEvaluateIdList=new ArrayList<>();
-
+		List <SeverAndId> severAndIdList=new ArrayList<>();
 		for (int i = 1; i <= Integer.parseInt(prop.getProperty("severNumber")); i++) {
 			String server = "adress" + i;
 			String door = "door" + 1;
@@ -89,10 +91,8 @@ public class MultiObjectivesWay {
 					e1.printStackTrace();
 				}
 
-//				String adress = "localhost";
 				String adress = severList.get(i).get(0).toString();
 				try {
-//					int serverPort = 7896;
 					int serverPort =Integer.parseInt(severList.get(i).get(1));
 					soc = new Socket(adress, serverPort);
 					DataInputStream in = new DataInputStream(soc.getInputStream());
@@ -102,6 +102,13 @@ public class MultiObjectivesWay {
 					out.write(b);
 					String data = in.readUTF(); // read a line of data from the stream
 					ParallelEvaluateId = UUID.fromString(data);
+					List <String> url = new ArrayList<>();
+					url.add(adress);
+					url.add(Integer.toString(serverPort));
+					
+					SeverAndId severAndId=new SeverAndId(ParallelEvaluateId, url);
+					severAndIdList.add(severAndId);
+					//organizar e deletar
 					ParallelEvaluateIdList.add(ParallelEvaluateId);
 					System.out.println("Received: " + data);
 				} catch (UnknownHostException e) {
@@ -136,7 +143,7 @@ public class MultiObjectivesWay {
 		// AlgorithmRunner.Executor(algorithm).execute();
 
 		algorithm = new NSGAIIIBuilder<>(problem, ((SearchForNetworkAndEvaluate) problem).getGml(), clustters, prop,
-				ParallelEvaluateIdList).setCrossoverOperator(crossover).setMutationOperator(mutation)
+				severAndIdList).setCrossoverOperator(crossover).setMutationOperator(mutation)
 						.setSelectionOperator(selection).setPopulationSize(40).setMaxIterations(10).build();
 
 		List<IntegerSolution> population;

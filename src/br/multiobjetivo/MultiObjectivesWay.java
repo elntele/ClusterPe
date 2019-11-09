@@ -144,7 +144,7 @@ public class MultiObjectivesWay {
 
 		algorithm = new NSGAIIIBuilder<>(problem, ((SearchForNetworkAndEvaluate) problem).getGml(), clustters, prop,
 				severAndIdList).setCrossoverOperator(crossover).setMutationOperator(mutation)
-						.setSelectionOperator(selection).setPopulationSize(40).setMaxIterations(10).build();
+						.setSelectionOperator(selection).setPopulationSize(40).setMaxIterations(500).build();
 
 		List<IntegerSolution> population;
 		AlgorithmRunner algorithmRunner = new AlgorithmRunner.Executor(algorithm).execute();

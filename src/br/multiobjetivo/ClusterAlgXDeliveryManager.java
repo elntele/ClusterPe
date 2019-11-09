@@ -23,16 +23,6 @@ import cbic15.Pattern;
 public class ClusterAlgXDeliveryManager {
 
 	public static void main(String[] args) throws IOException {
-//		String patch = "src/MunicipiosDePernambucoTec.RedesFinalizado.gml";
-		String patch = "src/meniaNetGermanyAmpliada.gml";
-		// String patch =
-		// "C:/Users/jorge/workspace/ClusterPe/src/MunicipiosDePernambucoTec.RedesFinalizado.gml";
-		GmlData gml = new GmlDao().loadGmlData(patch); // novo
-		List<Pattern> listPatterns = new ArrayList<>();
-		List<GmlNode> listCity = gml.getNodes();// novo
-		String[] countryNameInGml = { "Brazil", "Germany" };
-		int countrySelector=1;
-		TableToList tableToList = new TableToList(countryNameInGml[countrySelector]);
 		//**********planos futuros******************
 //		criar o primeiro dados.properties dentro 
 //		de qualquera area de trabalho independente do
@@ -44,7 +34,27 @@ public class ClusterAlgXDeliveryManager {
 		Properties prop = new Properties();
 		FileInputStream file = new FileInputStream("src/dados.properties");
 		prop.load(file);
-		
+		//carregando o gml da rede
+		String path = prop.getProperty("path");
+
+		GmlData gml = new GmlDao().loadGmlData(path); // novo
+		List<Pattern> listPatterns = new ArrayList<>();
+		List<GmlNode> listCity = gml.getNodes();// novo
+		String[] countryNameInGml = { "Brazil", "Germany" };
+		int countrySelector=Integer.parseInt(prop.getProperty("country"));
+		TableToList tableToList = new TableToList(countryNameInGml[countrySelector]);
+//		//**********planos futuros******************
+////		criar o primeiro dados.properties dentro 
+////		de qualquera area de trabalho independente do
+////		cominho:
+////		FileSystemView system = FileSystemView.getFileSystemView();
+////		System.out.println(system.getHomeDirectory().getPath());
+////		isso retona o caminha da area de trabalho
+//		//************************************
+//		Properties prop = new Properties();
+//		FileInputStream file = new FileInputStream("src/dados.properties");
+//		prop.load(file);
+//		
 
 		for (GmlNode c : listCity) {
 			double[] variables = { c.getLatitude(), c.getLongitude() };

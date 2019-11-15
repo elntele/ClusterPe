@@ -43,18 +43,6 @@ public class ClusterAlgXDeliveryManager {
 		String[] countryNameInGml = { "Brazil", "Germany" };
 		int countrySelector=Integer.parseInt(prop.getProperty("country"));
 		TableToList tableToList = new TableToList(countryNameInGml[countrySelector]);
-//		//**********planos futuros******************
-////		criar o primeiro dados.properties dentro 
-////		de qualquera area de trabalho independente do
-////		cominho:
-////		FileSystemView system = FileSystemView.getFileSystemView();
-////		System.out.println(system.getHomeDirectory().getPath());
-////		isso retona o caminha da area de trabalho
-//		//************************************
-//		Properties prop = new Properties();
-//		FileInputStream file = new FileInputStream("src/dados.properties");
-//		prop.load(file);
-//		
 
 		for (GmlNode c : listCity) {
 			double[] variables = { c.getLatitude(), c.getLongitude() };
@@ -80,8 +68,12 @@ public class ClusterAlgXDeliveryManager {
 		 * Silhouette.
 		 * 
 		 */
-		int kSize = 15; // numero de cluster
-		int execucao = 9;// uma das execuções de clodomir, vai de 0 a 29,
+//		int kSize = 15; // numero de cluster
+//		int execucao = 9;// uma das execuções de clodomir, vai de 0 a 29,
+//							// chutei a 10
+		
+		int kSize = Integer.parseInt(prop.getProperty("kSize")); // numero de cluster
+		int execucao =Integer.parseInt(prop.getProperty("execX"));// uma das execuções de clodomir, vai de 0 a 29,
 							// chutei a 10
 
 		MetricsIntraCluster metrics = new MetricsIntraCluster();

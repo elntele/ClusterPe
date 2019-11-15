@@ -2,9 +2,9 @@
 <!DOCTYPE log SYSTEM "logger.dtd">
 <log>
 <record>
-  <date>2019-11-05T22:20:22.848002900Z</date>
-  <millis>1572992422848</millis>
-  <nanos>2900</nanos>
+  <date>2019-11-15T21:39:11.489521200Z</date>
+  <millis>1573853951489</millis>
+  <nanos>521200</nanos>
   <sequence>0</sequence>
   <logger>org.uma.jmetal.util.JMetalLogger</logger>
   <level>INFO</level>
@@ -14,663 +14,86 @@
   <message>Loggers configured with null</message>
 </record>
 <record>
-  <date>2019-11-05T22:20:22.873934400Z</date>
-  <millis>1572992422873</millis>
-  <nanos>934400</nanos>
+  <date>2019-11-15T21:39:11.505142300Z</date>
+  <millis>1573853951505</millis>
+  <nanos>142300</nanos>
   <sequence>1</sequence>
   <logger>org.uma.jmetal.util.JMetalLogger</logger>
   <level>INFO</level>
   <class>org.uma.jmetal.algorithm.multiobjective.nsgaiii.NSGAIII</class>
   <method>&lt;init&gt;</method>
   <thread>1</thread>
-  <message>rpssize: 35</message>
+  <message>rpssize: 455</message>
 </record>
 <record>
-  <date>2019-11-05T22:24:24.396589800Z</date>
-  <millis>1572992664396</millis>
-  <nanos>589800</nanos>
+  <date>2019-11-15T21:41:00.090910200Z</date>
+  <millis>1573854060090</millis>
+  <nanos>910200</nanos>
   <sequence>2</sequence>
   <logger>org.uma.jmetal.util.JMetalLogger</logger>
   <level>INFO</level>
-  <class>br.multiobjetivo.MultiObjectivesWay</class>
-  <method>&lt;init&gt;</method>
-  <thread>1</thread>
-  <message>Total execution time: 241013ms</message>
+  <class>org.uma.jmetal.algorithm.multiobjective.nsgaiii.NSGAIII</class>
+  <method>printFinalSolutionSet</method>
+  <thread>15</thread>
+  <message>Random Seed: 1573853951520</message>
 </record>
 <record>
-  <date>2019-11-05T22:24:24.428505Z</date>
-  <millis>1572992664428</millis>
-  <nanos>505000</nanos>
+  <date>2019-11-15T21:41:00.090910200Z</date>
+  <millis>1573854060090</millis>
+  <nanos>910200</nanos>
   <sequence>3</sequence>
   <logger>org.uma.jmetal.util.JMetalLogger</logger>
   <level>INFO</level>
-  <class>br.multiobjetivo.MultiObjectivesWay</class>
+  <class>org.uma.jmetal.algorithm.multiobjective.nsgaiii.NSGAIII</class>
   <method>printFinalSolutionSet</method>
-  <thread>1</thread>
-  <message>Random seed: 1572992422879</message>
-</record>
-<record>
-  <date>2019-11-05T22:24:24.436486200Z</date>
-  <millis>1572992664436</millis>
-  <nanos>486200</nanos>
-  <sequence>4</sequence>
-  <logger>org.uma.jmetal.util.JMetalLogger</logger>
-  <level>INFO</level>
-  <class>br.multiobjetivo.MultiObjectivesWay</class>
-  <method>printFinalSolutionSet</method>
-  <thread>1</thread>
+  <thread>15</thread>
   <message>Objectives values have been written to file FUN.tsv</message>
 </record>
 <record>
-  <date>2019-11-05T22:24:24.437484900Z</date>
-  <millis>1572992664437</millis>
-  <nanos>484900</nanos>
-  <sequence>5</sequence>
+  <date>2019-11-15T21:41:00.095582900Z</date>
+  <millis>1573854060095</millis>
+  <nanos>582900</nanos>
+  <sequence>4</sequence>
   <logger>org.uma.jmetal.util.JMetalLogger</logger>
   <level>INFO</level>
-  <class>br.multiobjetivo.MultiObjectivesWay</class>
+  <class>org.uma.jmetal.algorithm.multiobjective.nsgaiii.NSGAIII</class>
   <method>printFinalSolutionSet</method>
-  <thread>1</thread>
+  <thread>15</thread>
   <message>Variables values have been written to file VAR.tsv</message>
 </record>
 <record>
-  <date>2019-11-05T22:24:24.558158100Z</date>
-  <millis>1572992664558</millis>
-  <nanos>158100</nanos>
+  <date>2019-11-15T21:41:21.342814200Z</date>
+  <millis>1573854081342</millis>
+  <nanos>814200</nanos>
+  <sequence>5</sequence>
+  <logger>org.uma.jmetal.util.JMetalLogger</logger>
+  <level>INFO</level>
+  <class>org.uma.jmetal.algorithm.multiobjective.nsgaiii.NSGAIII</class>
+  <method>printFinalSolutionSet</method>
+  <thread>15</thread>
+  <message>Random Seed: 1573853951520</message>
+</record>
+<record>
+  <date>2019-11-15T21:41:21.358434800Z</date>
+  <millis>1573854081358</millis>
+  <nanos>434800</nanos>
   <sequence>6</sequence>
   <logger>org.uma.jmetal.util.JMetalLogger</logger>
   <level>INFO</level>
   <class>org.uma.jmetal.algorithm.multiobjective.nsgaiii.NSGAIII</class>
-  <method>&lt;init&gt;</method>
-  <thread>1</thread>
-  <message>rpssize: 35</message>
+  <method>printFinalSolutionSet</method>
+  <thread>15</thread>
+  <message>Objectives values have been written to file FUN.tsv</message>
 </record>
 <record>
-  <date>2019-11-05T22:29:16.222975600Z</date>
-  <millis>1572992956222</millis>
-  <nanos>975600</nanos>
+  <date>2019-11-15T21:41:21.359084400Z</date>
+  <millis>1573854081359</millis>
+  <nanos>84400</nanos>
   <sequence>7</sequence>
   <logger>org.uma.jmetal.util.JMetalLogger</logger>
   <level>INFO</level>
-  <class>br.multiobjetivo.MultiObjectivesWay</class>
-  <method>&lt;init&gt;</method>
-  <thread>1</thread>
-  <message>Total execution time: 290510ms</message>
-</record>
-<record>
-  <date>2019-11-05T22:29:16.265359Z</date>
-  <millis>1572992956265</millis>
-  <nanos>359000</nanos>
-  <sequence>8</sequence>
-  <logger>org.uma.jmetal.util.JMetalLogger</logger>
-  <level>INFO</level>
-  <class>br.multiobjetivo.MultiObjectivesWay</class>
-  <method>printFinalSolutionSet</method>
-  <thread>1</thread>
-  <message>Random seed: 1572992422879</message>
-</record>
-<record>
-  <date>2019-11-05T22:29:16.271343Z</date>
-  <millis>1572992956271</millis>
-  <nanos>343000</nanos>
-  <sequence>9</sequence>
-  <logger>org.uma.jmetal.util.JMetalLogger</logger>
-  <level>INFO</level>
-  <class>br.multiobjetivo.MultiObjectivesWay</class>
-  <method>printFinalSolutionSet</method>
-  <thread>1</thread>
-  <message>Objectives values have been written to file FUN.tsv</message>
-</record>
-<record>
-  <date>2019-11-05T22:29:16.271343Z</date>
-  <millis>1572992956271</millis>
-  <nanos>343000</nanos>
-  <sequence>10</sequence>
-  <logger>org.uma.jmetal.util.JMetalLogger</logger>
-  <level>INFO</level>
-  <class>br.multiobjetivo.MultiObjectivesWay</class>
-  <method>printFinalSolutionSet</method>
-  <thread>1</thread>
-  <message>Variables values have been written to file VAR.tsv</message>
-</record>
-<record>
-  <date>2019-11-05T22:29:16.339162100Z</date>
-  <millis>1572992956339</millis>
-  <nanos>162100</nanos>
-  <sequence>11</sequence>
-  <logger>org.uma.jmetal.util.JMetalLogger</logger>
-  <level>INFO</level>
   <class>org.uma.jmetal.algorithm.multiobjective.nsgaiii.NSGAIII</class>
-  <method>&lt;init&gt;</method>
-  <thread>1</thread>
-  <message>rpssize: 35</message>
-</record>
-<record>
-  <date>2019-11-05T22:33:42.279573400Z</date>
-  <millis>1572993222279</millis>
-  <nanos>573400</nanos>
-  <sequence>12</sequence>
-  <logger>org.uma.jmetal.util.JMetalLogger</logger>
-  <level>INFO</level>
-  <class>br.multiobjetivo.MultiObjectivesWay</class>
-  <method>&lt;init&gt;</method>
-  <thread>1</thread>
-  <message>Total execution time: 265279ms</message>
-</record>
-<record>
-  <date>2019-11-05T22:33:42.304550800Z</date>
-  <millis>1572993222304</millis>
-  <nanos>550800</nanos>
-  <sequence>13</sequence>
-  <logger>org.uma.jmetal.util.JMetalLogger</logger>
-  <level>INFO</level>
-  <class>br.multiobjetivo.MultiObjectivesWay</class>
   <method>printFinalSolutionSet</method>
-  <thread>1</thread>
-  <message>Random seed: 1572992422879</message>
-</record>
-<record>
-  <date>2019-11-05T22:33:42.312526Z</date>
-  <millis>1572993222312</millis>
-  <nanos>526000</nanos>
-  <sequence>14</sequence>
-  <logger>org.uma.jmetal.util.JMetalLogger</logger>
-  <level>INFO</level>
-  <class>br.multiobjetivo.MultiObjectivesWay</class>
-  <method>printFinalSolutionSet</method>
-  <thread>1</thread>
-  <message>Objectives values have been written to file FUN.tsv</message>
-</record>
-<record>
-  <date>2019-11-05T22:33:42.313482100Z</date>
-  <millis>1572993222313</millis>
-  <nanos>482100</nanos>
-  <sequence>15</sequence>
-  <logger>org.uma.jmetal.util.JMetalLogger</logger>
-  <level>INFO</level>
-  <class>br.multiobjetivo.MultiObjectivesWay</class>
-  <method>printFinalSolutionSet</method>
-  <thread>1</thread>
+  <thread>15</thread>
   <message>Variables values have been written to file VAR.tsv</message>
 </record>
-<record>
-  <date>2019-11-05T22:33:42.423699Z</date>
-  <millis>1572993222423</millis>
-  <nanos>699000</nanos>
-  <sequence>16</sequence>
-  <logger>org.uma.jmetal.util.JMetalLogger</logger>
-  <level>INFO</level>
-  <class>org.uma.jmetal.algorithm.multiobjective.nsgaiii.NSGAIII</class>
-  <method>&lt;init&gt;</method>
-  <thread>1</thread>
-  <message>rpssize: 35</message>
-</record>
-<record>
-  <date>2019-11-05T22:39:58.731023800Z</date>
-  <millis>1572993598731</millis>
-  <nanos>23800</nanos>
-  <sequence>17</sequence>
-  <logger>org.uma.jmetal.util.JMetalLogger</logger>
-  <level>INFO</level>
-  <class>br.multiobjetivo.MultiObjectivesWay</class>
-  <method>&lt;init&gt;</method>
-  <thread>1</thread>
-  <message>Total execution time: 375886ms</message>
-</record>
-<record>
-  <date>2019-11-05T22:39:58.753922Z</date>
-  <millis>1572993598753</millis>
-  <nanos>922000</nanos>
-  <sequence>18</sequence>
-  <logger>org.uma.jmetal.util.JMetalLogger</logger>
-  <level>INFO</level>
-  <class>br.multiobjetivo.MultiObjectivesWay</class>
-  <method>printFinalSolutionSet</method>
-  <thread>1</thread>
-  <message>Random seed: 1572992422879</message>
-</record>
-<record>
-  <date>2019-11-05T22:39:58.762898Z</date>
-  <millis>1572993598762</millis>
-  <nanos>898000</nanos>
-  <sequence>19</sequence>
-  <logger>org.uma.jmetal.util.JMetalLogger</logger>
-  <level>INFO</level>
-  <class>br.multiobjetivo.MultiObjectivesWay</class>
-  <method>printFinalSolutionSet</method>
-  <thread>1</thread>
-  <message>Objectives values have been written to file FUN.tsv</message>
-</record>
-<record>
-  <date>2019-11-05T22:39:58.762898Z</date>
-  <millis>1572993598762</millis>
-  <nanos>898000</nanos>
-  <sequence>20</sequence>
-  <logger>org.uma.jmetal.util.JMetalLogger</logger>
-  <level>INFO</level>
-  <class>br.multiobjetivo.MultiObjectivesWay</class>
-  <method>printFinalSolutionSet</method>
-  <thread>1</thread>
-  <message>Variables values have been written to file VAR.tsv</message>
-</record>
-<record>
-  <date>2019-11-05T22:39:58.844679200Z</date>
-  <millis>1572993598844</millis>
-  <nanos>679200</nanos>
-  <sequence>21</sequence>
-  <logger>org.uma.jmetal.util.JMetalLogger</logger>
-  <level>INFO</level>
-  <class>org.uma.jmetal.algorithm.multiobjective.nsgaiii.NSGAIII</class>
-  <method>&lt;init&gt;</method>
-  <thread>1</thread>
-  <message>rpssize: 35</message>
-</record>
-<record>
-  <date>2019-11-05T22:44:59.404780300Z</date>
-  <millis>1572993899404</millis>
-  <nanos>780300</nanos>
-  <sequence>22</sequence>
-  <logger>org.uma.jmetal.util.JMetalLogger</logger>
-  <level>INFO</level>
-  <class>br.multiobjetivo.MultiObjectivesWay</class>
-  <method>&lt;init&gt;</method>
-  <thread>1</thread>
-  <message>Total execution time: 300019ms</message>
-</record>
-<record>
-  <date>2019-11-05T22:44:59.417746200Z</date>
-  <millis>1572993899417</millis>
-  <nanos>746200</nanos>
-  <sequence>23</sequence>
-  <logger>org.uma.jmetal.util.JMetalLogger</logger>
-  <level>INFO</level>
-  <class>br.multiobjetivo.MultiObjectivesWay</class>
-  <method>printFinalSolutionSet</method>
-  <thread>1</thread>
-  <message>Random seed: 1572992422879</message>
-</record>
-<record>
-  <date>2019-11-05T22:44:59.422757200Z</date>
-  <millis>1572993899422</millis>
-  <nanos>757200</nanos>
-  <sequence>24</sequence>
-  <logger>org.uma.jmetal.util.JMetalLogger</logger>
-  <level>INFO</level>
-  <class>br.multiobjetivo.MultiObjectivesWay</class>
-  <method>printFinalSolutionSet</method>
-  <thread>1</thread>
-  <message>Objectives values have been written to file FUN.tsv</message>
-</record>
-<record>
-  <date>2019-11-05T22:44:59.422757200Z</date>
-  <millis>1572993899422</millis>
-  <nanos>757200</nanos>
-  <sequence>25</sequence>
-  <logger>org.uma.jmetal.util.JMetalLogger</logger>
-  <level>INFO</level>
-  <class>br.multiobjetivo.MultiObjectivesWay</class>
-  <method>printFinalSolutionSet</method>
-  <thread>1</thread>
-  <message>Variables values have been written to file VAR.tsv</message>
-</record>
-<record>
-  <date>2019-11-05T22:44:59.468608400Z</date>
-  <millis>1572993899468</millis>
-  <nanos>608400</nanos>
-  <sequence>26</sequence>
-  <logger>org.uma.jmetal.util.JMetalLogger</logger>
-  <level>INFO</level>
-  <class>org.uma.jmetal.algorithm.multiobjective.nsgaiii.NSGAIII</class>
-  <method>&lt;init&gt;</method>
-  <thread>1</thread>
-  <message>rpssize: 35</message>
-</record>
-<record>
-  <date>2019-11-05T22:50:12.486494600Z</date>
-  <millis>1572994212486</millis>
-  <nanos>494600</nanos>
-  <sequence>27</sequence>
-  <logger>org.uma.jmetal.util.JMetalLogger</logger>
-  <level>INFO</level>
-  <class>br.multiobjetivo.MultiObjectivesWay</class>
-  <method>&lt;init&gt;</method>
-  <thread>1</thread>
-  <message>Total execution time: 286517ms</message>
-</record>
-<record>
-  <date>2019-11-05T22:50:14.379290900Z</date>
-  <millis>1572994214379</millis>
-  <nanos>290900</nanos>
-  <sequence>28</sequence>
-  <logger>org.uma.jmetal.util.JMetalLogger</logger>
-  <level>INFO</level>
-  <class>br.multiobjetivo.MultiObjectivesWay</class>
-  <method>printFinalSolutionSet</method>
-  <thread>1</thread>
-  <message>Random seed: 1572992422879</message>
-</record>
-<record>
-  <date>2019-11-05T22:50:14.781470600Z</date>
-  <millis>1572994214781</millis>
-  <nanos>470600</nanos>
-  <sequence>29</sequence>
-  <logger>org.uma.jmetal.util.JMetalLogger</logger>
-  <level>INFO</level>
-  <class>br.multiobjetivo.MultiObjectivesWay</class>
-  <method>printFinalSolutionSet</method>
-  <thread>1</thread>
-  <message>Objectives values have been written to file FUN.tsv</message>
-</record>
-<record>
-  <date>2019-11-05T22:50:14.781470600Z</date>
-  <millis>1572994214781</millis>
-  <nanos>470600</nanos>
-  <sequence>30</sequence>
-  <logger>org.uma.jmetal.util.JMetalLogger</logger>
-  <level>INFO</level>
-  <class>br.multiobjetivo.MultiObjectivesWay</class>
-  <method>printFinalSolutionSet</method>
-  <thread>1</thread>
-  <message>Variables values have been written to file VAR.tsv</message>
-</record>
-<record>
-  <date>2019-11-05T22:50:17.106130700Z</date>
-  <millis>1572994217106</millis>
-  <nanos>130700</nanos>
-  <sequence>31</sequence>
-  <logger>org.uma.jmetal.util.JMetalLogger</logger>
-  <level>INFO</level>
-  <class>org.uma.jmetal.algorithm.multiobjective.nsgaiii.NSGAIII</class>
-  <method>&lt;init&gt;</method>
-  <thread>1</thread>
-  <message>rpssize: 35</message>
-</record>
-<record>
-  <date>2019-11-05T22:55:05.106937300Z</date>
-  <millis>1572994505106</millis>
-  <nanos>937300</nanos>
-  <sequence>32</sequence>
-  <logger>org.uma.jmetal.util.JMetalLogger</logger>
-  <level>INFO</level>
-  <class>br.multiobjetivo.MultiObjectivesWay</class>
-  <method>&lt;init&gt;</method>
-  <thread>1</thread>
-  <message>Total execution time: 287493ms</message>
-</record>
-<record>
-  <date>2019-11-05T22:55:05.134860900Z</date>
-  <millis>1572994505134</millis>
-  <nanos>860900</nanos>
-  <sequence>33</sequence>
-  <logger>org.uma.jmetal.util.JMetalLogger</logger>
-  <level>INFO</level>
-  <class>br.multiobjetivo.MultiObjectivesWay</class>
-  <method>printFinalSolutionSet</method>
-  <thread>1</thread>
-  <message>Random seed: 1572992422879</message>
-</record>
-<record>
-  <date>2019-11-05T22:55:05.138892700Z</date>
-  <millis>1572994505138</millis>
-  <nanos>892700</nanos>
-  <sequence>34</sequence>
-  <logger>org.uma.jmetal.util.JMetalLogger</logger>
-  <level>INFO</level>
-  <class>br.multiobjetivo.MultiObjectivesWay</class>
-  <method>printFinalSolutionSet</method>
-  <thread>1</thread>
-  <message>Objectives values have been written to file FUN.tsv</message>
-</record>
-<record>
-  <date>2019-11-05T22:55:05.139847400Z</date>
-  <millis>1572994505139</millis>
-  <nanos>847400</nanos>
-  <sequence>35</sequence>
-  <logger>org.uma.jmetal.util.JMetalLogger</logger>
-  <level>INFO</level>
-  <class>br.multiobjetivo.MultiObjectivesWay</class>
-  <method>printFinalSolutionSet</method>
-  <thread>1</thread>
-  <message>Variables values have been written to file VAR.tsv</message>
-</record>
-<record>
-  <date>2019-11-05T22:55:05.192706200Z</date>
-  <millis>1572994505192</millis>
-  <nanos>706200</nanos>
-  <sequence>36</sequence>
-  <logger>org.uma.jmetal.util.JMetalLogger</logger>
-  <level>INFO</level>
-  <class>org.uma.jmetal.algorithm.multiobjective.nsgaiii.NSGAIII</class>
-  <method>&lt;init&gt;</method>
-  <thread>1</thread>
-  <message>rpssize: 35</message>
-</record>
-<record>
-  <date>2019-11-05T23:00:20.568142200Z</date>
-  <millis>1572994820568</millis>
-  <nanos>142200</nanos>
-  <sequence>37</sequence>
-  <logger>org.uma.jmetal.util.JMetalLogger</logger>
-  <level>INFO</level>
-  <class>br.multiobjetivo.MultiObjectivesWay</class>
-  <method>&lt;init&gt;</method>
-  <thread>1</thread>
-  <message>Total execution time: 292555ms</message>
-</record>
-<record>
-  <date>2019-11-05T23:00:22.282912700Z</date>
-  <millis>1572994822282</millis>
-  <nanos>912700</nanos>
-  <sequence>38</sequence>
-  <logger>org.uma.jmetal.util.JMetalLogger</logger>
-  <level>INFO</level>
-  <class>br.multiobjetivo.MultiObjectivesWay</class>
-  <method>printFinalSolutionSet</method>
-  <thread>1</thread>
-  <message>Random seed: 1572992422879</message>
-</record>
-<record>
-  <date>2019-11-05T23:00:22.542285800Z</date>
-  <millis>1572994822542</millis>
-  <nanos>285800</nanos>
-  <sequence>39</sequence>
-  <logger>org.uma.jmetal.util.JMetalLogger</logger>
-  <level>INFO</level>
-  <class>br.multiobjetivo.MultiObjectivesWay</class>
-  <method>printFinalSolutionSet</method>
-  <thread>1</thread>
-  <message>Objectives values have been written to file FUN.tsv</message>
-</record>
-<record>
-  <date>2019-11-05T23:00:22.544279900Z</date>
-  <millis>1572994822544</millis>
-  <nanos>279900</nanos>
-  <sequence>40</sequence>
-  <logger>org.uma.jmetal.util.JMetalLogger</logger>
-  <level>INFO</level>
-  <class>br.multiobjetivo.MultiObjectivesWay</class>
-  <method>printFinalSolutionSet</method>
-  <thread>1</thread>
-  <message>Variables values have been written to file VAR.tsv</message>
-</record>
-<record>
-  <date>2019-11-05T23:00:25.171356800Z</date>
-  <millis>1572994825171</millis>
-  <nanos>356800</nanos>
-  <sequence>41</sequence>
-  <logger>org.uma.jmetal.util.JMetalLogger</logger>
-  <level>INFO</level>
-  <class>org.uma.jmetal.algorithm.multiobjective.nsgaiii.NSGAIII</class>
-  <method>&lt;init&gt;</method>
-  <thread>1</thread>
-  <message>rpssize: 35</message>
-</record>
-<record>
-  <date>2019-11-05T23:04:34.012229800Z</date>
-  <millis>1572995074012</millis>
-  <nanos>229800</nanos>
-  <sequence>42</sequence>
-  <logger>org.uma.jmetal.util.JMetalLogger</logger>
-  <level>INFO</level>
-  <class>br.multiobjetivo.MultiObjectivesWay</class>
-  <method>&lt;init&gt;</method>
-  <thread>1</thread>
-  <message>Total execution time: 248245ms</message>
-</record>
-<record>
-  <date>2019-11-05T23:04:34.036166300Z</date>
-  <millis>1572995074036</millis>
-  <nanos>166300</nanos>
-  <sequence>43</sequence>
-  <logger>org.uma.jmetal.util.JMetalLogger</logger>
-  <level>INFO</level>
-  <class>br.multiobjetivo.MultiObjectivesWay</class>
-  <method>printFinalSolutionSet</method>
-  <thread>1</thread>
-  <message>Random seed: 1572992422879</message>
-</record>
-<record>
-  <date>2019-11-05T23:04:34.045179800Z</date>
-  <millis>1572995074045</millis>
-  <nanos>179800</nanos>
-  <sequence>44</sequence>
-  <logger>org.uma.jmetal.util.JMetalLogger</logger>
-  <level>INFO</level>
-  <class>br.multiobjetivo.MultiObjectivesWay</class>
-  <method>printFinalSolutionSet</method>
-  <thread>1</thread>
-  <message>Objectives values have been written to file FUN.tsv</message>
-</record>
-<record>
-  <date>2019-11-05T23:04:34.046175400Z</date>
-  <millis>1572995074046</millis>
-  <nanos>175400</nanos>
-  <sequence>45</sequence>
-  <logger>org.uma.jmetal.util.JMetalLogger</logger>
-  <level>INFO</level>
-  <class>br.multiobjetivo.MultiObjectivesWay</class>
-  <method>printFinalSolutionSet</method>
-  <thread>1</thread>
-  <message>Variables values have been written to file VAR.tsv</message>
-</record>
-<record>
-  <date>2019-11-05T23:04:34.146869900Z</date>
-  <millis>1572995074146</millis>
-  <nanos>869900</nanos>
-  <sequence>46</sequence>
-  <logger>org.uma.jmetal.util.JMetalLogger</logger>
-  <level>INFO</level>
-  <class>org.uma.jmetal.algorithm.multiobjective.nsgaiii.NSGAIII</class>
-  <method>&lt;init&gt;</method>
-  <thread>1</thread>
-  <message>rpssize: 35</message>
-</record>
-<record>
-  <date>2019-11-05T23:09:12.756301600Z</date>
-  <millis>1572995352756</millis>
-  <nanos>301600</nanos>
-  <sequence>47</sequence>
-  <logger>org.uma.jmetal.util.JMetalLogger</logger>
-  <level>INFO</level>
-  <class>br.multiobjetivo.MultiObjectivesWay</class>
-  <method>&lt;init&gt;</method>
-  <thread>1</thread>
-  <message>Total execution time: 278252ms</message>
-</record>
-<record>
-  <date>2019-11-05T23:09:12.767314600Z</date>
-  <millis>1572995352767</millis>
-  <nanos>314600</nanos>
-  <sequence>48</sequence>
-  <logger>org.uma.jmetal.util.JMetalLogger</logger>
-  <level>INFO</level>
-  <class>br.multiobjetivo.MultiObjectivesWay</class>
-  <method>printFinalSolutionSet</method>
-  <thread>1</thread>
-  <message>Random seed: 1572992422879</message>
-</record>
-<record>
-  <date>2019-11-05T23:09:12.772258Z</date>
-  <millis>1572995352772</millis>
-  <nanos>258000</nanos>
-  <sequence>49</sequence>
-  <logger>org.uma.jmetal.util.JMetalLogger</logger>
-  <level>INFO</level>
-  <class>br.multiobjetivo.MultiObjectivesWay</class>
-  <method>printFinalSolutionSet</method>
-  <thread>1</thread>
-  <message>Objectives values have been written to file FUN.tsv</message>
-</record>
-<record>
-  <date>2019-11-05T23:09:12.772258Z</date>
-  <millis>1572995352772</millis>
-  <nanos>258000</nanos>
-  <sequence>50</sequence>
-  <logger>org.uma.jmetal.util.JMetalLogger</logger>
-  <level>INFO</level>
-  <class>br.multiobjetivo.MultiObjectivesWay</class>
-  <method>printFinalSolutionSet</method>
-  <thread>1</thread>
-  <message>Variables values have been written to file VAR.tsv</message>
-</record>
-<record>
-  <date>2019-11-05T23:09:12.818691800Z</date>
-  <millis>1572995352818</millis>
-  <nanos>691800</nanos>
-  <sequence>51</sequence>
-  <logger>org.uma.jmetal.util.JMetalLogger</logger>
-  <level>INFO</level>
-  <class>org.uma.jmetal.algorithm.multiobjective.nsgaiii.NSGAIII</class>
-  <method>&lt;init&gt;</method>
-  <thread>1</thread>
-  <message>rpssize: 35</message>
-</record>
-<record>
-  <date>2019-11-05T23:15:10.529052Z</date>
-  <millis>1572995710529</millis>
-  <nanos>52000</nanos>
-  <sequence>52</sequence>
-  <logger>org.uma.jmetal.util.JMetalLogger</logger>
-  <level>INFO</level>
-  <class>br.multiobjetivo.MultiObjectivesWay</class>
-  <method>&lt;init&gt;</method>
-  <thread>1</thread>
-  <message>Total execution time: 357255ms</message>
-</record>
-<record>
-  <date>2019-11-05T23:15:10.541063900Z</date>
-  <millis>1572995710541</millis>
-  <nanos>63900</nanos>
-  <sequence>53</sequence>
-  <logger>org.uma.jmetal.util.JMetalLogger</logger>
-  <level>INFO</level>
-  <class>br.multiobjetivo.MultiObjectivesWay</class>
-  <method>printFinalSolutionSet</method>
-  <thread>1</thread>
-  <message>Random seed: 1572992422879</message>
-</record>
-<record>
-  <date>2019-11-05T23:15:10.546006700Z</date>
-  <millis>1572995710546</millis>
-  <nanos>6700</nanos>
-  <sequence>54</sequence>
-  <logger>org.uma.jmetal.util.JMetalLogger</logger>
-  <level>INFO</level>
-  <class>br.multiobjetivo.MultiObjectivesWay</class>
-  <method>printFinalSolutionSet</method>
-  <thread>1</thread>
-  <message>Objectives values have been written to file FUN.tsv</message>
-</record>
-<record>
-  <date>2019-11-05T23:15:10.546006700Z</date>
-  <millis>1572995710546</millis>
-  <nanos>6700</nanos>
-  <sequence>55</sequence>
-  <logger>org.uma.jmetal.util.JMetalLogger</logger>
-  <level>INFO</level>
-  <class>br.multiobjetivo.MultiObjectivesWay</class>
-  <method>printFinalSolutionSet</method>
-  <thread>1</thread>
-  <message>Variables values have been written to file VAR.tsv</message>
-</record>
-</log>

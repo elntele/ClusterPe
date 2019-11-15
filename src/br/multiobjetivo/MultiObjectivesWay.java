@@ -29,6 +29,7 @@ import org.uma.jmetal.solution.IntegerSolution;
 import org.uma.jmetal.solution.Solution;
 import org.uma.jmetal.util.AlgorithmRunner;
 import org.uma.jmetal.util.JMetalLogger;
+import org.uma.jmetal.util.evaluator.impl.ParallelSolutionListEvaluate;
 import org.uma.jmetal.util.evaluator.impl.SeverAndId;
 import org.uma.jmetal.util.fileoutput.SolutionListOutput;
 import org.uma.jmetal.util.fileoutput.impl.DefaultFileOutputContext;
@@ -50,7 +51,7 @@ public class MultiObjectivesWay {
 		CrossoverOperator<IntegerSolution> crossover; // do Jmetal
 		MutationOperator<IntegerSolution> mutation; // do Jmetal
 		SelectionOperator<List<IntegerSolution>, IntegerSolution> selection; // do
-		problem = new SearchForNetworkAndEvaluate(kmeans, gml, clustters, prop.get("solucaoInicialUnica").toString());
+		problem = new SearchForNetworkAndEvaluate(kmeans, gml, clustters, /*prop.get("solucaoInicialUnica").toString()*/ prop);
 		UUID ParallelEvaluateId = null;
 		List<List<String>> severList = new ArrayList<>();
 		//organizar e deletar
@@ -70,7 +71,7 @@ public class MultiObjectivesWay {
 		 * parte relacionada a nova funcionalidade: o paralelismo com tcp
 		 */
 		if (prop.get("parallelFitness").equals("y")) {
-			for (int i = 0; i <  Integer.parseInt(prop.getProperty("severNumber")); i++) {
+			for (int i = 0; i < Integer.parseInt(prop.getProperty("severNumber")); i++) {
 				Socket soc = null;
 				ObjectMapper mapper = new ObjectMapper();
 				List<String> l = new ArrayList<>();
@@ -83,7 +84,7 @@ public class MultiObjectivesWay {
 					l.add(textOut);
 					textOut = mapper.writeValueAsString(clustters);
 					l.add(textOut);
-					textOut = mapper.writeValueAsString(prop.get("solucaoInicialUnica").toString());
+					textOut = mapper.writeValueAsString(prop.toString());
 					l.add(textOut);
 					textOut = mapper.writeValueAsString(l);
 				} catch (JsonProcessingException e1) {
@@ -141,11 +142,11 @@ public class MultiObjectivesWay {
 		// .setSelectionOperator(selection).setPopulationSize(1000).setMaxEvaluations(1000).build();
 		// AlgorithmRunner algorithmRunner = new
 		// AlgorithmRunner.Executor(algorithm).execute();
-
+		ParallelSolutionListEvaluate parallelEvaluator = new ParallelSolutionListEvaluate<>(severAndIdList);
 		algorithm = new NSGAIIIBuilder<>(problem, ((SearchForNetworkAndEvaluate) problem).getGml(), clustters, prop,
-				severAndIdList).setCrossoverOperator(crossover).setMutationOperator(mutation)
+				parallelEvaluator).setCrossoverOperator(crossover).setMutationOperator(mutation)
 						.setSelectionOperator(selection).setPopulationSize(40).setMaxIterations(500).build();
-
+	//((NSGAIII)algorithm)
 		List<IntegerSolution> population;
 		AlgorithmRunner algorithmRunner = new AlgorithmRunner.Executor(algorithm).execute();
 		population = algorithm.getResult();

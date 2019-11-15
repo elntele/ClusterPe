@@ -1,13 +1,12 @@
 package br.multiobjetivo;
 
 import java.io.BufferedReader;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Properties;
 import java.util.Random;
 
 import org.uma.jmetal.problem.impl.AbstractIntegerProblem;
@@ -15,10 +14,11 @@ import org.uma.jmetal.solution.IntegerSolution;
 import org.uma.jmetal.solution.impl.DefaultIntegerSolution;
 import org.uma.jmetal.util.comparator.DominanceComparator;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import br.bons.core.OpticalNetworkProblem;
 //import br.clustering.LabeledIntegerSolution;
 import br.cns.model.GmlData;
-import br.cns.persistence.GmlDao;
 import cbic15.Kmeans;
 import cbic15.Pattern;
 
@@ -37,9 +37,11 @@ public class SearchForNetworkAndEvaluate extends AbstractIntegerProblem {
 //	private int contCreate = 0;
 	private int contEvaluate = 0;
 	IntegerSolution anterior;
-	private List <String> fixedNetworkConections;
+	private List<String> fixedNetworkConections;
 	private boolean FixedInitiallinks;
-	
+	private Properties prop;
+	private boolean lineColumnChangedBefore=false;
+
 	public void testCoparacao(IntegerSolution s1, IntegerSolution s2) {
 		DominanceComparator comparater = new DominanceComparator();
 		int i = comparater.compare(s1, s2);
@@ -47,71 +49,119 @@ public class SearchForNetworkAndEvaluate extends AbstractIntegerProblem {
 			System.out.println("s1 domina s2");
 		}
 		if (i == 0) {
-			System.out.println("ambras são nao dominadas");
+			System.out.println("ambras sï¿½o nao dominadas");
 		}
 		if (i == 1) {
 			System.out.println("s2 domina s1");
 		}
 
 	}
+
 	/**
-	 * este método é nativo da classe problem, ele ja recebe solution por solution
-	 * que vem de algum lugar com a criação inicial de forma aletória. Até onde eu lembro
-	 * ela não vem zerada na linnha da invocação IntegerSolution retorno = new DefaultIntegerSolution(this);
-	 * mas se precisar modificar essa solutio "retorno" de alguma forma excepcional, o lugar é neste método.
-	 * no nosso caso, ele usar o método alwaysTheSameSolution pra partir com os mesmos links
-	 * sempre.
-	 * obs: dependendo do alg de cluster do pre processamento as cidades podem mudar, mas a linkagem
-	 * sempre virar de um arquivo var com o o nome de fixedSolution.tsv
+	 * este mï¿½todo ï¿½ nativo da classe problem, ele ja recebe solution por solution
+	 * que vem de algum lugar com a criaï¿½ï¿½o inicial de forma aletï¿½ria. Atï¿½ onde eu
+	 * lembro ela nï¿½o vem zerada na linnha da invocaï¿½ï¿½o IntegerSolution retorno =
+	 * new DefaultIntegerSolution(this); mas se precisar modificar essa solutio
+	 * "retorno" de alguma forma excepcional, o lugar ï¿½ neste mï¿½todo. no nosso caso,
+	 * ele usar o mï¿½todo alwaysTheSameSolution pra partir com os mesmos links
+	 * sempre. obs: dependendo do alg de cluster do pre processamento as cidades
+	 * podem mudar, mas a linkagem sempre virar de um arquivo var com o o nome de
+	 * fixedSolution.tsv
 	 */
 
 	@Override
 	public IntegerSolution createSolution() {
 		IntegerSolution retorno = new DefaultIntegerSolution(this);
 		if (this.FixedInitiallinks) {
-			retorno=this.alwaysTheSameSolution(retorno);
+			retorno = this.alwaysTheSameSolution(retorno);
+		} else if (this.prop.getProperty("selectThePredeterminedPops").equals("y") && !this.lineColumnChangedBefore) {
+			selectThePredeterminedPops();
 		}
 		retorno.setLineColumn(lineColumn.clone());
 		return retorno;
 	}
-	
+
 	/**
-	 * metodo lê as conexões da polução iniciala partir de um array list no atributos
-	 * Observe que ele só pode fazer isso uma vez já que ele remove a cabeça da lista 
-	 * fixedNetworkConections, que guarda a lista de strings recuperada de um arquivo var.tsv
-	 * pelo método retrieveTheFixedInitialNetworks.
-	 * Uu seja, apos carregar a população inicial a lista fixedNetworkConections será 
-	 * esvaziada.
+	 * metodo lï¿½ as conexï¿½es da poluï¿½ï¿½o iniciala partir de um array list no
+	 * atributos Observe que ele sï¿½ pode fazer isso uma vez jï¿½ que ele remove a
+	 * cabeï¿½a da lista fixedNetworkConections, que guarda a lista de strings
+	 * recuperada de um arquivo var.tsv pelo mï¿½todo retrieveTheFixedInitialNetworks.
+	 * Uu seja, apos carregar a populaï¿½ï¿½o inicial a lista fixedNetworkConections
+	 * serï¿½ esvaziada.
+	 * 
 	 * @param s
 	 * @return
 	 */
-	
-	public IntegerSolution alwaysTheSameSolution(IntegerSolution s)  {
-		
-		String[] rede=new String[this.getNumberOfVariables()];
-		rede=this.fixedNetworkConections.get(0).split(" ");
-		
-		for (int i=0;i<rede.length;i++) {
+
+	public IntegerSolution alwaysTheSameSolution(IntegerSolution s) {
+
+		String[] rede = new String[this.getNumberOfVariables()];
+		rede = this.fixedNetworkConections.get(0).split(" ");
+
+		for (int i = 0; i < rede.length; i++) {
 			s.setVariableValue(i, Integer.parseInt(rede[i]));
 		}
 		this.fixedNetworkConections.remove(0);
 		return s;
 	}
 	
+	/**
+	 * esse dois metodos a seguir sÃ£o o polimorfismo do metodo que
+	 * coloca um conjunto de pops predeterminado pelo usuÃ¡rio, nÃ£o 
+	 * mais como uma decisÃ£o do alg.
+	 * @param s
+	 * @return
+	 */
 
-	
-	public void retrieveTheFixedInitialNetworks()throws IOException {
-		BufferedReader br = new BufferedReader(new		 
-				   FileReader("src/fixedSolution.tsv"));
+	/*public IntegerSolution selectThePredeterminedPops(IntegerSolution s) {
+		Pattern[] lineColumnLocal = new Pattern[this.kmeans.getK()];
+		String presetctedPop = this.prop.getProperty("hardPop");
+		String[] arrayIdPop = presetctedPop.split(",");
+		for (int i = 0; i < this.clustters.length; i++) {
+
+			for (int w = 0; w < arrayIdPop.length; w++) {
+				
+				for (Pattern p : this.clustters[i]) {
+					if (p.getId()==Integer.parseInt(arrayIdPop[w])) {
+						lineColumnLocal[w]=p;
+					}
+				}
+			}
+		}
+
+		s.setLineColumn(lineColumnLocal);
+		return s;
+	}
+	*/
+	public void selectThePredeterminedPops() {
+		Pattern[] lineColumnLocal = new Pattern[this.kmeans.getK()];
+		String presetctedPop = this.prop.getProperty("hardPop");
+		String[] arrayIdPop = presetctedPop.split(";");
+		for (int i = 0; i < this.clustters.length; i++) {
+
+			for (int w = 0; w < arrayIdPop.length; w++) {
+				
+				for (Pattern p : this.clustters[i]) {
+					if (p.getId()==Integer.parseInt(arrayIdPop[w])) {
+						lineColumnLocal[w]=p;
+					}
+				}
+			}
+		}
+		this.lineColumn=lineColumnLocal;
+		this.lineColumnChangedBefore=true;
+	}
+
+	public void retrieveTheFixedInitialNetworks() throws IOException {
+		BufferedReader br = new BufferedReader(new FileReader("src/fixedSolution.tsv"));
 		String linha;
-		List <String> lista = new ArrayList();
+		List<String> lista = new ArrayList();
 		while ((linha = br.readLine()) != null) {
 			lista.add(linha);
-		    
-		}	
-		this.fixedNetworkConections	=lista;
+
+		}
+		this.fixedNetworkConections = lista;
 	}
-	
 
 	// public boolean isolated(GmlData data) {
 	// System.out.println("pontos isolados ? "+ data.containsIsolatedNodes());
@@ -155,17 +205,17 @@ public class SearchForNetworkAndEvaluate extends AbstractIntegerProblem {
 			P.reloadProblem(load, D);
 			vars = P.getDefaultSolution();
 			Double[] objectives = P.evaluate(vars);
-			// System.out.println("Sumário da rede \"" + gml + "\" para a carga
+			// System.out.println("Sumï¿½rio da rede \"" + gml + "\" para a carga
 			// de "
 			// + load + " erlangs:");
 			// System.out.println();
 			// System.out.printf("Probabilidade de bloqueio = %.6f\n",
 			// objectives[0]);
-			// System.out.printf("Custo de implantação = %.2f u.m.\n",
+			// System.out.printf("Custo de implantaï¿½ï¿½o = %.2f u.m.\n",
 			// objectives[1]);
-			// System.out.printf("Gasto energético = %.2f Watts\n",
+			// System.out.printf("Gasto energï¿½tico = %.2f Watts\n",
 			// objectives[2]);
-			// System.out.printf("Conectividade algébrica = %.2f\n", 1 / (1 +
+			// System.out.printf("Conectividade algï¿½brica = %.2f\n", 1 / (1 +
 			// objectives[3]));
 			// setando os objetivos caulculados pelo fitnes para o Jmetal
 			solution.setObjective(0, objectives[0]);
@@ -193,8 +243,8 @@ public class SearchForNetworkAndEvaluate extends AbstractIntegerProblem {
 	}
 
 	/**
-	 * método recebe uma lista de pattern e um pattern e retorna o pattern da
-	 * lista mais próximo ao pattern recebido
+	 * mï¿½todo recebe uma lista de pattern e um pattern e retorna o pattern da lista
+	 * mais prï¿½ximo ao pattern recebido
 	 * 
 	 * @param node
 	 * @param copyPatternList
@@ -217,9 +267,9 @@ public class SearchForNetworkAndEvaluate extends AbstractIntegerProblem {
 	}
 
 	/**
-	 * metodo retorna os 3 patterns mais proximo a um pattern dentro do cluster
-	 * dos parametros de recebimento, a lista de pattern em questão é o cluster
-	 * e o patterns é o mebro do cluster aos qual se procura os 3 clusteres mais
+	 * metodo retorna os 3 patterns mais proximo a um pattern dentro do cluster dos
+	 * parametros de recebimento, a lista de pattern em questï¿½o ï¿½ o cluster e o
+	 * patterns ï¿½ o mebro do cluster aos qual se procura os 3 clusteres mais
 	 * proximos
 	 * 
 	 * @param patternList
@@ -240,8 +290,8 @@ public class SearchForNetworkAndEvaluate extends AbstractIntegerProblem {
 	}
 
 	/**
-	 * método pra modificar a matriz inteira mudando cada elemento dela por um
-	 * dos 3 patterns mais proximos de forma aleatória
+	 * mï¿½todo pra modificar a matriz inteira mudando cada elemento dela por um dos 3
+	 * patterns mais proximos de forma aleatï¿½ria
 	 */
 	public void createNewMatrix() {
 		Pattern[] copyLineColumn = new Pattern[this.lineColumn.length];
@@ -301,7 +351,7 @@ public class SearchForNetworkAndEvaluate extends AbstractIntegerProblem {
 			vars[i] = 1;
 		}
 		this.ptg.patternGmlData(this.lineColumn, vars);
-		//String path = "C:/Users/jorge/workspace/ClusterPe/src/Gmlevaluating.gml";
+		// String path = "C:/Users/jorge/workspace/ClusterPe/src/Gmlevaluating.gml";
 		String path = "src/Gmlevaluating.gml";
 		this.opticalNetwoark = new OpticalNetworkProblem(load, path);
 		int j = load;
@@ -323,15 +373,15 @@ public class SearchForNetworkAndEvaluate extends AbstractIntegerProblem {
 	public int getContEvaluate() {
 		return contEvaluate;
 	}
-	
-	
 
 	public PatternToGml getPtg() {
 		return ptg;
 	}
+
 	/**
 	 * 
-	 * nesta parte serão gerados um monte de gaet e set pra satisfazer o jackson
+	 * nesta parte serï¿½o gerados um monte de gaet e set pra satisfazer o jackson
+	 * 
 	 * @param kmeans
 	 * @param gml
 	 * @param clustters
@@ -340,83 +390,105 @@ public class SearchForNetworkAndEvaluate extends AbstractIntegerProblem {
 	public int getLowerBound() {
 		return lowerBound;
 	}
+
 	public void setLowerBound(int lowerBound) {
 		this.lowerBound = lowerBound;
 	}
+
 	public int getUpperBound() {
 		return upperBound;
 	}
+
 	public void setUpperBound(int upperBound) {
 		this.upperBound = upperBound;
 	}
+
 	public Kmeans getKmeans() {
 		return kmeans;
 	}
+
 	public void setKmeans(Kmeans kmeans) {
 		this.kmeans = kmeans;
 	}
+
 	public Pattern[] getLineColumn() {
 		return lineColumn;
 	}
+
 	public void setLineColumn(Pattern[] lineColumn) {
 		this.lineColumn = lineColumn;
 	}
+
 	public List<Pattern>[] getClustters() {
 		return clustters;
 	}
+
 	public void setClustters(List<Pattern>[] clustters) {
 		this.clustters = clustters;
 	}
+
 	public Pattern[] getCentroids() {
 		return centroids;
 	}
+
 	public void setCentroids(Pattern[] centroids) {
 		this.centroids = centroids;
 	}
+
 	public OpticalNetworkProblem getOpticalNetwoark() {
 		return opticalNetwoark;
 	}
+
 	public void setOpticalNetwoark(OpticalNetworkProblem opticalNetwoark) {
 		this.opticalNetwoark = opticalNetwoark;
 	}
+
 	public IntegerSolution getAnterior() {
 		return anterior;
 	}
+
 	public void setAnterior(IntegerSolution anterior) {
 		this.anterior = anterior;
 	}
+
 	public List<String> getFixedNetworkConections() {
 		return fixedNetworkConections;
 	}
+
 	public void setFixedNetworkConections(List<String> fixedNetworkConections) {
 		this.fixedNetworkConections = fixedNetworkConections;
 	}
+
 	public boolean isFixedInitiallinks() {
 		return FixedInitiallinks;
 	}
+
 	public void setFixedInitiallinks(boolean fixedInitiallinks) {
 		FixedInitiallinks = fixedInitiallinks;
 	}
+
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
+
 	public void setGml(GmlData gml) {
 		this.gml = gml;
 	}
+
 	public void setPtg(PatternToGml ptg) {
 		this.ptg = ptg;
 	}
+
 	public void setContEvaluate(int contEvaluate) {
 		this.contEvaluate = contEvaluate;
 	}
-	
-	
-	
-	//********************************************************************************************
-	
-	
+
+	// ********************************************************************************************
+
 //	@JsonCreator
-	public SearchForNetworkAndEvaluate(@JsonProperty("kmeans") Kmeans kmeans,@JsonProperty("gml") GmlData gml,@JsonProperty("clustters") List<Pattern>[] clustters, @JsonProperty("fixedInitiallinks")String fixedLinks) {
+	public SearchForNetworkAndEvaluate(@JsonProperty("kmeans") Kmeans kmeans, @JsonProperty("gml") GmlData gml,
+			@JsonProperty("clustters") List<Pattern>[] clustters,
+			/* @JsonProperty("fixedInitiallinks")String fixedLinks */@JsonProperty("prop") Properties prop) {
 		super();
 		this.setNumberOfObjectives(4);
 		// tamanho do cromossomo
@@ -427,32 +499,22 @@ public class SearchForNetworkAndEvaluate extends AbstractIntegerProblem {
 		this.clustters = clustters;
 		this.lineColumn = kmeans.getNearestPatternsFromCentroid();
 		this.centroids = kmeans.getNearestPatternsFromCentroid();
+		this.prop = prop;
 		try {
 			retrieveTheFixedInitialNetworks();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		if (fixedLinks.equals("y")) {
-			this.FixedInitiallinks=true;
-		}else {
-			this.FixedInitiallinks=false;
+		if (/* fixedLinks.equals("y") */prop.getProperty("solucaoInicialUnica").equals("y")) {
+			this.FixedInitiallinks = true;
+		} else {
+			this.FixedInitiallinks = false;
 		}
-		
+
 		this.ptg = new PatternToGml(gml);
 		SetNetWork();
 		printIncialCentroide();
 	}
-	
-	/**
-	 * construtor vazio colocado apenas por causa do mapeamento do json Jackson
-	 * para a parte de paralelistmo, antes isso não existia no projeto, não use para outra coisa
-	 */
 
-//	public SearchForNetworkAndEvaluate() {
-//		super();
-//		
-//	}
-	
-	
 }

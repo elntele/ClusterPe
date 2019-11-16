@@ -117,7 +117,11 @@ public class MultiObjectivesWay {
 				} catch (EOFException e) {
 					System.out.println("EOF:" + e.getMessage());
 				} catch (IOException e) {
-					System.out.println("readline:" + e.getMessage());
+					System.out.println("readline:" + e.getMessage()+" in sever "+adress+" was not possible"+": it will be remooved froom sever list");
+					severList.remove(i);
+					int severListzisze=severList.size();
+					prop.setProperty("severNumber",Integer.toString(severListzisze));
+					i-=1;
 				} finally {
 					if (soc != null)
 						try {

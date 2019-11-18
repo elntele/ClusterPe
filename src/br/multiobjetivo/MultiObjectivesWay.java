@@ -51,12 +51,13 @@ public class MultiObjectivesWay {
 		CrossoverOperator<IntegerSolution> crossover; // do Jmetal
 		MutationOperator<IntegerSolution> mutation; // do Jmetal
 		SelectionOperator<List<IntegerSolution>, IntegerSolution> selection; // do
-		problem = new SearchForNetworkAndEvaluate(kmeans, gml, clustters, /*prop.get("solucaoInicialUnica").toString()*/ prop);
+		problem = new SearchForNetworkAndEvaluate(kmeans, gml, clustters,
+				/* prop.get("solucaoInicialUnica").toString() */ prop);
 		UUID ParallelEvaluateId = null;
 		List<List<String>> severList = new ArrayList<>();
-		//organizar e deletar
-		List <UUID>ParallelEvaluateIdList=new ArrayList<>();
-		List <SeverAndId> severAndIdList=new ArrayList<>();
+		// organizar e deletar
+		List<UUID> ParallelEvaluateIdList = new ArrayList<>();
+		List<SeverAndId> severAndIdList = new ArrayList<>();
 		for (int i = 1; i <= Integer.parseInt(prop.getProperty("severNumber")); i++) {
 			String server = "adress" + i;
 			String door = "door" + 1;
@@ -94,7 +95,7 @@ public class MultiObjectivesWay {
 
 				String adress = severList.get(i).get(0).toString();
 				try {
-					int serverPort =Integer.parseInt(severList.get(i).get(1));
+					int serverPort = Integer.parseInt(severList.get(i).get(1));
 					soc = new Socket(adress, serverPort);
 					DataInputStream in = new DataInputStream(soc.getInputStream());
 					DataOutputStream out = new DataOutputStream(soc.getOutputStream());
@@ -103,13 +104,13 @@ public class MultiObjectivesWay {
 					out.write(b);
 					String data = in.readUTF(); // read a line of data from the stream
 					ParallelEvaluateId = UUID.fromString(data);
-					List <String> url = new ArrayList<>();
+					List<String> url = new ArrayList<>();
 					url.add(adress);
 					url.add(Integer.toString(serverPort));
-					
-					SeverAndId severAndId=new SeverAndId(ParallelEvaluateId, url);
+
+					SeverAndId severAndId = new SeverAndId(ParallelEvaluateId, url);
 					severAndIdList.add(severAndId);
-					//organizar e deletar
+					// organizar e deletar
 					ParallelEvaluateIdList.add(ParallelEvaluateId);
 					System.out.println("Received: " + data);
 				} catch (UnknownHostException e) {
@@ -117,11 +118,19 @@ public class MultiObjectivesWay {
 				} catch (EOFException e) {
 					System.out.println("EOF:" + e.getMessage());
 				} catch (IOException e) {
-					System.out.println("readline:" + e.getMessage()+" in sever "+adress+" was not possible"+": it will be remooved froom sever list");
-					severList.remove(i);
-					int severListzisze=severList.size();
-					prop.setProperty("severNumber",Integer.toString(severListzisze));
-					i-=1;
+					System.out.println("readline:" + e.getMessage() + " in sever " + adress + " was not possible"
+							+ ": it will be remooved froom sever list");
+					if (i < Integer.parseInt(prop.getProperty("severNumber")) - 1) {
+						severList.remove(i);
+						i -= 1;
+
+					} else {
+						severList.remove(i);
+					}
+
+					int severListzisze = severList.size();
+					prop.setProperty("severNumber", Integer.toString(severListzisze));
+
 				} finally {
 					if (soc != null)
 						try {
@@ -150,7 +159,7 @@ public class MultiObjectivesWay {
 		algorithm = new NSGAIIIBuilder<>(problem, ((SearchForNetworkAndEvaluate) problem).getGml(), clustters, prop,
 				parallelEvaluator).setCrossoverOperator(crossover).setMutationOperator(mutation)
 						.setSelectionOperator(selection).setPopulationSize(40).setMaxIterations(500).build();
-	//((NSGAIII)algorithm)
+		// ((NSGAIII)algorithm)
 		List<IntegerSolution> population;
 		AlgorithmRunner algorithmRunner = new AlgorithmRunner.Executor(algorithm).execute();
 		population = algorithm.getResult();

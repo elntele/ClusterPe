@@ -109,6 +109,7 @@ public class MultiObjectivesWay {
 					url.add(Integer.toString(serverPort));
 
 					SeverAndId severAndId = new SeverAndId(ParallelEvaluateId, url);
+					severAndId.setStatusOnLine(true);
 					severAndIdList.add(severAndId);
 					// organizar e deletar
 					ParallelEvaluateIdList.add(ParallelEvaluateId);
@@ -118,18 +119,29 @@ public class MultiObjectivesWay {
 				} catch (EOFException e) {
 					System.out.println("EOF:" + e.getMessage());
 				} catch (IOException e) {
+//					System.out.println("readline:" + e.getMessage() + " in sever " + adress + " was not possible"
+//							+ ": it will be remooved froom sever list");
+//					if (i < Integer.parseInt(prop.getProperty("severNumber")) - 1) {
+//						severList.remove(i);
+//						i -= 1;
+//
+//					} else {
+//						severList.remove(i);
+//					}
+//
+//					int severListzisze = severList.size();
+//					prop.setProperty("severNumber", Integer.toString(severListzisze));
 					System.out.println("readline:" + e.getMessage() + " in sever " + adress + " was not possible"
-							+ ": it will be remooved froom sever list");
-					if (i < Integer.parseInt(prop.getProperty("severNumber")) - 1) {
-						severList.remove(i);
-						i -= 1;
-
-					} else {
-						severList.remove(i);
-					}
-
-					int severListzisze = severList.size();
-					prop.setProperty("severNumber", Integer.toString(severListzisze));
+							+ ": it will be marked as not online");
+					UUID idNull=null;
+					List<String> url = new ArrayList<>();
+					url.add(adress);
+					int serverPort = Integer.parseInt(severList.get(i).get(1));
+					url.add(Integer.toString(serverPort));
+					SeverAndId severAndId = new SeverAndId(idNull, url);
+					severAndId.setStatusOnLine(false);
+					severAndIdList.add(severAndId);
+					
 
 				} finally {
 					if (soc != null)

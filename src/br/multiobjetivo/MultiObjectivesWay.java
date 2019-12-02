@@ -60,7 +60,7 @@ public class MultiObjectivesWay {
 		List<SeverAndId> severAndIdList = new ArrayList<>();
 		for (int i = 1; i <= Integer.parseInt(prop.getProperty("severNumber")); i++) {
 			String server = "adress" + i;
-			String door = "door" + 1;
+			String door = "door" + i;// mexi aqui coloquei i e tirei 1
 			List local = new ArrayList<>();
 			local.add(prop.getProperty(server));
 			local.add(prop.getProperty(door));
@@ -79,6 +79,8 @@ public class MultiObjectivesWay {
 				String textOut = null;
 
 				try {
+					textOut="createproblem";
+					l.add(textOut);
 					textOut = mapper.writeValueAsString(kmeans);
 					l.add(textOut);
 					textOut = mapper.writeValueAsString(gml);
@@ -110,7 +112,9 @@ public class MultiObjectivesWay {
 
 					SeverAndId severAndId = new SeverAndId(ParallelEvaluateId, url);
 					severAndId.setStatusOnLine(true);
+					severAndId.setCreateProblema(textOut);
 					severAndIdList.add(severAndId);
+				
 					// organizar e deletar
 					ParallelEvaluateIdList.add(ParallelEvaluateId);
 					System.out.println("Received: " + data);

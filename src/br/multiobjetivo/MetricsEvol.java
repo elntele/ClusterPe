@@ -36,7 +36,7 @@ public class MetricsEvol {
 //				double hvma = 0;// cometa esse pra pegar a media jorge
 //				double hvmb = 0;// cometa esse pra pegar a media jorge
 
-				String path = "C:/Users/elnte/OneDrive/Área de Trabalho/rural 2/mestrado/2019.2/orientação/Eniac copiado de c.e/parcial midianet/sem busca com os centroids vindo do kmeans/execução "
+				String path = "C:/Users/elnte/OneDrive/Área de Trabalho/rural 2/mestrado/2019.2/orientação/Eniac copiado de c.e/parcial midianet/sem busca com cetroids originais/execução "
 						+ j + "/FUN" + i + ".tsv";
 
 				try {
@@ -55,7 +55,7 @@ public class MetricsEvol {
 				List<PointSolution> normalizedPopulation = FrontUtils.convertFrontToSolutionList(normalizedFront);
 				hvma += hypervolume.evaluate(normalizedPopulation);
 
-				path = "C:/Users/elnte/OneDrive/Área de Trabalho/rural 2/mestrado/2019.2/orientação/Eniac copiado de c.e/parcial midianet/com busca seletiva aleatória/execução "
+				path = "C:/Users/elnte/OneDrive/Área de Trabalho/rural 2/mestrado/2019.2/orientação/Eniac copiado de c.e/parcial midianet/sem busca com os centroids vindo do kmeans/execução "
 						+ j + "/FUN" + i + ".tsv";
 				try {
 					normalizedFront = new ArrayFront(path);
@@ -68,7 +68,7 @@ public class MetricsEvol {
 					normalizedFront.getPoint(s).setDimensionValue(1,
 							normalizedFront.getPoint(s).getDimensionValue(1) / 31727.51);//PE=29340 (midianet=31727.51 veio do maxevaluating)
 					normalizedFront.getPoint(s).setDimensionValue(2,
-							normalizedFront.getPoint(s).getDimensionValue(2) / 3785533.180398301);//PE=3795187.303  (midianet=3785533.180398301 veio do find a better value)
+							normalizedFront.getPoint(s).getDimensionValue(2) /3785533.180398301);//PE=3795187.303  (midianet=3785533.180398301 veio do find a better value)
 					normalizedFront.getPoint(s).setDimensionValue(3,
 							normalizedFront.getPoint(s).getDimensionValue(3) );
 				}

@@ -10,8 +10,13 @@ import org.uma.jmetal.util.front.util.FrontUtils;
 import org.uma.jmetal.util.point.Point;
 import org.uma.jmetal.util.point.impl.ArrayPoint;
 import org.uma.jmetal.util.point.util.PointSolution;
-
-public class MetricsEvolPegar1 {
+/**
+ * classe costruida para pegar o hiper volume das 500 iterações, 20 a 20, porem 
+ * de uma execução só das (geralmete) 11 realizadas
+ * @author elnte
+ *
+ */
+public class MetricsEvolForOneExecution {
 	
 	public static void main(String[] args) {
 		Front frontRef = new ArrayFront(1, 4);
@@ -22,23 +27,16 @@ public class MetricsEvolPegar1 {
 		point.setDimensionValue(3, 0);
 
 		HypervolumeConc hypervolume = new HypervolumeConc(frontRef);
-
+		int execution =1;
 		Front normalizedFront = null;
 		for (int i = 20; i <= 500; i += 20) {//aqui
-			// cada um desses hvm representa o hypervolume de uma abordagem, no estudo de k vizinho, hvma, hvmb e hvec eram respectivamente as médias de k2,k4 e k8 vizinhos
-//			double hvma = 0;// descomenta esse pra pegar a media jorge
-//			double hvmb = 0;// descomenta esse pra pegar a media jorge
-//			double hvmc = 0;// descomenta esse pra pegar a media jorge
-			for (int j = 1; j <= 1; j++) {
+			for (int j = execution; j <= execution; j++) {
 				double hvma = 0;// cometa esse pra pegar a media jorge
 				double hvmb = 0;// cometa esse pra pegar a media jorge
 				double hvmc = 0;// cometa esse pra pegar a media jorge
 				
-				String path = "C:/Users/elnte/OneDrive/Área de Trabalho/rural 2/mestrado/2019.1/computação evolutiva/BRACIS/teste da busca seletiva/resultados sem busca/algorithm_KMeans/sem busca/execução " 
+				String path = "C:/Users/elnte/OneDrive/Área de Trabalho/rural 2/mestrado/2019.2/orientação/teste erlang e qualidade do parallel evaluate/avaliação distribuida 300 erlangs/algorithm_KMeans_medianet/com busca/execução " 
 				+ j + "/FUN" + i + ".tsv";
-//				String path = "C:/Users/jorge/Desktop/rural 2/2018.2/pic/resultado/k2/execução " + j + "/FUN" + i + ".tsv";
-//				String path = "C:/Users/jorge/workspace/ClusterPe/src/sem busca/execução " + j + "/FUN" + i + ".tsv";
-//				String path = "C:/UFRPE/graduação/tcc/jorge/sem busca/execução " + j + "/FUN" + i + ".tsv";
 				try {
 					normalizedFront = new ArrayFront(path);
 				} catch (FileNotFoundException e) {
@@ -46,24 +44,16 @@ public class MetricsEvolPegar1 {
 				}
 				for (int s = 0; s < normalizedFront.getNumberOfPoints(); s++) {
 					normalizedFront.getPoint(s).setDimensionValue(0, normalizedFront.getPoint(s).getDimensionValue(0));
-					normalizedFront.getPoint(s).setDimensionValue(1, normalizedFront.getPoint(s).getDimensionValue(1)/29340);
-					normalizedFront.getPoint(s).setDimensionValue(2, normalizedFront.getPoint(s).getDimensionValue(2)/3795187.303);
+					normalizedFront.getPoint(s).setDimensionValue(1, normalizedFront.getPoint(s).getDimensionValue(1)/31727.51);
+					normalizedFront.getPoint(s).setDimensionValue(2, normalizedFront.getPoint(s).getDimensionValue(2)/3785533.180398301);
 					normalizedFront.getPoint(s).setDimensionValue(3, normalizedFront.getPoint(s).getDimensionValue(3));
 				}
 				List<PointSolution> normalizedPopulation = FrontUtils.convertFrontToSolutionList(normalizedFront);
 				hvma += hypervolume.evaluate(normalizedPopulation);
 
-				path = "C:/Users/elnte/eclipse-workspace/ClusterPe/src/resultados/algorithm_KMeans/sem busca/execução " 
+				path = "C:/Users/elnte/OneDrive/Área de Trabalho/rural 2/mestrado/2019.2/orientação/teste erlang e qualidade do parallel evaluate/avaliação local 300 erlangs/algorithm_KMeans_medianet/com busca/execução " 
 						+ j + "/FUN" + i + ".tsv";
 
-//				path = "C:/Users/elnte/OneDrive/Área de Trabalho/rural 2/mestrado/2019.1/computação evolutiva/BRACIS/teste da busca seletiva/resultados os menores/algorithm_KMeans/com busca/execução " 
-//						+ j + "/FUN" + i + ".tsv";
-//			
-//				path = "C:/Users/jorge/Desktop/rural 2/2018.2/pic/rCesultado/k4/execução " + j + "/FUN" + i + ".tsv";
-//				path = "C:/Users/jorge/workspace/ClusterPe/src/com busca local/execução " + j + "/FUN" + i + ".tsv";
-				// String path =
-				// "C:/UFRPE/pesquisas/submissões/bracis16elliackin/docs/root_maopso/root_maopso/fronts_run_"
-				// + j + "/IFUN." + i;
 				try {
 					normalizedFront = new ArrayFront(path);
 				} catch (FileNotFoundException e) {
@@ -72,22 +62,17 @@ public class MetricsEvolPegar1 {
 
 				for (int s = 0; s < normalizedFront.getNumberOfPoints(); s++) {
 					normalizedFront.getPoint(s).setDimensionValue(0, normalizedFront.getPoint(s).getDimensionValue(0));
-					normalizedFront.getPoint(s).setDimensionValue(1, normalizedFront.getPoint(s).getDimensionValue(1)/29340);
-					normalizedFront.getPoint(s).setDimensionValue(2, normalizedFront.getPoint(s).getDimensionValue(2)/3795187.303);
-					normalizedFront.getPoint(s).setDimensionValue(3, normalizedFront.getPoint(s).getDimensionValue(3)/0.943406697);
+					normalizedFront.getPoint(s).setDimensionValue(1, normalizedFront.getPoint(s).getDimensionValue(1)/31727.51);
+					normalizedFront.getPoint(s).setDimensionValue(2, normalizedFront.getPoint(s).getDimensionValue(2)/3785533.180398301);
+					normalizedFront.getPoint(s).setDimensionValue(3, normalizedFront.getPoint(s).getDimensionValue(3));
 				}
 				normalizedPopulation = FrontUtils.convertFrontToSolutionList(normalizedFront);
 
 				hvmb += hypervolume.evaluate(normalizedPopulation);
-				//comenta esse pra pegar a media jorge
-//				System.out.print(/*i*/j + " ");// mude pra i jorge
-//				System.out.printf("%.4f ", hvma) ;
-//				System.out.printf("%.4f\n", hvmb);
 
 				
-				path = "C:/Users/elnte/OneDrive/Área de Trabalho/rural 2/mestrado/2019.1/computação evolutiva/BRACIS/teste da busca seletiva/resultados os maiores/algorithm_KMeans/com busca/execução " 
+				path = "C:/Users/elnte/OneDrive/Área de Trabalho/rural 2/mestrado/2019.2/orientação/teste erlang e qualidade do parallel evaluate/avaliação local 300 erlangs/algorithm_KMeans_medianet/com busca/execução " 
 						+ j + "/FUN" + i + ".tsv";
-//				path = "C:/Users/jorge/Desktop/rural 2/2018.2/pic/resultado/sem busca/execução " + j + "/FUN" + i + ".tsv";
 				try {
 					normalizedFront = new ArrayFront(path);
 				} catch (FileNotFoundException e) {
@@ -98,7 +83,7 @@ public class MetricsEvolPegar1 {
 					normalizedFront.getPoint(s).setDimensionValue(0, normalizedFront.getPoint(s).getDimensionValue(0));
 					normalizedFront.getPoint(s).setDimensionValue(1, normalizedFront.getPoint(s).getDimensionValue(1)/29340);
 					normalizedFront.getPoint(s).setDimensionValue(2, normalizedFront.getPoint(s).getDimensionValue(2)/3795187.303);
-					normalizedFront.getPoint(s).setDimensionValue(3, normalizedFront.getPoint(s).getDimensionValue(3)/0.943406697);
+					normalizedFront.getPoint(s).setDimensionValue(3, normalizedFront.getPoint(s).getDimensionValue(3));
 				}
 				normalizedPopulation = FrontUtils.convertFrontToSolutionList(normalizedFront);
 
@@ -106,15 +91,10 @@ public class MetricsEvolPegar1 {
 				//comenta esse pra pegar a media jorge
 				System.out.print(i/*j */+ " ");// mude pra i jorge
 				System.out.printf("%.4f ", hvma) ;
-				System.out.printf("%.4f", hvmb);
-				System.out.printf("%.4f\n", hvmc);
+				System.out.printf("%.4f\n", hvmb);
+//				System.out.printf("%.4f\n", hvmc);
 
 			}
-			//descomenta esse pra pegar a media jorge
-//			System.out.print(i + " ");
-//			System.out.printf("%.4f ", hvma/11) ;
-//			System.out.printf("%.4f ", hvmb/11);
-//			System.out.printf("%.4f\n", hvmc/11);
 		}
 
 	}

@@ -3,12 +3,12 @@ package br.multiobjetivo;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 import java.util.Random;
 
+import org.uma.jmetal.gmlNetwaork.PatternToGml;
 import org.uma.jmetal.problem.impl.AbstractIntegerProblem;
 import org.uma.jmetal.solution.IntegerSolution;
 import org.uma.jmetal.solution.impl.DefaultIntegerSolution;
@@ -186,7 +186,7 @@ public class SearchForNetworkAndEvaluate extends AbstractIntegerProblem {
 
 	@Override
 	public void evaluate(IntegerSolution solution) {
-		int load = 300;
+		int load = 2000;
 		Integer[] vars = new Integer[solution.getNumberOfVariables()];
 		for (int i = 0; i < vars.length; i++) {
 			vars[i] = solution.getVariableValue(i);

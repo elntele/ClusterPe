@@ -18,6 +18,7 @@ import java.util.UUID;
 import org.uma.jmetal.algorithm.Algorithm;
 import org.uma.jmetal.algorithm.multiobjective.nsgaiii.NSGAIII;
 import org.uma.jmetal.algorithm.multiobjective.nsgaiii.NSGAIIIBuilder;
+import org.uma.jmetal.gmlNetwaork.PatternToGml;
 import org.uma.jmetal.operator.CrossoverOperator;
 import org.uma.jmetal.operator.MutationOperator;
 import org.uma.jmetal.operator.SelectionOperator;
@@ -174,7 +175,7 @@ public class MultiObjectivesWay {
 		ParallelSolutionListEvaluate parallelEvaluator = new ParallelSolutionListEvaluate<>(severAndIdList);
 		algorithm = new NSGAIIIBuilder<>(problem, ((SearchForNetworkAndEvaluate) problem).getGml(), clustters, prop,
 				parallelEvaluator).setCrossoverOperator(crossover).setMutationOperator(mutation)
-						.setSelectionOperator(selection).setPopulationSize(40).setMaxIterations(500).build();
+						.setSelectionOperator(selection).setPopulationSize(40).setMaxIterations(160).build();
 		// ((NSGAIII)algorithm)
 		List<IntegerSolution> population;
 		AlgorithmRunner algorithmRunner = new AlgorithmRunner.Executor(algorithm).execute();
@@ -193,7 +194,6 @@ public class MultiObjectivesWay {
 		String pathTogml = prop.getProperty("local") + prop.getProperty("algName") + "/" + prop.getProperty("modo")
 				+ "/" + prop.getProperty("execucao");
 		for (IntegerSolution i : population) {
-//			String s="C:/Users/jorge/Desktop/rural 2/2017.2/tcc/testes_evolucionarios/ResultadoGML/"+Integer.toString(w)+".gml";
 			String s = pathTogml + "/ResultadoGML/" + Integer.toString(w) + ".gml";
 			ptgLocal.saveGmlFromSolution(s, i);
 			List<Integer> centros = new ArrayList<>();
@@ -205,9 +205,11 @@ public class MultiObjectivesWay {
 			gravarArq.printf("centroides final : " + centros + '\n');
 
 		}
-
+		
+		if (prop.get("parallelFitness").equals("y")){
+			int fit= ((SearchForNetworkAndEvaluate) problem).getContEvaluate()+parallelEvaluator.getAuxiliarCountParallelEvaluation();
 		System.out
-				.println("numero de avaliações de fitness" + ((SearchForNetworkAndEvaluate) problem).getContEvaluate());
+				.println("numero de avaliações de fitness " + (fit));
 		gravarArq.printf(
 				"numero de avaliações de fitness" + ((SearchForNetworkAndEvaluate) problem).getContEvaluate() + '\n');
 		System.out.println("base salva em formato GML");
@@ -219,6 +221,21 @@ public class MultiObjectivesWay {
 		JMetalLogger.logger.info("Total execution time: " + computingTime + "ms");
 		gravarArq.printf("Total execution time: " + computingTime + "ms" + '\n');
 		printFinalSolutionSet(population, kmeans, arq, gravarArq, prop);
+		}else {
+			System.out
+			.println("numero de avaliações de fitness" + ((SearchForNetworkAndEvaluate) problem).getContEvaluate());
+	gravarArq.printf(
+			"numero de avaliações de fitness" + ((SearchForNetworkAndEvaluate) problem).getContEvaluate() + '\n');
+	System.out.println("base salva em formato GML");
+	System.out.println("numero de soluções não dominadas encontrado pela busca local: "
+			+ ((NSGAIII) algorithm).getLocalSeachFoundNoDominated());
+	gravarArq.printf("numero de soluções não dominadas encontrado pela busca local: "
+			+ ((NSGAIII) algorithm).getLocalSeachFoundNoDominated() + '\n');
+	long computingTime = algorithmRunner.getComputingTime();
+	JMetalLogger.logger.info("Total execution time: " + computingTime + "ms");
+	gravarArq.printf("Total execution time: " + computingTime + "ms" + '\n');
+	printFinalSolutionSet(population, kmeans, arq, gravarArq, prop);
+		}
 
 	}
 

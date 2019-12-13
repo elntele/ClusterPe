@@ -36,7 +36,7 @@ public class MetricsEvol {
 //				double hvma = 0;// cometa esse pra pegar a media jorge
 //				double hvmb = 0;// cometa esse pra pegar a media jorge
 
-				String path = "C:/Users/elnte/OneDrive/Área de Trabalho/rural 2/mestrado/2019.2/orientação/Eniac copiado de c.e/parcial midianet/sem busca com cetroids originais/execução "
+				String path = "C:/Users/elnte/OneDrive/Área de Trabalho/rural 2/mestrado/2019.2/orientação/Eniac copiado de c.e/parcial midianet/com busca seletista elitista 2/algorithm_KMeans_medianet/com busca/execução "
 						+ j + "/FUN" + i + ".tsv";
 
 				try {
@@ -55,7 +55,7 @@ public class MetricsEvol {
 				List<PointSolution> normalizedPopulation = FrontUtils.convertFrontToSolutionList(normalizedFront);
 				hvma += hypervolume.evaluate(normalizedPopulation);
 
-				path = "C:/Users/elnte/OneDrive/Área de Trabalho/rural 2/mestrado/2019.2/orientação/Eniac copiado de c.e/parcial midianet/sem busca com os centroids vindo do kmeans/execução "
+				path = "C:/Users/elnte/OneDrive/Área de Trabalho/rural 2/mestrado/2019.2/orientação/Eniac copiado de c.e/parcial midianet/com busca seletiva aleatória/execução "
 						+ j + "/FUN" + i + ".tsv";
 				try {
 					normalizedFront = new ArrayFront(path);

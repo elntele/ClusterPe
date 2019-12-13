@@ -31,13 +31,14 @@ public class MetricsEvolFotografia {
 		HypervolumeConc hypervolume = new HypervolumeConc(frontRef);
 
 		Front normalizedFront = null;
-		int i =500; // esse i é a itreração fotografada
+		int i =200; // esse i é a itreração fotografada
 			
 			for (int j = 1; j <= 11; j++) { 
 				double hvma = 0;// cometa esse pra pegar a media jorge
 				double hvmb = 0;// cometa esse pra pegar a media jorge
 				double hvmc = 0;
-				String path = "C:/Users/elnte/OneDrive/Área de Trabalho/rural 2/graduação/2018.2/pic/resultudados nova abordagem/resultudados nova abordagem/exploratoria exaustiva/resultados k2/algorithm_KMeans/com busca/execução "
+				
+				String path = "C:\\Users\\elnte\\OneDrive\\Área de Trabalho\\rural 2\\mestrado\\2019.2\\orientação\\Eniac copiado de c.e\\parcial midianet\\com busca seletiva elitista/execução "
 						+ j + "/FUN" + i + ".tsv";
 				
 
@@ -54,9 +55,10 @@ public class MetricsEvolFotografia {
 				}
 				List<PointSolution> normalizedPopulation = FrontUtils.convertFrontToSolutionList(normalizedFront);
 				hvma += hypervolume.evaluate(normalizedPopulation);
-
-				path = "C:/Users/elnte/OneDrive/Área de Trabalho/rural 2/graduação/2018.2/pic/resultudados nova abordagem/resultudados nova abordagem/exploratoria exaustiva/resultados k4/algorithm_KMeans/com busca/execução "
+				
+				path = "C:/Users/elnte/OneDrive/Área de Trabalho/rural 2/mestrado/2019.2/orientação/Eniac copiado de c.e/parcial midianet/com busca seletiva aleatória/execução "
 						+ j + "/FUN" + i + ".tsv";
+				
 				try {
 					normalizedFront = new ArrayFront(path);
 				} catch (FileNotFoundException e) {
@@ -74,7 +76,8 @@ public class MetricsEvolFotografia {
 				hvmb += hypervolume.evaluate(normalizedPopulation);
 
 				
-				path ="C:/Users/elnte/OneDrive/Área de Trabalho/rural 2/graduação/2018.2/pic/resultudados nova abordagem/resultudados nova abordagem/exploratoria exaustiva/resultados k8/algorithm_KMeans/com busca/execução "
+				
+				path = "C:/Users/elnte/OneDrive/Área de Trabalho/rural 2/mestrado/2019.2/orientação/Eniac copiado de c.e/parcial midianet/busca em todos os individos/execução "
 						+ j + "/FUN" + i + ".tsv";
 				try {
 					normalizedFront = new ArrayFront(path);

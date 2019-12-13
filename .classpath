@@ -13,8 +13,8 @@
 	<classpathentry combineaccessrules="false" kind="src" path="/jmetal-core"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/jmetal-exec"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/jmetal-problem"/>
-	<classpathentry kind="lib" path="C:/Users/elnte/eclipse-workspace/ClusterPe/bibliotecas/jackson/jackson-annotations-2.8.11.jar"/>
-	<classpathentry kind="lib" path="C:/Users/elnte/eclipse-workspace/ClusterPe/bibliotecas/jackson/jackson-core-2.8.6.jar"/>
-	<classpathentry kind="lib" path="C:/Users/elnte/eclipse-workspace/ClusterPe/bibliotecas/jackson/jackson-databind-2.8.11.3.jar"/>
+	<classpathentry kind="lib" path="C:/Users/elnte/workspace2/JmetalClustingPe/aditional library/jackson-annotations-2.8.11.jar"/>
+	<classpathentry kind="lib" path="C:/Users/elnte/workspace2/JmetalClustingPe/aditional library/jackson-core-2.8.6.jar"/>
+	<classpathentry kind="lib" path="C:/Users/elnte/workspace2/JmetalClustingPe/aditional library/jackson-databind-2.8.11.3.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

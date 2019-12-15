@@ -11,7 +11,8 @@ public class FindABetterValueToNormatize {
 
 	public static void main(String[] args) {
 		
-		String path = "C:/Users/elnte/OneDrive/Área de Trabalho/rural 2/mestrado/2019.2/orientação/Eniac copiado de c.e/parcial midianet/busca em todos os individos/execução ";
+		String path = "C:/Users/elnte/OneDrive/Área de Trabalho/rural 2/mestrado/2019.2/orientação/Eniac copiado de c.e/parcial midianet/sem busca com cetroids originais/execução "; 
+
 		List<List<String>> fourGreaterValue = new ArrayList();
 		double valueOne = Double.MIN_VALUE;
 		double valueTwo = Double.MIN_VALUE;
@@ -22,7 +23,7 @@ public class FindABetterValueToNormatize {
 		System.out.println(valueThree);
 		System.out.println(valueFour);
 		BufferedReader br;
-		for (int i = 1; i <= 3; i++) {
+		for (int i = 1; i <= 11; i++) {
 			for (int j = 20; +j <= 500; j += 20) {
 				try {
 					br = new BufferedReader(new FileReader(path + i + "/FUN" + j + ".tsv"));

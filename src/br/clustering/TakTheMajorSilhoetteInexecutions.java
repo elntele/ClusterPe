@@ -14,12 +14,12 @@ import cbic15.Pattern;
 public class TakTheMajorSilhoetteInexecutions {
 
 	public static void main(String[] args) throws IOException {
-		String patch = "src/MunicipiosDePernambucoTec.RedesFinalizado.gml";
-//		String patch = "src/meniaNetGermanyAmpliada.gml";
+//		String patch = "src/MunicipiosDePernambucoTec.RedesFinalizado.gml";
+		String patch = "src/meniaNetGermanyAmpliada.gml";
 		GmlData gml = new GmlDao().loadGmlData(patch); // novo
 		List<Pattern> listPatterns = new ArrayList<>();
 		String[] countryNameInGml = { "Brazil", "Germany" };
-		int countrySelector=0;
+		int countrySelector=1;
 		TableToList tableToList = new TableToList(countryNameInGml[countrySelector]);
 		List<GmlNode> listCity = gml.getNodes();// novo
 		Pattern[] centroidsCopia = null;
@@ -45,9 +45,9 @@ public class TakTheMajorSilhoetteInexecutions {
 		 * ClusterSelected e algselected. Então recupera as metricas inclusive o
 		 * silhette, tudo é salvo nas tabelas dentro do projeto
 		 */
-		int NumberClusterSelected = 16;
+		int NumberClusterSelected = 18;
 		String[] alg = { "algorithm_PSC", "algorithm_KMeans", "algorithm_FCMeans","algorithm_KMeans_medianet"};
-		String algselected = alg[2];
+		String algselected = alg[3];
 		System.out.println("algoritmo selecionado: " + algselected);
 		Double maiorSilhouette = Double.MIN_VALUE;
 		int NumeroDAExecucao = 0;

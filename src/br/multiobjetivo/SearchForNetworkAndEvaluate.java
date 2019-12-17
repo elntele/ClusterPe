@@ -19,6 +19,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import br.bons.core.OpticalNetworkProblem;
 //import br.clustering.LabeledIntegerSolution;
 import br.cns.model.GmlData;
+import br.cns.persistence.GmlDao;
 import cbic15.Kmeans;
 import cbic15.Pattern;
 
@@ -41,6 +42,7 @@ public class SearchForNetworkAndEvaluate extends AbstractIntegerProblem {
 	private boolean FixedInitiallinks;
 	private Properties prop;
 	private boolean lineColumnChangedBefore=false;
+	int gmlNumberRede=1;
 
 	public void testCoparacao(IntegerSolution s1, IntegerSolution s2) {
 		DominanceComparator comparater = new DominanceComparator();
@@ -74,11 +76,32 @@ public class SearchForNetworkAndEvaluate extends AbstractIntegerProblem {
 		IntegerSolution retorno = new DefaultIntegerSolution(this);
 		if (this.FixedInitiallinks) {
 			retorno = this.alwaysTheSameSolution(retorno);
-		} else if (this.prop.getProperty("selectThePredeterminedPops").equals("y") && !this.lineColumnChangedBefore) {
+		}
+		if (this.prop.getProperty("selectThePredeterminedPops").equals("y") && !this.lineColumnChangedBefore) {
 			selectThePredeterminedPops();
+		}
+		if (this.prop.getProperty("startFromAstopedIteration").equals("y")) {
+			retorno = this.retrievNetworksFromGmls();
 		}
 		retorno.setLineColumn(lineColumn.clone());
 		return retorno;
+	}
+	
+	
+	public IntegerSolution retrievNetworksFromGmls() {
+		OpticalNetworkProblem p = new OpticalNetworkProblem();
+		GmlDao gml=new GmlDao();
+//		String path=
+		 String path=this.prop.getProperty("pathStartStopedExecution")+"/"+"execução "+this.prop.getProperty("executionStoped")+"/"+"ResultadoGML"+"/"+Integer.toString(this.gmlNumberRede)+".gml";
+		GmlData gmlData = gml.loadGmlData(path);
+		p.reloadProblem(Integer.parseInt(this.prop.getProperty("erlangs")), gmlData);
+		IntegerSolution solution = new DefaultIntegerSolution(this);
+		Integer [] variables= p.getDefaultSolution();
+		for (int i=0; i<this.getNumberOfVariables();i++ ) {
+			solution.setVariableValue(i, variables[i]);
+			
+		}
+		return solution;
 	}
 
 	/**
@@ -150,10 +173,11 @@ public class SearchForNetworkAndEvaluate extends AbstractIntegerProblem {
 		}
 		this.lineColumn=lineColumnLocal;
 		this.lineColumnChangedBefore=true;
+		SetNetWork();
 	}
 
 	public void retrieveTheFixedInitialNetworks() throws IOException {
-		BufferedReader br = new BufferedReader(new FileReader("src/fixedSolution.tsv"));
+		BufferedReader br = new BufferedReader(new FileReader(this.prop.getProperty("pathS.U")));//"src/fixedSolution.tsv"
 		String linha;
 		List<String> lista = new ArrayList();
 		while ((linha = br.readLine()) != null) {
@@ -186,7 +210,7 @@ public class SearchForNetworkAndEvaluate extends AbstractIntegerProblem {
 
 	@Override
 	public void evaluate(IntegerSolution solution) {
-		int load = 2000;
+		int load = Integer.parseInt(this.prop.getProperty("erlangs"));
 		Integer[] vars = new Integer[solution.getNumberOfVariables()];
 		for (int i = 0; i < vars.length; i++) {
 			vars[i] = solution.getVariableValue(i);
@@ -205,19 +229,6 @@ public class SearchForNetworkAndEvaluate extends AbstractIntegerProblem {
 			P.reloadProblem(load, D);
 			vars = P.getDefaultSolution();
 			Double[] objectives = P.evaluate(vars);
-			// System.out.println("Sum�rio da rede \"" + gml + "\" para a carga
-			// de "
-			// + load + " erlangs:");
-			// System.out.println();
-			// System.out.printf("Probabilidade de bloqueio = %.6f\n",
-			// objectives[0]);
-			// System.out.printf("Custo de implanta��o = %.2f u.m.\n",
-			// objectives[1]);
-			// System.out.printf("Gasto energ�tico = %.2f Watts\n",
-			// objectives[2]);
-			// System.out.printf("Conectividade alg�brica = %.2f\n", 1 / (1 +
-			// objectives[3]));
-			// setando os objetivos caulculados pelo fitnes para o Jmetal
 			solution.setObjective(0, objectives[0]);
 			solution.setObjective(1, objectives[1]);
 			solution.setObjective(2, objectives[2]);
@@ -345,16 +356,14 @@ public class SearchForNetworkAndEvaluate extends AbstractIntegerProblem {
 	}
 
 	public void SetNetWork() {
-		int load = 80;
+		int load =Integer.parseInt(this.prop.getProperty("erlangs"));
 		Integer[] vars = new Integer[this.getNumberOfVariables()];
 		for (int i = 0; i < vars.length; i++) {
 			vars[i] = 1;
 		}
 		this.ptg.patternGmlData(this.lineColumn, vars);
-		// String path = "C:/Users/jorge/workspace/ClusterPe/src/Gmlevaluating.gml";
 		String path = "src/Gmlevaluating.gml";
 		this.opticalNetwoark = new OpticalNetworkProblem(load, path);
-		int j = load;
 	}
 
 	public GmlData getGml() {

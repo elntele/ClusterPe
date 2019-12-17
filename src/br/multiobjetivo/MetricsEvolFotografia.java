@@ -31,7 +31,7 @@ public class MetricsEvolFotografia {
 		HypervolumeConc hypervolume = new HypervolumeConc(frontRef);
 
 		Front normalizedFront = null;
-		int i =200; // esse i é a itreração fotografada
+		int i =100; // esse i é a itreração fotografada
 			
 			for (int j = 1; j <= 11; j++) { 
 				double hvma = 0;// cometa esse pra pegar a media jorge

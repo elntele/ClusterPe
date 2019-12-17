@@ -12,7 +12,7 @@ import org.uma.jmetal.util.point.impl.ArrayPoint;
 import org.uma.jmetal.util.point.util.PointSolution;
 /**
  * classe costruida para pegar o hiper volume das 500 iterações, 20 a 20, porem 
- * de uma execução só das (geralmete) 11 realizadas
+ * de uma execução só das (geralmente) 11 realizadas
  * @author elnte
  *
  */
@@ -35,7 +35,7 @@ public class MetricsEvolForOneExecution {
 				double hvmb = 0;// cometa esse pra pegar a media jorge
 				double hvmc = 0;// cometa esse pra pegar a media jorge
 				
-				String path = "C:/Users/elnte/OneDrive/Área de Trabalho/rural 2/mestrado/2019.2/orientação/teste erlang e qualidade do parallel evaluate/avaliação distribuida 300 erlangs/algorithm_KMeans_medianet/com busca/execução " 
+				String path = "C:/Users/elnte/OneDrive/Área de Trabalho/rural 2/mestrado/2019.2/orientação/Eniac copiado de c.e/parcial midianet/sem busca com cetroids originais/execução " 
 				+ j + "/FUN" + i + ".tsv";
 				try {
 					normalizedFront = new ArrayFront(path);
@@ -45,13 +45,13 @@ public class MetricsEvolForOneExecution {
 				for (int s = 0; s < normalizedFront.getNumberOfPoints(); s++) {
 					normalizedFront.getPoint(s).setDimensionValue(0, normalizedFront.getPoint(s).getDimensionValue(0));
 					normalizedFront.getPoint(s).setDimensionValue(1, normalizedFront.getPoint(s).getDimensionValue(1)/31727.51);
-					normalizedFront.getPoint(s).setDimensionValue(2, normalizedFront.getPoint(s).getDimensionValue(2)/3785533.180398301);
+					normalizedFront.getPoint(s).setDimensionValue(2, normalizedFront.getPoint(s).getDimensionValue(2)/8312311.871637226);// 4920733.714198877
 					normalizedFront.getPoint(s).setDimensionValue(3, normalizedFront.getPoint(s).getDimensionValue(3));
 				}
 				List<PointSolution> normalizedPopulation = FrontUtils.convertFrontToSolutionList(normalizedFront);
 				hvma += hypervolume.evaluate(normalizedPopulation);
 
-				path = "C:/Users/elnte/OneDrive/Área de Trabalho/rural 2/mestrado/2019.2/orientação/teste erlang e qualidade do parallel evaluate/avaliação local 300 erlangs/algorithm_KMeans_medianet/com busca/execução " 
+				path = "C:/Users/elnte/OneDrive/Área de Trabalho/rural 2/mestrado/2019.2/orientação/Eniac copiado de c.e/parcial midianet/com busca seletiva elitista/execução " 
 						+ j + "/FUN" + i + ".tsv";
 
 				try {
@@ -62,7 +62,7 @@ public class MetricsEvolForOneExecution {
 
 				for (int s = 0; s < normalizedFront.getNumberOfPoints(); s++) {
 					normalizedFront.getPoint(s).setDimensionValue(0, normalizedFront.getPoint(s).getDimensionValue(0));
-					normalizedFront.getPoint(s).setDimensionValue(1, normalizedFront.getPoint(s).getDimensionValue(1)/31727.51);
+					normalizedFront.getPoint(s).setDimensionValue(1, normalizedFront.getPoint(s).getDimensionValue(1)/31727.51);//31727,51
 					normalizedFront.getPoint(s).setDimensionValue(2, normalizedFront.getPoint(s).getDimensionValue(2)/3785533.180398301);
 					normalizedFront.getPoint(s).setDimensionValue(3, normalizedFront.getPoint(s).getDimensionValue(3));
 				}
@@ -71,7 +71,7 @@ public class MetricsEvolForOneExecution {
 				hvmb += hypervolume.evaluate(normalizedPopulation);
 
 				
-				path = "C:/Users/elnte/OneDrive/Área de Trabalho/rural 2/mestrado/2019.2/orientação/teste erlang e qualidade do parallel evaluate/avaliação local 300 erlangs/algorithm_KMeans_medianet/com busca/execução " 
+				path = "C:/Users/elnte/OneDrive/Área de Trabalho/rural 2/mestrado/2019.2/orientação/Eniac copiado de c.e/parcial midianet/com busca seletiva aleatória/execução " 
 						+ j + "/FUN" + i + ".tsv";
 				try {
 					normalizedFront = new ArrayFront(path);
@@ -89,10 +89,10 @@ public class MetricsEvolForOneExecution {
 
 				hvmc += hypervolume.evaluate(normalizedPopulation);
 				//comenta esse pra pegar a media jorge
-				System.out.print(i/*j */+ " ");// mude pra i jorge
+				System.out.print(i+ " ");// mude pra i jorge
 				System.out.printf("%.4f ", hvma) ;
-				System.out.printf("%.4f\n", hvmb);
-//				System.out.printf("%.4f\n", hvmc);
+				System.out.printf("%.4f ", hvmb);
+				System.out.printf("%.4f\n", hvmc);
 
 			}
 		}

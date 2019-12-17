@@ -175,7 +175,7 @@ public class MultiObjectivesWay {
 		ParallelSolutionListEvaluate parallelEvaluator = new ParallelSolutionListEvaluate<>(severAndIdList);
 		algorithm = new NSGAIIIBuilder<>(problem, ((SearchForNetworkAndEvaluate) problem).getGml(), clustters, prop,
 				parallelEvaluator).setCrossoverOperator(crossover).setMutationOperator(mutation)
-						.setSelectionOperator(selection).setPopulationSize(40).setMaxIterations(160).build();
+						.setSelectionOperator(selection).setPopulationSize(40).setMaxIterations(500).build();
 		// ((NSGAIII)algorithm)
 		List<IntegerSolution> population;
 		AlgorithmRunner algorithmRunner = new AlgorithmRunner.Executor(algorithm).execute();

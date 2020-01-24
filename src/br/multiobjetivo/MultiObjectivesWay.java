@@ -220,7 +220,9 @@ public class MultiObjectivesWay {
 		long computingTime = algorithmRunner.getComputingTime();
 		JMetalLogger.logger.info("Total execution time: " + computingTime + "ms");
 		gravarArq.printf("Total execution time: " + computingTime + "ms" + '\n');
-		printFinalSolutionSet(population, kmeans, arq, gravarArq, prop);
+		List<List<Integer>> IndexOfSelectionedToTheSearche=((NSGAIII) algorithm).getIndexOfIndividualSelectionedToTheSearch();
+		List<List<Double>> equalizadeList =((NSGAIII) algorithm).getEqualizadListe();
+		printFinalSolutionSet(population, kmeans, arq, gravarArq, prop,IndexOfSelectionedToTheSearche,equalizadeList);
 		}else {
 			System.out
 			.println("numero de avaliações de fitness" + ((SearchForNetworkAndEvaluate) problem).getContEvaluate());
@@ -234,7 +236,10 @@ public class MultiObjectivesWay {
 	long computingTime = algorithmRunner.getComputingTime();
 	JMetalLogger.logger.info("Total execution time: " + computingTime + "ms");
 	gravarArq.printf("Total execution time: " + computingTime + "ms" + '\n');
-	printFinalSolutionSet(population, kmeans, arq, gravarArq, prop);
+	List<List<Integer>> IndexOfSelectionedToTheSearche=((NSGAIII) algorithm).getIndexOfIndividualSelectionedToTheSearch();
+	List<List<Double>> equalizadeList =((NSGAIII) algorithm).getEqualizadListe();
+	printFinalSolutionSet(population, kmeans, arq, gravarArq, prop,IndexOfSelectionedToTheSearche,equalizadeList);
+	
 		}
 
 	}
@@ -246,7 +251,7 @@ public class MultiObjectivesWay {
 	 * @throws IOException
 	 */
 	public static void printFinalSolutionSet(List<? extends Solution<?>> population, Kmeans kmeans, FileWriter arq,
-			PrintWriter gravarArq, Properties prop) throws IOException {
+			PrintWriter gravarArq, Properties prop, List<List<Integer>> IndexOfSelectionedToTheSearche ,List<List<Double>> equalizadeList) throws IOException {
 		String path = prop.getProperty("local") + prop.getProperty("algName") + "/" + prop.getProperty("modo") + "/"
 				+ prop.getProperty("execucao");
 
@@ -262,6 +267,12 @@ public class MultiObjectivesWay {
 		gravarArq.printf("centoides inicial: " + centros + '\n');
 		JMetalLogger.logger.info("Random seed: " + JMetalRandom.getInstance().getSeed());
 		gravarArq.printf("Random seed: " + JMetalRandom.getInstance().getSeed() + '\n');
+		for (List l: IndexOfSelectionedToTheSearche) {
+			gravarArq.printf("indices eleitos: "+l+"\n");
+			}
+		for (List l: equalizadeList) {
+			gravarArq.printf("evol. da equalização: "+l+"\n");
+			}
 		arq.close();
 		JMetalLogger.logger.info("Objectives values have been written to file FUN.tsv");
 		JMetalLogger.logger.info("Variables values have been written to file VAR.tsv");

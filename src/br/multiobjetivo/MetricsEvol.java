@@ -32,11 +32,11 @@ public class MetricsEvol {
 			double hvma = 0;// descomenta esse pra pegar a media jorge
 			double hvmb = 0;// descomenta esse pra pegar a media jorge
 			double hvmc = 0;// descomenta esse pra pegar a media jorge
-			for (int j = 1; j <=2 ; j++) {
+			for (int j = 1; j <=8 ; j++) {
 //				double hvma = 0;// cometa esse pra pegar a media jorge
 //				double hvmb = 0;// cometa esse pra pegar a media jorge
 
-				String path = "C:/Users/elnte/workspace2/ClusterPe/src/resultados/algorithm_KMeans/com busca/execução " 
+				String path = "C:/novos testes encontrar abordagem para media net/pos descoberta elit extre n func/PE/alit os 8 melhores objetivos/algorithm_KMeans/com busca/execução " 
 						+ j + "/FUN" + i + ".tsv";
 				try {
 					normalizedFront = new ArrayFront(path);
@@ -106,9 +106,9 @@ public class MetricsEvol {
 			}
 			// descomenta esse pra pegar a media jorge
 			System.out.print(i + " ");
-			System.out.printf("%.4f ", hvma / 2);
-			System.out.printf("%.4f ", hvmb /2);
-			System.out.printf("%.4f\n", hvmc /2);
+			System.out.printf("%.4f ", hvma / 8);
+			System.out.printf("%.4f ", hvmb /8);
+			System.out.printf("%.4f\n", hvmc /8);
 		}
 
 	}

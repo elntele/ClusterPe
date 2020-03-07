@@ -32,11 +32,11 @@ public class MetricsEvol {
 			double hvma = 0;// descomenta esse pra pegar a media jorge
 			double hvmb = 0;// descomenta esse pra pegar a media jorge
 			double hvmc = 0;// descomenta esse pra pegar a media jorge
-			for (int j = 1; j <=8 ; j++) {
+			for (int j = 1; j <=1 ; j++) {
 //				double hvma = 0;// cometa esse pra pegar a media jorge
 //				double hvmb = 0;// cometa esse pra pegar a media jorge
 
-				String path = "C:/novos testes encontrar abordagem para media net/pos descoberta elit extre n func/PE/alit os 8 melhores objetivos/algorithm_KMeans/com busca/execução " 
+				String  path = "C:\\Users\\elnte\\workspace2\\ClusterPe\\src\\resultados\\algorithm_KMeans\\sem busca/execução " 
 						+ j + "/FUN" + i + ".tsv";
 				try {
 					normalizedFront = new ArrayFront(path);
@@ -46,15 +46,15 @@ public class MetricsEvol {
 				for (int s = 0; s < normalizedFront.getNumberOfPoints(); s++) {
 					normalizedFront.getPoint(s).setDimensionValue(0, normalizedFront.getPoint(s).getDimensionValue(0));
 					normalizedFront.getPoint(s).setDimensionValue(1,
-							normalizedFront.getPoint(s).getDimensionValue(1) / 29340);//PE=29340   (midianet centroides originais =30984.82 veio do maxevaluating)
+							normalizedFront.getPoint(s).getDimensionValue(1) / 21282.78098462223);//PE=29340   (midianet centroides originais =30984.82 veio do maxevaluating)
 					normalizedFront.getPoint(s).setDimensionValue(2,
-							normalizedFront.getPoint(s).getDimensionValue(2) / 3795187.303);//PE=3795187.303 (midianet centroides originais  =3623002.292673194 veio do find a better value)
+							normalizedFront.getPoint(s).getDimensionValue(2) / 697406.5838531815);//PE=3795187.303 (midianet centroides originais  =3623002.292673194 veio do find a better value)
 					normalizedFront.getPoint(s).setDimensionValue(3, normalizedFront.getPoint(s).getDimensionValue(3));
 				}
 				List<PointSolution> normalizedPopulation = FrontUtils.convertFrontToSolutionList(normalizedFront);
 				hvma += hypervolume.evaluate(normalizedPopulation);
 //
-				path = "C:/Users/elnte/OneDrive/Área de Trabalho/rural 2/mestrado/2019.1/computação evolutiva/busca seletiva em PE/Resultados busca populaçao inteira/algorithm_KMeans/com busca/execução " 
+				path = "C:\\novos testes encontrar abordagem para media net\\pos descoberta elit extre n func\\PE\\teste PE inicial aleatorio\\PE seleção aleatoria solução inicial aleatória\\PE seleção aleatoria solução inicial aleatória\\do inicio/execução " 
 						+ j + "/FUN" + i + ".tsv";
 				try {
 					normalizedFront = new ArrayFront(path);
@@ -78,8 +78,7 @@ public class MetricsEvol {
 //				System.out.print(/*i*/j + " ");// mude pra i jorge
 //				System.out.printf("%.4f ", hvma) ;
 //				System.out.printf("%.4f\n", hvmb);
-				
-				path = "C:/Users/elnte/OneDrive/Área de Trabalho/rural 2/mestrado/2019.1/computação evolutiva/busca seletiva em PE/resultados busca seletiva aleatoria/algorithm_KMeans/com busca/execução " 
+				path = "C:\\novos testes encontrar abordagem para media net\\pos descoberta elit extre n func\\PE\\teste PE inicial aleatorio\\PE seleção aleatoria solução inicial aleatória\\PE seleção aleatoria solução inicial aleatória\\do inicio/execução " 
 						+ j + "/FUN" + i + ".tsv";
 				try {
 					normalizedFront = new ArrayFront(path);
@@ -106,9 +105,9 @@ public class MetricsEvol {
 			}
 			// descomenta esse pra pegar a media jorge
 			System.out.print(i + " ");
-			System.out.printf("%.4f ", hvma / 8);
-			System.out.printf("%.4f ", hvmb /8);
-			System.out.printf("%.4f\n", hvmc /8);
+			System.out.printf("%.4f ", hvma / 1);
+			System.out.printf("%.4f ", hvmb /1);
+			System.out.printf("%.4f\n", hvmc /1);
 		}
 
 	}

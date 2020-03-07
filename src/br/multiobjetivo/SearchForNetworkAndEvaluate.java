@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 import java.util.Random;
+import java.util.Vector;
 
 import org.uma.jmetal.gmlNetwaork.PatternToGml;
 import org.uma.jmetal.problem.impl.AbstractIntegerProblem;
@@ -227,7 +228,7 @@ public class SearchForNetworkAndEvaluate extends AbstractIntegerProblem {
 		} else {
 			OpticalNetworkProblem P = new OpticalNetworkProblem();
 			P.reloadProblem(load, D);
-			vars = P.getDefaultSolution();
+//			vars = P.getDefaultSolution(); comentado por danilo no lance de variar os canais
 			Double[] objectives = P.evaluate(vars);
 			solution.setObjective(0, objectives[0]);
 			solution.setObjective(1, objectives[1]);
@@ -245,12 +246,12 @@ public class SearchForNetworkAndEvaluate extends AbstractIntegerProblem {
 
 	@Override
 	public Integer getLowerBound(int index) {
-		return this.lowerBound;
+		return this.lowerLimit.get(index);// modificado por danilo
 	}
 
 	@Override
 	public Integer getUpperBound(int index) {
-		return this.upperBound;
+		return this.upperLimit.get(index);// modificado por danilo
 	}
 
 	/**
@@ -501,7 +502,21 @@ public class SearchForNetworkAndEvaluate extends AbstractIntegerProblem {
 		super();
 		this.setNumberOfObjectives(4);
 		// tamanho do cromossomo
-		this.setNumberOfVariables(kmeans.getCentroids().length * (kmeans.getCentroids().length - 1) / 2);
+		this.setNumberOfVariables(kmeans.getCentroids().length * (kmeans.getCentroids().length - 1) / 2+2);
+		//**************** adicionado por danilo daqui pra baixo******************
+		List<Integer> ll = new Vector<>();
+		List<Integer> ul = new Vector<>();
+		for (int i = 0; i < this.getNumberOfVariables()-2; i++) {
+			ll.add(0);
+			ul.add(1);
+		}
+		ll.add(0);
+		ul.add(5);
+		ll.add(4);
+		ul.add(40);
+		this.setLowerLimit(ll);
+		this.setUpperLimit(ul);
+		//***********************adicionado por danilo daqui pra cima************
 		this.upperBound = 1;// maior valor acomodado no cromossomo
 		this.gml = gml;
 		this.kmeans = kmeans;

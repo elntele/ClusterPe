@@ -4,7 +4,9 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Properties;
 import java.util.Random;
 import java.util.Vector;
@@ -42,8 +44,12 @@ public class SearchForNetworkAndEvaluate extends AbstractIntegerProblem {
 	private List<String> fixedNetworkConections;
 	private boolean FixedInitiallinks;
 	private Properties prop;
-	private boolean lineColumnChangedBefore=false;
-	int gmlNumberRede=1;
+	private boolean lineColumnChangedBefore = false;
+	int gmlNumberRede = 1;
+	private List<Integer[]> idCities;
+	private List<Integer[]> arrayVar;
+	private Map<Integer, Pattern> ClusterMap;
+	private int fitnessNumberFromPrintArchive;
 
 	public void testCoparacao(IntegerSolution s1, IntegerSolution s2) {
 		DominanceComparator comparater = new DominanceComparator();
@@ -61,15 +67,15 @@ public class SearchForNetworkAndEvaluate extends AbstractIntegerProblem {
 	}
 
 	/**
-	 * este mï¿½todo ï¿½ nativo da classe problem, ele ja recebe solution por solution
-	 * que vem de algum lugar com a criaï¿½ï¿½o inicial de forma aletï¿½ria. Atï¿½ onde eu
-	 * lembro ela nï¿½o vem zerada na linnha da invocaï¿½ï¿½o IntegerSolution retorno =
-	 * new DefaultIntegerSolution(this); mas se precisar modificar essa solutio
-	 * "retorno" de alguma forma excepcional, o lugar ï¿½ neste mï¿½todo. no nosso caso,
-	 * ele usar o mï¿½todo alwaysTheSameSolution pra partir com os mesmos links
-	 * sempre. obs: dependendo do alg de cluster do pre processamento as cidades
-	 * podem mudar, mas a linkagem sempre virar de um arquivo var com o o nome de
-	 * fixedSolution.tsv
+	 * este mï¿½todo ï¿½ nativo da classe problem, ele ja recebe solution por
+	 * solution que vem de algum lugar com a criaï¿½ï¿½o inicial de forma
+	 * aletï¿½ria. Atï¿½ onde eu lembro ela nï¿½o vem zerada na linnha da
+	 * invocaï¿½ï¿½o IntegerSolution retorno = new DefaultIntegerSolution(this); mas
+	 * se precisar modificar essa solutio "retorno" de alguma forma excepcional, o
+	 * lugar ï¿½ neste mï¿½todo. no nosso caso, ele usar o mï¿½todo
+	 * alwaysTheSameSolution pra partir com os mesmos links sempre. obs: dependendo
+	 * do alg de cluster do pre processamento as cidades podem mudar, mas a linkagem
+	 * sempre virar de um arquivo var com o o nome de fixedSolution.tsv
 	 */
 
 	@Override
@@ -82,26 +88,43 @@ public class SearchForNetworkAndEvaluate extends AbstractIntegerProblem {
 			selectThePredeterminedPops();
 		}
 		if (this.prop.getProperty("startFromAstopedIteration").equals("y")) {
-			retorno = this.retrievNetworksFromGmls();
+//			return retorno = this.retrievNetworksFromGmls();
+			retorno=takeSolutionFromStopedExcution();	
+			return retorno;
 		}
 		retorno.setLineColumn(lineColumn.clone());
 		return retorno;
 	}
-	
-	
+	/**
+	 * esse metodo foi escrito para recuperar redes de uma execucao parada a partir de arquivos gml
+	 * porem como a lista de cidades eh ordenada na hora de salvar o gml, ao ser recuperada ela perde
+	 * a ordem original o que desemparelha ela como o arrey de lista clusteres.
+	 * isso atrapalhou a logica da busca que consideram o emparelhamento como a segurança de que 
+	 * a cidade indice 1 do lineCollumn pertence cluster 1 no array de lista de cluster. 
+	 * @return
+	 */
+
 	public IntegerSolution retrievNetworksFromGmls() {
 		OpticalNetworkProblem p = new OpticalNetworkProblem();
-		GmlDao gml=new GmlDao();
-//		String path=
-		 String path=this.prop.getProperty("pathStartStopedExecution")+"/"+"execuÃ§Ã£o "+this.prop.getProperty("executionStoped")+"/"+"ResultadoGML"+"/"+Integer.toString(this.gmlNumberRede)+".gml";
+		GmlDao gml = new GmlDao();
+		String path = this.prop.getProperty("pathStartStopedExecution") + "/" + "execução "
+				+ this.prop.getProperty("executionStoped") + "/" + "ResultadoGML"
+				+ this.prop.getProperty("interationStopedInExecution") + "/" + Integer.toString(this.gmlNumberRede)
+				+ ".gml";
 		GmlData gmlData = gml.loadGmlData(path);
+		// o gmlData original estava trocando os ids originais
+		// estao esse foi criado so pra recuperar os ids corretos
+		GmlData gmlDataOfCorrectIndex = gml.loadGmlDataWithTheSamId(path, true);
 		p.reloadProblem(Integer.parseInt(this.prop.getProperty("erlangs")), gmlData);
 		IntegerSolution solution = new DefaultIntegerSolution(this);
-		Integer [] variables= p.getDefaultSolution();
-		for (int i=0; i<this.getNumberOfVariables();i++ ) {
+		solution.setLineColumn(this.ptg.takePatternData(gmlDataOfCorrectIndex));
+		Integer[] variables = p.getDefaultSolution();
+		for (int i = 0; i < this.getNumberOfVariables(); i++) {
 			solution.setVariableValue(i, variables[i]);
-			
+
 		}
+
+		this.gmlNumberRede += 1;
 		return solution;
 	}
 
@@ -109,9 +132,9 @@ public class SearchForNetworkAndEvaluate extends AbstractIntegerProblem {
 	 * metodo lï¿½ as conexï¿½es da poluï¿½ï¿½o iniciala partir de um array list no
 	 * atributos Observe que ele sï¿½ pode fazer isso uma vez jï¿½ que ele remove a
 	 * cabeï¿½a da lista fixedNetworkConections, que guarda a lista de strings
-	 * recuperada de um arquivo var.tsv pelo mï¿½todo retrieveTheFixedInitialNetworks.
-	 * Uu seja, apos carregar a populaï¿½ï¿½o inicial a lista fixedNetworkConections
-	 * serï¿½ esvaziada.
+	 * recuperada de um arquivo var.tsv pelo mï¿½todo
+	 * retrieveTheFixedInitialNetworks. Uu seja, apos carregar a populaï¿½ï¿½o
+	 * inicial a lista fixedNetworkConections serï¿½ esvaziada.
 	 * 
 	 * @param s
 	 * @return
@@ -128,35 +151,29 @@ public class SearchForNetworkAndEvaluate extends AbstractIntegerProblem {
 		this.fixedNetworkConections.remove(0);
 		return s;
 	}
-	
+
 	/**
-	 * esse dois metodos a seguir sÃ£o o polimorfismo do metodo que
-	 * coloca um conjunto de pops predeterminado pelo usuÃ¡rio, nÃ£o 
-	 * mais como uma decisÃ£o do alg.
+	 * esse dois metodos a seguir sÃ£o o polimorfismo do metodo que coloca um
+	 * conjunto de pops predeterminado pelo usuÃ¡rio, nÃ£o mais como uma decisÃ£o do
+	 * alg.
+	 * 
 	 * @param s
 	 * @return
 	 */
 
-	/*public IntegerSolution selectThePredeterminedPops(IntegerSolution s) {
-		Pattern[] lineColumnLocal = new Pattern[this.kmeans.getK()];
-		String presetctedPop = this.prop.getProperty("hardPop");
-		String[] arrayIdPop = presetctedPop.split(",");
-		for (int i = 0; i < this.clustters.length; i++) {
-
-			for (int w = 0; w < arrayIdPop.length; w++) {
-				
-				for (Pattern p : this.clustters[i]) {
-					if (p.getId()==Integer.parseInt(arrayIdPop[w])) {
-						lineColumnLocal[w]=p;
-					}
-				}
-			}
-		}
-
-		s.setLineColumn(lineColumnLocal);
-		return s;
-	}
-	*/
+	/*
+	 * public IntegerSolution selectThePredeterminedPops(IntegerSolution s) {
+	 * Pattern[] lineColumnLocal = new Pattern[this.kmeans.getK()]; String
+	 * presetctedPop = this.prop.getProperty("hardPop"); String[] arrayIdPop =
+	 * presetctedPop.split(","); for (int i = 0; i < this.clustters.length; i++) {
+	 * 
+	 * for (int w = 0; w < arrayIdPop.length; w++) {
+	 * 
+	 * for (Pattern p : this.clustters[i]) { if
+	 * (p.getId()==Integer.parseInt(arrayIdPop[w])) { lineColumnLocal[w]=p; } } } }
+	 * 
+	 * s.setLineColumn(lineColumnLocal); return s; }
+	 */
 	public void selectThePredeterminedPops() {
 		Pattern[] lineColumnLocal = new Pattern[this.kmeans.getK()];
 		String presetctedPop = this.prop.getProperty("hardPop");
@@ -164,21 +181,21 @@ public class SearchForNetworkAndEvaluate extends AbstractIntegerProblem {
 		for (int i = 0; i < this.clustters.length; i++) {
 
 			for (int w = 0; w < arrayIdPop.length; w++) {
-				
+
 				for (Pattern p : this.clustters[i]) {
-					if (p.getId()==Integer.parseInt(arrayIdPop[w])) {
-						lineColumnLocal[w]=p;
+					if (p.getId() == Integer.parseInt(arrayIdPop[w])) {
+						lineColumnLocal[w] = p;
 					}
 				}
 			}
 		}
-		this.lineColumn=lineColumnLocal;
-		this.lineColumnChangedBefore=true;
+		this.lineColumn = lineColumnLocal;
+		this.lineColumnChangedBefore = true;
 		SetNetWork();
 	}
 
 	public void retrieveTheFixedInitialNetworks() throws IOException {
-		BufferedReader br = new BufferedReader(new FileReader(this.prop.getProperty("pathS.U")));//"src/fixedSolution.tsv"
+		BufferedReader br = new BufferedReader(new FileReader(this.prop.getProperty("pathS.U")));// "src/fixedSolution.tsv"
 		String linha;
 		List<String> lista = new ArrayList();
 		while ((linha = br.readLine()) != null) {
@@ -186,6 +203,107 @@ public class SearchForNetworkAndEvaluate extends AbstractIntegerProblem {
 
 		}
 		this.fixedNetworkConections = lista;
+	}
+
+	/**
+	 * construcao de um hashmap dos cluster pra encontrar um pattern sem muito custo
+	 * sera usado no metodo que levanta as solucoes a partir do print.txt e do
+	 * var.tsv
+	 */
+	public void constructMapNodeClusters() {
+		List<Pattern[]> listLineCollumn = new ArrayList<>();
+		Map<Integer, Pattern> ClusterMap = new HashMap<Integer, Pattern>();
+
+		for (int l = 0; l < this.clustters.length; l++) {
+			for (Pattern p : this.clustters[l]) {
+				ClusterMap.put(p.getId(), p);
+			}
+
+		}
+		this.ClusterMap = ClusterMap;
+	}
+	
+	/**
+	 * constroi uma lista de array de ids de cidades a partir do arquivo print.txt para ser usado na
+	 * recosntrucao das solutions a partir de uma execucao parada 
+	 * @throws IOException
+	 */
+
+	public void constructArrayIdCities() throws IOException {
+		BufferedReader br = new BufferedReader(
+				new FileReader(this.prop.getProperty("pathStartStopedExecution") + "\\" +"execução " +this.prop.getProperty("executionStoped")+ "/" + "print.txt"));
+		String linha;
+		List<String> idCities = new ArrayList();
+		while ((linha = br.readLine()) != null) {
+			String[] arrayLinha = linha.split(" ");
+			if (arrayLinha[0].equals("centroides") && arrayLinha[1].equals("final")) {
+				linha = linha.replace("centroides final : ", "");
+				linha = linha.replace("[", "");
+				linha = linha.replace("]", "");
+				linha = linha.replace(",", "");
+				idCities.add(linha);
+			}
+		}
+		List<Integer[]> arrayId = new ArrayList<>();
+		for (String s : idCities) {
+			String[] l = s.split(" ");
+			Integer[] intInCities = new Integer[l.length];
+			for (int i = 0; i < l.length; i++) {
+				intInCities[i] = Integer.parseInt(l[i]);
+			}
+			arrayId.add(intInCities);
+		}
+		this.idCities = arrayId;
+	}
+	
+	/**
+	 * constroi uma lista de array de variable a partir do arquivo var.tsv para ser usado na
+	 * recosntrucao das solutions a partir de uma execucao parada 
+	 * @throws IOException
+	 */
+	public void constructArrayChromosome() throws IOException {
+		BufferedReader br = new BufferedReader(
+				new FileReader(this.prop.getProperty("pathStartStopedExecution") + "\\" +"execução " +this.prop.getProperty("executionStoped")+ "/" + "var.tsv"));
+		String linha;
+		List<String> variableString = new ArrayList();
+		while ((linha = br.readLine()) != null) {
+			String[] arrayLinha = linha.split(" ");
+			variableString.add(linha);
+		}
+		List<Integer[]> arrayvar = new ArrayList<>();
+		for (String s : variableString) {
+			String[] l = s.split(" ");
+			Integer[] intVar = new Integer[l.length];
+			for (int i = 0; i < l.length; i++) {
+				intVar[i] = Integer.parseInt(l[i]);
+			}
+			arrayvar.add(intVar);
+		}
+		this.arrayVar = arrayvar;
+	}
+
+	/**
+	 * recupera uma solution de uma execucao parada
+	 */
+	public IntegerSolution takeSolutionFromStopedExcution(){
+		IntegerSolution s = new DefaultIntegerSolution(this);
+		Integer[] ArrayIdCities = this.idCities.get(0);
+		this.idCities.remove(0);
+		Pattern[] p = new Pattern[this.lineColumn.length];
+
+		for (int i = 0; i < ArrayIdCities.length; i++) {
+			p[i] = this.ClusterMap.get(ArrayIdCities[i]);
+		}
+
+		s.setLineColumn(p);
+		Integer[] ArrayVar = this.arrayVar.get(0);
+		this.arrayVar.remove(0);
+
+		for (int i = 0; i < ArrayVar.length; i++) {
+			s.setVariableValue(i, ArrayVar[i]);
+		}
+		return s;
+
 	}
 
 	// public boolean isolated(GmlData data) {
@@ -255,8 +373,8 @@ public class SearchForNetworkAndEvaluate extends AbstractIntegerProblem {
 	}
 
 	/**
-	 * mï¿½todo recebe uma lista de pattern e um pattern e retorna o pattern da lista
-	 * mais prï¿½ximo ao pattern recebido
+	 * mï¿½todo recebe uma lista de pattern e um pattern e retorna o pattern da
+	 * lista mais prï¿½ximo ao pattern recebido
 	 * 
 	 * @param node
 	 * @param copyPatternList
@@ -302,8 +420,8 @@ public class SearchForNetworkAndEvaluate extends AbstractIntegerProblem {
 	}
 
 	/**
-	 * mï¿½todo pra modificar a matriz inteira mudando cada elemento dela por um dos 3
-	 * patterns mais proximos de forma aleatï¿½ria
+	 * mï¿½todo pra modificar a matriz inteira mudando cada elemento dela por um dos
+	 * 3 patterns mais proximos de forma aleatï¿½ria
 	 */
 	public void createNewMatrix() {
 		Pattern[] copyLineColumn = new Pattern[this.lineColumn.length];
@@ -357,7 +475,7 @@ public class SearchForNetworkAndEvaluate extends AbstractIntegerProblem {
 	}
 
 	public void SetNetWork() {
-		int load =Integer.parseInt(this.prop.getProperty("erlangs"));
+		int load = Integer.parseInt(this.prop.getProperty("erlangs"));
 		Integer[] vars = new Integer[this.getNumberOfVariables()];
 		for (int i = 0; i < vars.length; i++) {
 			vars[i] = 1;
@@ -502,11 +620,11 @@ public class SearchForNetworkAndEvaluate extends AbstractIntegerProblem {
 		super();
 		this.setNumberOfObjectives(4);
 		// tamanho do cromossomo
-		this.setNumberOfVariables(kmeans.getCentroids().length * (kmeans.getCentroids().length - 1) / 2+2);
-		//**************** adicionado por danilo daqui pra baixo******************
+		this.setNumberOfVariables(kmeans.getCentroids().length * (kmeans.getCentroids().length - 1) / 2 + 2);
+		// **************** adicionado por danilo daqui pra baixo******************
 		List<Integer> ll = new Vector<>();
 		List<Integer> ul = new Vector<>();
-		for (int i = 0; i < this.getNumberOfVariables()-2; i++) {
+		for (int i = 0; i < this.getNumberOfVariables() - 2; i++) {
 			ll.add(0);
 			ul.add(1);
 		}
@@ -516,7 +634,7 @@ public class SearchForNetworkAndEvaluate extends AbstractIntegerProblem {
 		ul.add(40);
 		this.setLowerLimit(ll);
 		this.setUpperLimit(ul);
-		//***********************adicionado por danilo daqui pra cima************
+		// ***********************adicionado por danilo daqui pra cima************
 		this.upperBound = 1;// maior valor acomodado no cromossomo
 		this.gml = gml;
 		this.kmeans = kmeans;
@@ -539,6 +657,17 @@ public class SearchForNetworkAndEvaluate extends AbstractIntegerProblem {
 		this.ptg = new PatternToGml(gml);
 		SetNetWork();
 		printIncialCentroide();
+		if (true) {
+			this.constructMapNodeClusters();
+			try {
+				this.constructArrayIdCities();
+				this.constructArrayChromosome();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
+		}
 	}
 
 }

@@ -31,6 +31,7 @@ public class ClusterAlgXDeliveryManager {
 //		System.out.println(system.getHomeDirectory().getPath());
 //		isso retona o caminha da area de trabalho
 		//************************************
+		boolean thisWasStartedBefore=false;
 		Properties prop = new Properties();
 		FileInputStream file = new FileInputStream("src/dados.properties");
 		prop.load(file);
@@ -101,7 +102,21 @@ public class ClusterAlgXDeliveryManager {
 		int algNumber = Integer.parseInt(prop.getProperty("alg"));
 		String algselected = alg[algNumber];
 		prop.setProperty("algName", algselected);
+		int start=0;
 		new File (prop.getProperty("local")+prop.getProperty("algName")+"/"+prop.getProperty("modo")).mkdirs();
+		
+		if (prop.getProperty("startFromAstopedIteration").equals("y")) {
+			 start=Integer.parseInt(prop.getProperty("executionStoped"));
+			 if (thisWasStartedBefore) {
+				 prop.setProperty("startFromAstopedIteration", "n");
+			 }
+			 thisWasStartedBefore=true;
+					
+		}else {
+			 start=1;
+		}
+		
+		
 
 		for (int i = 1; i <= Integer.parseInt(prop.getProperty("numeroDeExec")); i++) {
 			

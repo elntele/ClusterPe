@@ -11,7 +11,7 @@ public class FindABetterValueToNormatize {
 
 	public static void main(String[] args) {
 		
-		String path = "C:\\Users\\elnte\\workspace2\\ClusterPe\\src\\resultados\\algorithm_KMeans\\sem busca/execução "; 
+		String path = "C:\\novos testes encontrar abordagem para media net\\variando canais\\PE\\sem busca 30 erlangs/execução "; 
 
 		List<List<String>> fourGreaterValue = new ArrayList();
 		double valueOne = Double.MIN_VALUE;
@@ -23,7 +23,7 @@ public class FindABetterValueToNormatize {
 		System.out.println(valueThree);
 		System.out.println(valueFour);
 		BufferedReader br;
-		for (int i = 1; i <= 1; i++) {
+		for (int i = 1; i <= 11; i++) {
 			for (int j = 20; +j <= 500; j += 20) {
 				try {
 					br = new BufferedReader(new FileReader(path + i + "/FUN" + j + ".tsv"));

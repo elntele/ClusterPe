@@ -657,7 +657,7 @@ public class SearchForNetworkAndEvaluate extends AbstractIntegerProblem {
 		this.ptg = new PatternToGml(gml);
 		SetNetWork();
 		printIncialCentroide();
-		if (true) {
+		if (prop.getProperty("startFromAstopedIteration").equals("y")) {
 			this.constructMapNodeClusters();
 			try {
 				this.constructArrayIdCities();

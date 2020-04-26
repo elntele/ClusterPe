@@ -118,7 +118,7 @@ public class ClusterAlgXDeliveryManager {
 		
 		
 
-		for (int i = 1; i <= Integer.parseInt(prop.getProperty("numeroDeExec")); i++) {
+		for (int i = start; i <= Integer.parseInt(prop.getProperty("numeroDeExec")); i++) {
 			
 			System.out.println("algoritmo selecionado: " + algselected);
 			prop.setProperty("alg", alg[algNumber]);

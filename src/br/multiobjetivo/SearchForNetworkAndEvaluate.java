@@ -50,6 +50,7 @@ public class SearchForNetworkAndEvaluate extends AbstractIntegerProblem {
 	private List<Integer[]> arrayVar;
 	private Map<Integer, Pattern> ClusterMap;
 	private int fitnessNumberFromPrintArchive;
+	private boolean IdidLoadFromVarX=false;
 
 	public void testCoparacao(IntegerSolution s1, IntegerSolution s2) {
 		DominanceComparator comparater = new DominanceComparator();
@@ -88,19 +89,50 @@ public class SearchForNetworkAndEvaluate extends AbstractIntegerProblem {
 			selectThePredeterminedPops();
 		}
 		if (this.prop.getProperty("startFromAstopedIteration").equals("y")) {
-//			return retorno = this.retrievNetworksFromGmls();
-			retorno=takeSolutionFromStopedExcution();	
-			return retorno;
+			if (this.prop.getProperty("fromGml").equals("y")) {
+				retorno = this.retrievNetworksFromGmls();
+				return retorno;
+			} else {
+				retorno = takeSolutionFromStopedExcution();
+				return retorno;
+			}
 		}
 		retorno.setLineColumn(lineColumn.clone());
 		return retorno;
 	}
+
 	/**
-	 * esse metodo foi escrito para recuperar redes de uma execucao parada a partir de arquivos gml
-	 * porem como a lista de cidades eh ordenada na hora de salvar o gml, ao ser recuperada ela perde
-	 * a ordem original o que desemparelha ela como o arrey de lista clusteres.
-	 * isso atrapalhou a logica da busca que consideram o emparelhamento como a segurança de que 
-	 * a cidade indice 1 do lineCollumn pertence cluster 1 no array de lista de cluster. 
+	 * metodo escrito pra corrigir a posição dos centroids que retornam ordenados do
+	 * framwork do simtom
+	 * 
+	 * @return
+	 */
+
+	public Pattern[] locateTheCorrectPosition(Pattern[] linecollunm) {
+		Pattern[] correctLineCollunm = new Pattern[this.clustters.length];
+		for (int i = 0; i < linecollunm.length; i++) {
+			for (int l = 0; l < this.clustters.length; l++) {
+				for (Pattern p : this.clustters[l]) {
+					if (p.getId() == linecollunm[i].getId()) {
+						correctLineCollunm[l] = linecollunm[i];
+						break;
+					}
+				}
+
+			}
+		}
+		return correctLineCollunm;
+
+	}
+
+	/**
+	 * esse metodo foi escrito para recuperar redes de uma execucao parada a partir
+	 * de arquivos gml porem como a lista de cidades eh ordenada na hora de salvar o
+	 * gml, ao ser recuperada ela perde a ordem original o que desemparelha ela como
+	 * o arrey de lista clusteres. isso atrapalhou a logica da busca que consideram
+	 * o emparelhamento como a segurança de que a cidade indice 1 do lineCollumn
+	 * pertence cluster 1 no array de lista de cluster.
+	 * 
 	 * @return
 	 */
 
@@ -117,12 +149,31 @@ public class SearchForNetworkAndEvaluate extends AbstractIntegerProblem {
 		GmlData gmlDataOfCorrectIndex = gml.loadGmlDataWithTheSamId(path, true);
 		p.reloadProblem(Integer.parseInt(this.prop.getProperty("erlangs")), gmlData);
 		IntegerSolution solution = new DefaultIntegerSolution(this);
-		solution.setLineColumn(this.ptg.takePatternData(gmlDataOfCorrectIndex));
-		Integer[] variables = p.getDefaultSolution();
-		for (int i = 0; i < this.getNumberOfVariables(); i++) {
-			solution.setVariableValue(i, variables[i]);
-
+		Pattern[] lineCollunm = new Pattern[this.clustters.length];
+		lineCollunm = this.ptg.takePatternData(gmlDataOfCorrectIndex);
+		lineCollunm = locateTheCorrectPosition(lineCollunm.clone());
+		solution.setLineColumn(lineCollunm);
+		if (!this.IdidLoadFromVarX) {
+			try {
+				path= this.prop.getProperty("pathStartStopedExecution") + "/" + "execução "
+						+ this.prop.getProperty("executionStoped") + "/" +"var"+ this.prop.getProperty("interationStopedInExecution") +".tsv";
+				getTheChromosomeFronVarX(path);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 		}
+		Integer[] ArrayVar = this.arrayVar.get(0);
+		this.arrayVar.remove(0);
+
+		for (int i = 0; i < ArrayVar.length; i++) {
+			solution.setVariableValue(i, ArrayVar[i]);
+		}
+		
+//		Integer[] variables = p.getDefaultSolution();
+//		for (int i = 0; i < this.getNumberOfVariables(); i++) {
+//			solution.setVariableValue(i, variables[i]);
+//
+//		}
 
 		this.gmlNumberRede += 1;
 		return solution;
@@ -222,70 +273,112 @@ public class SearchForNetworkAndEvaluate extends AbstractIntegerProblem {
 		}
 		this.ClusterMap = ClusterMap;
 	}
-	
+
 	/**
-	 * constroi uma lista de array de ids de cidades a partir do arquivo print.txt para ser usado na
-	 * recosntrucao das solutions a partir de uma execucao parada 
+	 * constroi uma lista de array de ids de cidades a partir do arquivo print.txt
+	 * para ser usado na recosntrucao das solutions a partir de uma execucao parada
+	 * 
 	 * @throws IOException
 	 */
 
 	public void constructArrayIdCities() throws IOException {
-		BufferedReader br = new BufferedReader(
-				new FileReader(this.prop.getProperty("pathStartStopedExecution") + "\\" +"execução " +this.prop.getProperty("executionStoped")+ "/" + "print.txt"));
-		String linha;
-		List<String> idCities = new ArrayList();
-		while ((linha = br.readLine()) != null) {
-			String[] arrayLinha = linha.split(" ");
-			if (arrayLinha[0].equals("centroides") && arrayLinha[1].equals("final")) {
-				linha = linha.replace("centroides final : ", "");
-				linha = linha.replace("[", "");
-				linha = linha.replace("]", "");
-				linha = linha.replace(",", "");
-				idCities.add(linha);
+		if (!(this.prop.getProperty("fromGml").equals("y"))) {
+			BufferedReader br = new BufferedReader(new FileReader(this.prop.getProperty("pathStartStopedExecution")
+					+ "\\" + "execução " + this.prop.getProperty("executionStoped") + "/" + "print.txt"));
+			String linha;
+			List<String> idCities = new ArrayList();
+			while ((linha = br.readLine()) != null) {
+				String[] arrayLinha = linha.split(" ");
+				if (arrayLinha[0].equals("centroides") && arrayLinha[1].equals("final")) {
+					linha = linha.replace("centroides final : ", "");
+					linha = linha.replace("[", "");
+					linha = linha.replace("]", "");
+					linha = linha.replace(",", "");
+					idCities.add(linha);
+				}
 			}
-		}
-		List<Integer[]> arrayId = new ArrayList<>();
-		for (String s : idCities) {
-			String[] l = s.split(" ");
-			Integer[] intInCities = new Integer[l.length];
-			for (int i = 0; i < l.length; i++) {
-				intInCities[i] = Integer.parseInt(l[i]);
+			List<Integer[]> arrayId = new ArrayList<>();
+			for (String s : idCities) {
+				String[] l = s.split(" ");
+				Integer[] intInCities = new Integer[l.length];
+				for (int i = 0; i < l.length; i++) {
+					intInCities[i] = Integer.parseInt(l[i]);
+				}
+				arrayId.add(intInCities);
 			}
-			arrayId.add(intInCities);
+			this.idCities = arrayId;
+
 		}
-		this.idCities = arrayId;
+
 	}
-	
+
 	/**
-	 * constroi uma lista de array de variable a partir do arquivo var.tsv para ser usado na
-	 * recosntrucao das solutions a partir de uma execucao parada 
+	 * constroi uma lista de array de variable a partir do arquivo var.tsv para ser
+	 * usado na recosntrucao das solutions a partir de uma execucao parada
+	 * com uma  falha por excecao
+	 * 
 	 * @throws IOException
 	 */
 	public void constructArrayChromosome() throws IOException {
-		BufferedReader br = new BufferedReader(
-				new FileReader(this.prop.getProperty("pathStartStopedExecution") + "\\" +"execução " +this.prop.getProperty("executionStoped")+ "/" + "var.tsv"));
-		String linha;
-		List<String> variableString = new ArrayList();
-		while ((linha = br.readLine()) != null) {
-			String[] arrayLinha = linha.split(" ");
-			variableString.add(linha);
-		}
-		List<Integer[]> arrayvar = new ArrayList<>();
-		for (String s : variableString) {
-			String[] l = s.split(" ");
-			Integer[] intVar = new Integer[l.length];
-			for (int i = 0; i < l.length; i++) {
-				intVar[i] = Integer.parseInt(l[i]);
+
+		if (!(this.prop.getProperty("fromGml").equals("y"))) {
+			BufferedReader br = new BufferedReader(new FileReader(this.prop.getProperty("pathStartStopedExecution")
+					+ "\\" + "execução " + this.prop.getProperty("executionStoped") + "/" + "var.tsv"));
+			String linha;
+			List<String> variableString = new ArrayList();
+			while ((linha = br.readLine()) != null) {
+				String[] arrayLinha = linha.split(" ");
+				variableString.add(linha);
 			}
-			arrayvar.add(intVar);
+			List<Integer[]> arrayvar = new ArrayList<>();
+			for (String s : variableString) {
+				String[] l = s.split(" ");
+				Integer[] intVar = new Integer[l.length];
+				for (int i = 0; i < l.length; i++) {
+					intVar[i] = Integer.parseInt(l[i]);
+				}
+				arrayvar.add(intVar);
+			}
+			this.arrayVar = arrayvar;
 		}
-		this.arrayVar = arrayvar;
+
+	}
+	
+	/**
+	 *esse medodo e um auxiliar para a tecnica que recomeca a partir de um arquivo gml.
+	 *Constroi uma lista de array de variable a partir do arquivo varX.tsv para ser
+	 * usado na recosntrucao das solutions a partir de uma execucao parada porem 
+	 * parada sem falha por excecao
+	 * 
+	 * @throws IOException
+	 */
+	public void getTheChromosomeFronVarX(String path) throws IOException {
+
+			BufferedReader br = new BufferedReader(new FileReader(path));
+			String linha;
+			List<String> variableString = new ArrayList();
+			while ((linha = br.readLine()) != null) {
+				String[] arrayLinha = linha.split(" ");
+				variableString.add(linha);
+			}
+			List<Integer[]> arrayvar = new ArrayList<>();
+			for (String s : variableString) {
+				String[] l = s.split(" ");
+				Integer[] intVar = new Integer[l.length];
+				for (int i = 0; i < l.length; i++) {
+					intVar[i] = Integer.parseInt(l[i]);
+				}
+				arrayvar.add(intVar);
+			}
+			this.IdidLoadFromVarX=true;
+			this.arrayVar = arrayvar;
+
 	}
 
 	/**
 	 * recupera uma solution de uma execucao parada
 	 */
-	public IntegerSolution takeSolutionFromStopedExcution(){
+	public IntegerSolution takeSolutionFromStopedExcution() {
 		IntegerSolution s = new DefaultIntegerSolution(this);
 		Integer[] ArrayIdCities = this.idCities.get(0);
 		this.idCities.remove(0);

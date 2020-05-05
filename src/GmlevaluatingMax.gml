@@ -1,722 +1,722 @@
 graph [
     node [
-        id 114
-        label "Eschborn, PE"
-        Longitude 8.54989367
-        Latitude 50.14975295
-        Country "Germany"
+        id 170
+        label "Timbaúba, PE"
+        Longitude -35.316993
+        Latitude -7.511406
+        Country "Brazil"
         Internal 0
-        Population 1
-        PIB "0"
+        Population 53581
+        PIB "10654"
         type "Node"
-        IDH "0.0"
-        GINI "0.0"
+        IDH "0.618"
+        GINI "0.5154"
     ]
     node [
-        id 108
-        label "Langenselbold, PE"
-        Longitude 9.0305643
-        Latitude 50.1864056
-        Country "Germany"
+        id 166
+        label "Tamandaré, PE"
+        Longitude -35.105
+        Latitude -8.76
+        Country "Brazil"
         Internal 0
-        Population 1
-        PIB "0"
+        Population 22591
+        PIB "9453"
         type "Node"
-        IDH "0.0"
-        GINI "0.0"
+        IDH "0.593"
+        GINI "0.5576"
     ]
     node [
-        id 103
-        label "GroB-Bieberau, PE"
-        Longitude 8.817996
-        Latitude 49.8010883
-        Country "Germany"
+        id 162
+        label "Surubim, PE"
+        Longitude -35.755833
+        Latitude -7.831944
+        Country "Brazil"
         Internal 0
-        Population 1
-        PIB "0"
+        Population 63166
+        PIB "9626"
         type "Node"
-        IDH "0.0"
-        GINI "0.0"
+        IDH "0.635"
+        GINI "0.5362"
     ]
     node [
-        id 87
-        label "Burstadt, PE"
-        Longitude 8.4572315
-        Latitude 49.6445554
-        Country "Germany"
+        id 140
+        label "Santa Cruz, PE"
+        Longitude -40.335833
+        Latitude -8.24
+        Country "Brazil"
         Internal 0
-        Population 1
-        PIB "0"
+        Population 14857
+        PIB "5443"
         type "Node"
-        IDH "0.0"
-        GINI "0.0"
+        IDH "0.549"
+        GINI "0.5686"
     ]
     node [
-        id 83
-        label "Furth, PE"
-        Longitude 8.78122239
-        Latitude 49.65045965
-        Country "Germany"
+        id 137
+        label "Salgueiro, PE"
+        Longitude -39.119167
+        Latitude -8.074167
+        Country "Brazil"
         Internal 0
-        Population 1
-        PIB "0"
+        Population 59769
+        PIB "11763"
         type "Node"
-        IDH "0.0"
-        GINI "0.0"
+        IDH "0.669"
+        GINI "0.59"
     ]
     node [
-        id 73
-        label "Mespelbrunn, PE"
-        Longitude 9.285164
-        Latitude 49.9191153
-        Country "Germany"
+        id 123
+        label "Pesqueira, PE"
+        Longitude -36.694722
+        Latitude -8.361667
+        Country "Brazil"
         Internal 0
-        Population 1
-        PIB "0"
+        Population 66153
+        PIB "8501"
         type "Node"
-        IDH "0.0"
-        GINI "0.0"
+        IDH "0.61"
+        GINI "0.56"
     ]
     node [
-        id 71
-        label "Kleinostheim, PE"
-        Longitude 9.0614116
-        Latitude 50.0037355
-        Country "Germany"
+        id 76
+        label "Inaja, PE"
+        Longitude -37.823888888889
+        Latitude -8.900886
+        Country "Brazil"
         Internal 0
-        Population 1
-        PIB "0"
+        Population 21932
+        PIB "5263"
         type "Node"
-        IDH "0.0"
-        GINI "0.0"
+        IDH "0.523"
+        GINI "0.6"
     ]
     node [
-        id 68
-        label "Neu-Isenburg, PE"
-        Longitude 8.68474285
-        Latitude 50.0539641
-        Country "Germany"
+        id 65
+        label "Garanhuns, PE"
+        Longitude -36.492777777778
+        Latitude -8.876988
+        Country "Brazil"
         Internal 0
-        Population 1
-        PIB "0"
+        Population 136949
+        PIB "13228"
         type "Node"
-        IDH "0.0"
-        GINI "0.0"
+        IDH "0.664"
+        GINI "0.59"
     ]
     node [
-        id 61
-        label "Bad Konig, PE"
-        Longitude 9.00337806
-        Latitude 49.74754045
-        Country "Germany"
+        id 57
+        label "Escada, PE"
+        Longitude -35.224757
+        Latitude -8.357044
+        Country "Brazil"
         Internal 0
-        Population 1
-        PIB "0"
+        Population 67381
+        PIB "10449"
         type "Node"
-        IDH "0.0"
-        GINI "0.0"
+        IDH "0.632"
+        GINI "0.46"
     ]
     node [
-        id 60
-        label "Freudenberg, PE"
-        Longitude 9.32206064
-        Latitude 49.7581872
-        Country "Germany"
+        id 54
+        label "Cupira, PE"
+        Longitude -35.951644
+        Latitude -8.610115
+        Country "Brazil"
         Internal 0
-        Population 1
-        PIB "0"
+        Population 23841
+        PIB "8017"
         type "Node"
-        IDH "0.0"
-        GINI "0.0"
+        IDH "0.592"
+        GINI "0.49"
     ]
     node [
-        id 53
-        label "Mudau, PE"
-        Longitude 9.1961319
-        Latitude 49.5379477
-        Country "Germany"
+        id 52
+        label "Cortês, PE"
+        Longitude -35.527112
+        Latitude -8.450465
+        Country "Brazil"
         Internal 0
-        Population 1
-        PIB "0"
+        Population 12602
+        PIB "7413"
         type "Node"
-        IDH "0.0"
-        GINI "0.0"
+        IDH "0.568"
+        GINI "0.47"
     ]
     node [
-        id 44
-        label "Weinheim, PE"
-        Longitude 8.64675524
-        Latitude 49.5498666
-        Country "Germany"
+        id 50
+        label "Condado, PE"
+        Longitude -35.10097
+        Latitude -7.584605
+        Country "Brazil"
         Internal 0
-        Population 1
-        PIB "0"
+        Population 25823
+        PIB "6524"
         type "Node"
-        IDH "0.0"
-        GINI "0.0"
+        IDH "0.602"
+        GINI "0.53"
     ]
     node [
-        id 37
-        label "Gernsheim, PE"
-        Longitude 8.4889843
-        Latitude 49.7575508
-        Country "Germany"
+        id 43
+        label "Carpina, PE"
+        Longitude -35.251138
+        Latitude -7.845544
+        Country "Brazil"
         Internal 0
-        Population 1
-        PIB "0"
+        Population 81054
+        PIB "12816"
         type "Node"
-        IDH "0.0"
-        GINI "0.0"
+        IDH "0.68"
+        GINI "0.5"
     ]
     node [
-        id 23
-        label "Finthen, PE"
-        Longitude 8.17110349
-        Latitude 49.9826056
-        Country "Germany"
+        id 1
+        label "Afogados da Ingazeira, PE"
+        Longitude -37.633384
+        Latitude -7.749002
+        Country "Brazil"
         Internal 0
-        Population 1
-        PIB "0"
+        Population 36709
+        PIB "9108"
         type "Node"
-        IDH "0.0"
-        GINI "0.0"
+        IDH "0.657"
+        GINI "0.56"
     ]
     node [
-        id 11
-        label "Morfelden, PE"
-        Longitude 8.583614
-        Latitude 50.000517
-        Country "Germany"
+        id 0
+        label "Abreu e Lima, PE"
+        Longitude -34.897523
+        Latitude -7.905354
+        Country "Brazil"
         Internal 0
-        Population 33799
-        PIB "0"
+        Population 98602
+        PIB "13294"
         type "Node"
-        IDH "0.0"
-        GINI "0.0"
+        IDH "0.679"
+        GINI "0.45"
     ]
     edge[
-        source 11
-        target 73
+        source 76
+        target 0
         LinkLabel "null"
     ]
     edge[
-        source 11
-        target 83
+        source 76
+        target 43
         LinkLabel "null"
     ]
     edge[
-        source 11
-        target 23
+        source 76
+        target 65
         LinkLabel "null"
     ]
     edge[
-        source 11
-        target 68
+        source 76
+        target 50
         LinkLabel "null"
     ]
     edge[
-        source 11
-        target 61
+        source 76
+        target 57
         LinkLabel "null"
     ]
     edge[
-        source 11
-        target 114
+        source 76
+        target 170
         LinkLabel "null"
     ]
     edge[
-        source 11
-        target 37
+        source 76
+        target 166
         LinkLabel "null"
     ]
     edge[
-        source 11
-        target 71
+        source 76
+        target 1
         LinkLabel "null"
     ]
     edge[
-        source 11
-        target 60
+        source 76
+        target 123
         LinkLabel "null"
     ]
     edge[
-        source 11
-        target 103
+        source 76
+        target 52
         LinkLabel "null"
     ]
     edge[
-        source 11
-        target 108
+        source 76
+        target 140
         LinkLabel "null"
     ]
     edge[
-        source 11
-        target 53
+        source 76
+        target 54
         LinkLabel "null"
     ]
     edge[
-        source 11
-        target 87
+        source 76
+        target 137
         LinkLabel "null"
     ]
     edge[
-        source 11
-        target 44
+        source 76
+        target 162
         LinkLabel "null"
     ]
     edge[
-        source 73
-        target 83
+        source 0
+        target 43
         LinkLabel "null"
     ]
     edge[
-        source 73
-        target 23
+        source 0
+        target 65
         LinkLabel "null"
     ]
     edge[
-        source 73
-        target 68
+        source 0
+        target 50
         LinkLabel "null"
     ]
     edge[
-        source 73
-        target 61
+        source 0
+        target 57
         LinkLabel "null"
     ]
     edge[
-        source 73
-        target 114
+        source 0
+        target 170
         LinkLabel "null"
     ]
     edge[
-        source 73
-        target 37
+        source 0
+        target 166
         LinkLabel "null"
     ]
     edge[
-        source 73
-        target 71
+        source 0
+        target 1
         LinkLabel "null"
     ]
     edge[
-        source 73
-        target 60
+        source 0
+        target 123
         LinkLabel "null"
     ]
     edge[
-        source 73
-        target 103
+        source 0
+        target 52
         LinkLabel "null"
     ]
     edge[
-        source 73
-        target 108
+        source 0
+        target 140
         LinkLabel "null"
     ]
     edge[
-        source 73
-        target 53
+        source 0
+        target 54
         LinkLabel "null"
     ]
     edge[
-        source 73
-        target 87
+        source 0
+        target 137
         LinkLabel "null"
     ]
     edge[
-        source 73
-        target 44
+        source 0
+        target 162
         LinkLabel "null"
     ]
     edge[
-        source 83
-        target 23
+        source 43
+        target 65
         LinkLabel "null"
     ]
     edge[
-        source 83
-        target 68
+        source 43
+        target 50
         LinkLabel "null"
     ]
     edge[
-        source 83
-        target 61
+        source 43
+        target 57
         LinkLabel "null"
     ]
     edge[
-        source 83
-        target 114
+        source 43
+        target 170
         LinkLabel "null"
     ]
     edge[
-        source 83
-        target 37
+        source 43
+        target 166
         LinkLabel "null"
     ]
     edge[
-        source 83
-        target 71
+        source 43
+        target 1
         LinkLabel "null"
     ]
     edge[
-        source 83
-        target 60
+        source 43
+        target 123
         LinkLabel "null"
     ]
     edge[
-        source 83
-        target 103
+        source 43
+        target 52
         LinkLabel "null"
     ]
     edge[
-        source 83
-        target 108
+        source 43
+        target 140
         LinkLabel "null"
     ]
     edge[
-        source 83
-        target 53
+        source 43
+        target 54
         LinkLabel "null"
     ]
     edge[
-        source 83
-        target 87
+        source 43
+        target 137
         LinkLabel "null"
     ]
     edge[
-        source 83
-        target 44
+        source 43
+        target 162
         LinkLabel "null"
     ]
     edge[
-        source 23
-        target 68
+        source 65
+        target 50
         LinkLabel "null"
     ]
     edge[
-        source 23
-        target 61
+        source 65
+        target 57
         LinkLabel "null"
     ]
     edge[
-        source 23
-        target 114
+        source 65
+        target 170
         LinkLabel "null"
     ]
     edge[
-        source 23
-        target 37
+        source 65
+        target 166
         LinkLabel "null"
     ]
     edge[
-        source 23
-        target 71
+        source 65
+        target 1
         LinkLabel "null"
     ]
     edge[
-        source 23
-        target 60
+        source 65
+        target 123
         LinkLabel "null"
     ]
     edge[
-        source 23
-        target 103
+        source 65
+        target 52
         LinkLabel "null"
     ]
     edge[
-        source 23
-        target 108
+        source 65
+        target 140
         LinkLabel "null"
     ]
     edge[
-        source 23
-        target 53
+        source 65
+        target 54
         LinkLabel "null"
     ]
     edge[
-        source 23
-        target 87
+        source 65
+        target 137
         LinkLabel "null"
     ]
     edge[
-        source 23
-        target 44
+        source 65
+        target 162
         LinkLabel "null"
     ]
     edge[
-        source 68
-        target 61
+        source 50
+        target 57
         LinkLabel "null"
     ]
     edge[
-        source 68
-        target 114
+        source 50
+        target 170
         LinkLabel "null"
     ]
     edge[
-        source 68
-        target 37
+        source 50
+        target 166
         LinkLabel "null"
     ]
     edge[
-        source 68
-        target 71
+        source 50
+        target 1
         LinkLabel "null"
     ]
     edge[
-        source 68
-        target 60
+        source 50
+        target 123
         LinkLabel "null"
     ]
     edge[
-        source 68
-        target 103
+        source 50
+        target 52
         LinkLabel "null"
     ]
     edge[
-        source 68
-        target 108
+        source 50
+        target 140
         LinkLabel "null"
     ]
     edge[
-        source 68
-        target 53
+        source 50
+        target 54
         LinkLabel "null"
     ]
     edge[
-        source 68
-        target 87
+        source 50
+        target 137
         LinkLabel "null"
     ]
     edge[
-        source 68
-        target 44
+        source 50
+        target 162
         LinkLabel "null"
     ]
     edge[
-        source 61
-        target 114
+        source 57
+        target 170
         LinkLabel "null"
     ]
     edge[
-        source 61
-        target 37
+        source 57
+        target 166
         LinkLabel "null"
     ]
     edge[
-        source 61
-        target 71
+        source 57
+        target 1
         LinkLabel "null"
     ]
     edge[
-        source 61
-        target 60
+        source 57
+        target 123
         LinkLabel "null"
     ]
     edge[
-        source 61
-        target 103
+        source 57
+        target 52
         LinkLabel "null"
     ]
     edge[
-        source 61
-        target 108
+        source 57
+        target 140
         LinkLabel "null"
     ]
     edge[
-        source 61
-        target 53
+        source 57
+        target 54
         LinkLabel "null"
     ]
     edge[
-        source 61
-        target 87
+        source 57
+        target 137
         LinkLabel "null"
     ]
     edge[
-        source 61
-        target 44
+        source 57
+        target 162
         LinkLabel "null"
     ]
     edge[
-        source 114
-        target 37
+        source 170
+        target 166
         LinkLabel "null"
     ]
     edge[
-        source 114
-        target 71
+        source 170
+        target 1
         LinkLabel "null"
     ]
     edge[
-        source 114
-        target 60
+        source 170
+        target 123
         LinkLabel "null"
     ]
     edge[
-        source 114
-        target 103
+        source 170
+        target 52
         LinkLabel "null"
     ]
     edge[
-        source 114
-        target 108
+        source 170
+        target 140
         LinkLabel "null"
     ]
     edge[
-        source 114
-        target 53
+        source 170
+        target 54
         LinkLabel "null"
     ]
     edge[
-        source 114
-        target 87
+        source 170
+        target 137
         LinkLabel "null"
     ]
     edge[
-        source 114
-        target 44
+        source 170
+        target 162
         LinkLabel "null"
     ]
     edge[
-        source 37
-        target 71
+        source 166
+        target 1
         LinkLabel "null"
     ]
     edge[
-        source 37
-        target 60
+        source 166
+        target 123
         LinkLabel "null"
     ]
     edge[
-        source 37
-        target 103
+        source 166
+        target 52
         LinkLabel "null"
     ]
     edge[
-        source 37
-        target 108
+        source 166
+        target 140
         LinkLabel "null"
     ]
     edge[
-        source 37
-        target 53
+        source 166
+        target 54
         LinkLabel "null"
     ]
     edge[
-        source 37
-        target 87
+        source 166
+        target 137
         LinkLabel "null"
     ]
     edge[
-        source 37
-        target 44
+        source 166
+        target 162
         LinkLabel "null"
     ]
     edge[
-        source 71
-        target 60
+        source 1
+        target 123
         LinkLabel "null"
     ]
     edge[
-        source 71
-        target 103
+        source 1
+        target 52
         LinkLabel "null"
     ]
     edge[
-        source 71
-        target 108
+        source 1
+        target 140
         LinkLabel "null"
     ]
     edge[
-        source 71
-        target 53
+        source 1
+        target 54
         LinkLabel "null"
     ]
     edge[
-        source 71
-        target 87
+        source 1
+        target 137
         LinkLabel "null"
     ]
     edge[
-        source 71
-        target 44
+        source 1
+        target 162
         LinkLabel "null"
     ]
     edge[
-        source 60
-        target 103
+        source 123
+        target 52
         LinkLabel "null"
     ]
     edge[
-        source 60
-        target 108
+        source 123
+        target 140
         LinkLabel "null"
     ]
     edge[
-        source 60
-        target 53
+        source 123
+        target 54
         LinkLabel "null"
     ]
     edge[
-        source 60
-        target 87
+        source 123
+        target 137
         LinkLabel "null"
     ]
     edge[
-        source 60
-        target 44
+        source 123
+        target 162
         LinkLabel "null"
     ]
     edge[
-        source 103
-        target 108
+        source 52
+        target 140
         LinkLabel "null"
     ]
     edge[
-        source 103
-        target 53
+        source 52
+        target 54
         LinkLabel "null"
     ]
     edge[
-        source 103
-        target 87
+        source 52
+        target 137
         LinkLabel "null"
     ]
     edge[
-        source 103
-        target 44
+        source 52
+        target 162
         LinkLabel "null"
     ]
     edge[
-        source 108
-        target 53
+        source 140
+        target 54
         LinkLabel "null"
     ]
     edge[
-        source 108
-        target 87
+        source 140
+        target 137
         LinkLabel "null"
     ]
     edge[
-        source 108
-        target 44
+        source 140
+        target 162
         LinkLabel "null"
     ]
     edge[
-        source 53
-        target 87
+        source 54
+        target 137
         LinkLabel "null"
     ]
     edge[
-        source 53
-        target 44
+        source 54
+        target 162
         LinkLabel "null"
     ]
     edge[
-        source 87
-        target 44
+        source 137
+        target 162
         LinkLabel "null"
     ]
 ]

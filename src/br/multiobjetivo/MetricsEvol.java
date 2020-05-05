@@ -27,6 +27,10 @@ public class MetricsEvol {
 //		os maiores da medianer
 		double wA= 18904.970121201848;
 		double wB = 582687.162984552;
+		// tem que verificar, no w1 tava assim
+		// para medianer
+//		double wA= 20283.035456200272;
+//		double wB = 447498.2435865882;
 //		// sem busca
 //		double wsbA=17824.4218569369;
 //		double wsbB=414062.258070812;

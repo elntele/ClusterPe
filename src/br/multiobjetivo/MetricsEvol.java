@@ -52,11 +52,11 @@ public class MetricsEvol {
 			double hvma = 0;// descomenta esse pra pegar a media jorge
 			double hvmb = 0;// descomenta esse pra pegar a media jorge
 			double hvmc = 0;// descomenta esse pra pegar a media jorge
-			for (int j = 2; j <=2 ; j++) {
+			for (int j = 1; j <=11 ; j++) {
 //				double hvma = 0;// cometa esse pra pegar a media jorge
 //				double hvmb = 0;// cometa esse pra pegar a media jorge
 
-				String  path = "C:\\novos testes encontrar abordagem para media net\\variando canais\\MediaNet\\sem busca 40 erlangs/execução " 
+				String  path = "C:\\Users\\elnte\\workspace2\\ClusterPe\\src\\resultados\\algorithm_KMeans_medianet\\com busca\\Nova pasta/execução " 
 						+ j + "/FUN" + i + ".tsv";
 				try {
 					normalizedFront = new ArrayFront(path);
@@ -74,7 +74,7 @@ public class MetricsEvol {
 				List<PointSolution> normalizedPopulation = FrontUtils.convertFrontToSolutionList(normalizedFront);
 				hvma += hypervolume.evaluate(normalizedPopulation);
 //
-				path = "C:\\novos testes encontrar abordagem para media net\\variando canais\\MediaNet\\elite 40 Erlangs/execução " 
+				path = "C:\\novos testes encontrar abordagem para media net\\variando canais\\MediaNet\\30 Erlangs\\sem busca/execução " 
 						+ j + "/FUN" + i + ".tsv";
 				try {
 					normalizedFront = new ArrayFront(path);
@@ -98,7 +98,7 @@ public class MetricsEvol {
 //				System.out.print(/*i*/j + " ");// mude pra i jorge
 //				System.out.printf("%.4f ", hvma) ;
 //				System.out.printf("%.4f\n", hvmb);
-				path = "C:\\novos testes encontrar abordagem para media net\\variando canais\\MediaNet\\sem busca 40 erlangs/execução " 
+				path = "C:\\novos testes encontrar abordagem para media net\\variando canais\\MediaNet\\30 Erlangs\\sem busca/execução " 
 						+ j + "/FUN" + i + ".tsv";
 				try {
 					normalizedFront = new ArrayFront(path);
@@ -125,9 +125,9 @@ public class MetricsEvol {
 			}
 			// descomenta esse pra pegar a media jorge
 			System.out.print(i + " ");
-			System.out.printf("%.4f ", hvma / 1);
-			System.out.printf("%.4f ", hvmb /1);
-			System.out.printf("%.4f\n", hvmc /1);
+			System.out.printf("%.4f ", hvma / 11);
+			System.out.printf("%.4f ", hvmb /11);
+			System.out.printf("%.4f\n", hvmc /11);
 		}
 
 	}

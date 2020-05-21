@@ -8,11 +8,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Properties;
 
+import javax.swing.filechooser.FileSystemView;
+
 import br.clustering.AllDistancesCLuster;
 import br.clustering.ClusterCentroid;
-import br.clustering.ClusterEmptData;
 import br.clustering.MetricsIntraCluster;
-import br.clustering.SpreadSheet;
 import br.clustering.TableToList;
 import br.cns.model.GmlData;
 import br.cns.model.GmlNode;
@@ -33,12 +33,27 @@ public class ClusterAlgXDeliveryManager {
 		//************************************
 		boolean thisWasStartedBefore=false;
 		Properties prop = new Properties();
-		FileInputStream file = new FileInputStream("src/dados.properties");
+		FileInputStream file=null;
+		try {
+			file = new FileInputStream("src/dados.properties");
+		} catch (Exception e) {
+			FileSystemView system = FileSystemView.getFileSystemView();
+			file=new FileInputStream(system.getHomeDirectory().getPath()+"/redes/dados.properties");
+		}
+		
 		prop.load(file);
 		//carregando o gml da rede
+		GmlData gml=null;
 		String path = prop.getProperty("path");
-
-		GmlData gml = new GmlDao().loadGmlData(path); // novo
+		try {
+			gml = new GmlDao().loadGmlData(path); // novo
+		} catch (Exception e) {
+			path = path.replace("src", "/redes/src/");
+			FileSystemView system = FileSystemView.getFileSystemView();
+			path=system.getHomeDirectory().getPath()+path;
+			 gml = new GmlDao().loadGmlData(path);
+		}
+		
 		List<Pattern> listPatterns = new ArrayList<>();
 		List<GmlNode> listCity = gml.getNodes();// novo
 		String[] countryNameInGml = { "Brazil", "Germany" };
@@ -103,7 +118,16 @@ public class ClusterAlgXDeliveryManager {
 		String algselected = alg[algNumber];
 		prop.setProperty("algName", algselected);
 		int start=0;
-		new File (prop.getProperty("local")+prop.getProperty("algName")+"/"+prop.getProperty("modo")).mkdirs();
+		try {
+			new File (prop.getProperty("local")+prop.getProperty("algName")+"/"+prop.getProperty("modo")).mkdirs();
+		} catch (Exception e) {
+			
+			FileSystemView system = FileSystemView.getFileSystemView();
+			String local=system.getHomeDirectory().getPath()+"\\redes\\resultados\\";
+			prop.setProperty("local", local);
+			new File (prop.getProperty("local")+prop.getProperty("algName")+"\\"+prop.getProperty("modo")).mkdirs();
+		}
+		
 		
 		if (prop.getProperty("startFromAstopedIteration").equals("y")) {
 			 start=Integer.parseInt(prop.getProperty("executionStoped"));
@@ -127,7 +151,16 @@ public class ClusterAlgXDeliveryManager {
 			String patchCentroid = "src/" + algselected + "/centroids_k_" + kSize + "_exec_" + execucao + ".csv";
 
 			ClusterCentroid clusterCentroidCluster = new ClusterCentroid();
-			clusterCentroidCluster = tableToList.retrievCluster(patchCluster);
+			
+			try {
+				clusterCentroidCluster = tableToList.retrievCluster(patchCluster);
+			} catch (Exception e) {
+				patchCluster=prop.getProperty("local")+"src/" + algselected + "/clusters_k_" + kSize + "_exec_" + execucao + ".csv";
+				patchCentroid=prop.getProperty("local")+"src/" + algselected + "/centroids_k_" + kSize + "_exec_" + execucao + ".csv";
+				patchCluster = patchCluster.replace("\\resultados", "");
+				patchCentroid = patchCentroid.replace("\\resultados", "");
+				clusterCentroidCluster = tableToList.retrievCluster(patchCluster);
+			}		
 			clustters = clusterCentroidCluster.getCluster();
 			Kmeans kmeans = new Kmeans(kSize, listPatterns);
 			Pattern[] centroids;

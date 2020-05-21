@@ -246,14 +246,32 @@ public class SearchForNetworkAndEvaluate extends AbstractIntegerProblem {
 	}
 
 	public void retrieveTheFixedInitialNetworks() throws IOException {
-		BufferedReader br = new BufferedReader(new FileReader(this.prop.getProperty("pathS.U")));// "src/fixedSolution.tsv"
-		String linha;
-		List<String> lista = new ArrayList();
-		while ((linha = br.readLine()) != null) {
-			lista.add(linha);
+		
+		BufferedReader br;
+		try {
+			
+			br = new BufferedReader(new FileReader(this.prop.getProperty("pathS.U")));
+			String linha;
+			List<String> lista = new ArrayList();
+			while ((linha = br.readLine()) != null) {
+				lista.add(linha);
 
+			}
+			this.fixedNetworkConections = lista;
+		} catch (Exception e) {
+			String path = this.prop.getProperty("local")+this.prop.getProperty("pathS.U");
+			path = path.replace("\\resultados", "");
+			br = new BufferedReader(new FileReader(path));
+			String linha;
+			List<String> lista = new ArrayList();
+			while ((linha = br.readLine()) != null) {
+				lista.add(linha);
+
+			}
+			this.fixedNetworkConections = lista;
 		}
-		this.fixedNetworkConections = lista;
+		
+		
 	}
 
 	/**
@@ -575,7 +593,15 @@ public class SearchForNetworkAndEvaluate extends AbstractIntegerProblem {
 		}
 		this.ptg.patternGmlData(this.lineColumn, vars);
 		String path = "src/Gmlevaluating.gml";
-		this.opticalNetwoark = new OpticalNetworkProblem(load, path);
+		
+		try {
+		    this.opticalNetwoark = new OpticalNetworkProblem(load, path);
+		} catch (Exception e) {
+		    path = this.prop.getProperty("local");
+			path = path.replace("\\resultados", "");
+			path+="src/Gmlevaluating.gml";
+			this.opticalNetwoark = new OpticalNetworkProblem(load, path);
+		}
 	}
 
 	public GmlData getGml() {

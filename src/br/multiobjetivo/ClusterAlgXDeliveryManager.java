@@ -46,7 +46,9 @@ public class ClusterAlgXDeliveryManager {
 		GmlData gml=null;
 		String path = prop.getProperty("path");
 		try {
+			
 			gml = new GmlDao().loadGmlData(path); // novo
+			
 		} catch (Exception e) {
 			path = path.replace("src", "/redes/src/");
 			FileSystemView system = FileSystemView.getFileSystemView();
@@ -120,6 +122,7 @@ public class ClusterAlgXDeliveryManager {
 		int start=0;
 		try {
 			new File (prop.getProperty("local")+prop.getProperty("algName")+"/"+prop.getProperty("modo")).mkdirs();
+		
 		} catch (Exception e) {
 			
 			FileSystemView system = FileSystemView.getFileSystemView();

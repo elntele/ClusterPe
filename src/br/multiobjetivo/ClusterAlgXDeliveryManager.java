@@ -38,7 +38,7 @@ public class ClusterAlgXDeliveryManager {
 			file = new FileInputStream("src/dados.properties");
 		} catch (Exception e) {
 			FileSystemView system = FileSystemView.getFileSystemView();
-			file=new FileInputStream(system.getHomeDirectory().getPath()+"/redesEspalhamento1/dados.properties");
+			file=new FileInputStream(system.getHomeDirectory().getPath()+"/redeFibonacci1/dados.properties");
 		}
 		
 		prop.load(file);
@@ -50,7 +50,7 @@ public class ClusterAlgXDeliveryManager {
 			gml = new GmlDao().loadGmlData(path); // novo
 			
 		} catch (Exception e) {
-			path = path.replace("src", "/redesEspalhamento1/src/");
+			path = path.replace("src", "/redeFibonacci1/src/");
 			FileSystemView system = FileSystemView.getFileSystemView();
 			path=system.getHomeDirectory().getPath()+path;
 			 gml = new GmlDao().loadGmlData(path);
@@ -126,7 +126,7 @@ public class ClusterAlgXDeliveryManager {
 		} catch (Exception e) {
 			
 			FileSystemView system = FileSystemView.getFileSystemView();
-			String local=system.getHomeDirectory().getPath()+"\\redesEspalhamento1\\resultados\\";
+			String local=system.getHomeDirectory().getPath()+"\\redeFibonacci1\\resultados\\";
 			prop.setProperty("local", local);
 			new File (prop.getProperty("local")+prop.getProperty("algName")+"\\"+prop.getProperty("modo")).mkdirs();
 		}

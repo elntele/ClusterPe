@@ -27,18 +27,20 @@ public class MetricsEvolFotografia {
 		point.setDimensionValue(1, 0);
 		point.setDimensionValue(2, 0);
 		point.setDimensionValue(3, 0);
+		double wA=19518.068353117065;
+		double wB=433736.6460002156;
 
 		HypervolumeConc hypervolume = new HypervolumeConc(frontRef);
 
 		Front normalizedFront = null;
-		int i =100; // esse i é a itreração fotografada
+		int i =280; // esse i é a itreração fotografada
 			
-			for (int j = 1; j <= 11; j++) { 
+			for (int j = 1; j <= 13; j++) { 
 				double hvma = 0;// cometa esse pra pegar a media jorge
 				double hvmb = 0;// cometa esse pra pegar a media jorge
 				double hvmc = 0;
 				
-				String path = "C:\\Users\\elnte\\OneDrive\\Área de Trabalho\\rural 2\\mestrado\\2019.2\\orientação\\Eniac copiado de c.e\\parcial midianet\\com busca seletiva elitista/execução "
+				String path = "C:\\novos testes encontrar abordagem para media net\\variando canais\\PE\\selecionados para o eniac/execução "
 						+ j + "/FUN" + i + ".tsv";
 				
 
@@ -49,15 +51,15 @@ public class MetricsEvolFotografia {
 				}
 				for (int s = 0; s < normalizedFront.getNumberOfPoints(); s++) {
 					normalizedFront.getPoint(s).setDimensionValue(0, normalizedFront.getPoint(s).getDimensionValue(0));
-					normalizedFront.getPoint(s).setDimensionValue(1, normalizedFront.getPoint(s).getDimensionValue(1)/29340); 
-					normalizedFront.getPoint(s).setDimensionValue(2, normalizedFront.getPoint(s).getDimensionValue(2)/3795187.303);
+					normalizedFront.getPoint(s).setDimensionValue(1, normalizedFront.getPoint(s).getDimensionValue(1)/wA); 
+					normalizedFront.getPoint(s).setDimensionValue(2, normalizedFront.getPoint(s).getDimensionValue(2)/wB);
 					normalizedFront.getPoint(s).setDimensionValue(3, normalizedFront.getPoint(s).getDimensionValue(3));
 				}
 				List<PointSolution> normalizedPopulation = FrontUtils.convertFrontToSolutionList(normalizedFront);
 				hvma += hypervolume.evaluate(normalizedPopulation);
 				
-				path = "C:/Users/elnte/OneDrive/Área de Trabalho/rural 2/mestrado/2019.2/orientação/Eniac copiado de c.e/parcial midianet/com busca seletiva aleatória/execução "
-						+ j + "/FUN" + i + ".tsv";
+				path = "C:\\novos testes encontrar abordagem para media net\\variando canais\\PE\\busca em todos 30 erlangs/execução "
+						+ j + "/FUN" + i/2 + ".tsv";
 				
 				try {
 					normalizedFront = new ArrayFront(path);
@@ -67,8 +69,8 @@ public class MetricsEvolFotografia {
 
 				for (int s = 0; s < normalizedFront.getNumberOfPoints(); s++) {
 					normalizedFront.getPoint(s).setDimensionValue(0, normalizedFront.getPoint(s).getDimensionValue(0));
-					normalizedFront.getPoint(s).setDimensionValue(1, normalizedFront.getPoint(s).getDimensionValue(1)/29340);
-					normalizedFront.getPoint(s).setDimensionValue(2, normalizedFront.getPoint(s).getDimensionValue(2)/3795187.303);
+					normalizedFront.getPoint(s).setDimensionValue(1, normalizedFront.getPoint(s).getDimensionValue(1)/wA);
+					normalizedFront.getPoint(s).setDimensionValue(2, normalizedFront.getPoint(s).getDimensionValue(2)/wB);
 					normalizedFront.getPoint(s).setDimensionValue(3, normalizedFront.getPoint(s).getDimensionValue(3));
 				}
 				normalizedPopulation = FrontUtils.convertFrontToSolutionList(normalizedFront);
@@ -77,7 +79,7 @@ public class MetricsEvolFotografia {
 
 				
 				
-				path = "C:/Users/elnte/OneDrive/Área de Trabalho/rural 2/mestrado/2019.2/orientação/Eniac copiado de c.e/parcial midianet/busca em todos os individos/execução "
+				path = "C:\\novos testes encontrar abordagem para media net\\variando canais\\PE\\busca em todos 30 erlangs/execução "
 						+ j + "/FUN" + i + ".tsv";
 				try {
 					normalizedFront = new ArrayFront(path);
@@ -87,8 +89,8 @@ public class MetricsEvolFotografia {
 
 				for (int s = 0; s < normalizedFront.getNumberOfPoints(); s++) {
 					normalizedFront.getPoint(s).setDimensionValue(0, normalizedFront.getPoint(s).getDimensionValue(0));
-					normalizedFront.getPoint(s).setDimensionValue(1, normalizedFront.getPoint(s).getDimensionValue(1)/29340);
-					normalizedFront.getPoint(s).setDimensionValue(2, normalizedFront.getPoint(s).getDimensionValue(2)/3795187.303);
+					normalizedFront.getPoint(s).setDimensionValue(1, normalizedFront.getPoint(s).getDimensionValue(1)/wA);
+					normalizedFront.getPoint(s).setDimensionValue(2, normalizedFront.getPoint(s).getDimensionValue(2)/wB);
 					normalizedFront.getPoint(s).setDimensionValue(3, normalizedFront.getPoint(s).getDimensionValue(3));
 				}
 				normalizedPopulation = FrontUtils.convertFrontToSolutionList(normalizedFront);

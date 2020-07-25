@@ -97,6 +97,7 @@ public class SearchForNetworkAndEvaluate extends AbstractIntegerProblem {
 				return retorno;
 			}
 		}
+		System.out.println("oh eu aqui de novo");
 		retorno.setLineColumn(lineColumn.clone());
 		return retorno;
 	}

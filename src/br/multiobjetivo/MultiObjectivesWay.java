@@ -254,10 +254,16 @@ public class MultiObjectivesWay {
 			PrintWriter gravarArq, Properties prop, List<List<Integer>> IndexOfSelectionedToTheSearche ,List<List<Double>> equalizadeList) throws IOException {
 		String path = prop.getProperty("local") + prop.getProperty("algName") + "/" + prop.getProperty("modo") + "/"
 				+ prop.getProperty("execucao");
-
+		if (prop.getProperty("resultForFitness").contentEquals("y")) {
+			String nameNumber= prop.getProperty("maxEvaluate");
+			new SolutionListOutput(population).setSeparator("\t")
+			.setVarFileOutputContext(new DefaultFileOutputContext(path + "/" + "VAR"+nameNumber+".tsv"))
+			.setFunFileOutputContext(new DefaultFileOutputContext(path + "/" + "FUN"+nameNumber+".tsv")).print();
+		}else {
 		new SolutionListOutput(population).setSeparator("\t")
 				.setVarFileOutputContext(new DefaultFileOutputContext(path + "/" + "VAR.tsv"))
 				.setFunFileOutputContext(new DefaultFileOutputContext(path + "/" + "FUN.tsv")).print();
+		}
 
 		List<Integer> centros = new ArrayList<>();
 		for (int i = 0; i < kmeans.getNearestPatternsFromCentroid().length; i++) {

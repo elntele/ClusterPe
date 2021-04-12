@@ -24,6 +24,10 @@ public class MetricsEvalFitness {
 		HypervolumeConc hypervolume = new HypervolumeConc(frontRef);
 		
 		// os maiores de pe
+//		double wA=20922,650104366;
+//		double wB=612967,639391796;
+		
+		// os maiores de PE so dois resultados das 10 execuções da dissertação
 		double wA=19518.068353117065;
 		double wB=433736.6460002156;
 //		os maiores da medianer
@@ -61,13 +65,13 @@ public class MetricsEvalFitness {
 //				double hvma = 0;// cometa esse pra pegar a media jorge
 //				double hvmb = 0;// cometa esse pra pegar a media jorge
 
-				String  path = "D:\\resultados\\elite\\localSearch\\nInd4\\it120\\neighbor5/execução " 
+				String  path = "D:\\resultados\\elite\\localSearch\\nInd4\\it20\\neighbor5/execução " 
 						+ j + "/FUN" + i + ".tsv";
 				try {
 					normalizedFront = new ArrayFront(path);
 				} catch (FileNotFoundException e) {
 					if (i>=end) {
-						path = "D:\\resultados\\elite\\localSearch\\nInd4\\it120\\neighbor5/execução " 
+						path = "D:\\resultados\\elite\\localSearch\\nInd4\\it20\\neighbor5/execução " 
 								+ j + "/FUN.tsv";
 					}
 					
@@ -94,13 +98,13 @@ public class MetricsEvalFitness {
 				List<PointSolution> normalizedPopulation = FrontUtils.convertFrontToSolutionList(normalizedFront);
 				hvma += hypervolume.evaluate(normalizedPopulation);
 //
-				path = "D:\\resultados\\aleatorio\\localSearch\\nInd4\\it120\\neighbor5/execução " 
+				path = "D:\\resultados\\aleatorio\\localSearch\\nInd4\\it20\\neighbor5/execução " 
 						+ j + "/FUN" + i + ".tsv";
 				try {
 					normalizedFront = new ArrayFront(path);
 				} catch (FileNotFoundException e) {
 					if (i>=end) {
-						path =  "D:\\resultados\\aleatorio\\localSearch\\nInd4\\it120\\neighbor5/execução " 
+						path =  "D:\\resultados\\aleatorio\\localSearch\\nInd4\\it20\\neighbor5/execução " 
 								+ j + "/FUN.tsv";
 					}
 				}

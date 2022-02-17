@@ -2,9 +2,9 @@
 <!DOCTYPE log SYSTEM "logger.dtd">
 <log>
 <record>
-  <date>2021-02-24T00:19:01.337576900Z</date>
-  <millis>1614125941337</millis>
-  <nanos>576900</nanos>
+  <date>2021-04-19T14:17:08.075983100Z</date>
+  <millis>1618841828075</millis>
+  <nanos>983100</nanos>
   <sequence>0</sequence>
   <logger>org.uma.jmetal.util.JMetalLogger</logger>
   <level>INFO</level>
@@ -14,9 +14,9 @@
   <message>Loggers configured with null</message>
 </record>
 <record>
-  <date>2021-02-24T00:19:01.380977400Z</date>
-  <millis>1614125941380</millis>
-  <nanos>977400</nanos>
+  <date>2021-04-19T14:17:08.116791800Z</date>
+  <millis>1618841828116</millis>
+  <nanos>791800</nanos>
   <sequence>1</sequence>
   <logger>org.uma.jmetal.util.JMetalLogger</logger>
   <level>INFO</level>
@@ -24,76 +24,4 @@
   <method>&lt;init&gt;</method>
   <thread>1</thread>
   <message>rpssize: 455</message>
-</record>
-<record>
-  <date>2021-02-24T00:26:04.703874200Z</date>
-  <millis>1614126364703</millis>
-  <nanos>874200</nanos>
-  <sequence>2</sequence>
-  <logger>org.uma.jmetal.util.JMetalLogger</logger>
-  <level>INFO</level>
-  <class>org.uma.jmetal.algorithm.multiobjective.nsgaiii.NSGAIII</class>
-  <method>printforFitness</method>
-  <thread>19</thread>
-  <message>Random Seed: 1614125941388</message>
-</record>
-<record>
-  <date>2021-02-24T00:26:04.705870500Z</date>
-  <millis>1614126364705</millis>
-  <nanos>870500</nanos>
-  <sequence>3</sequence>
-  <logger>org.uma.jmetal.util.JMetalLogger</logger>
-  <level>INFO</level>
-  <class>org.uma.jmetal.algorithm.multiobjective.nsgaiii.NSGAIII</class>
-  <method>printforFitness</method>
-  <thread>19</thread>
-  <message>Objectives values have been written to file FUN.tsv</message>
-</record>
-<record>
-  <date>2021-02-24T00:26:04.706866700Z</date>
-  <millis>1614126364706</millis>
-  <nanos>866700</nanos>
-  <sequence>4</sequence>
-  <logger>org.uma.jmetal.util.JMetalLogger</logger>
-  <level>INFO</level>
-  <class>org.uma.jmetal.algorithm.multiobjective.nsgaiii.NSGAIII</class>
-  <method>printforFitness</method>
-  <thread>19</thread>
-  <message>Variables values have been written to file VAR.tsv</message>
-</record>
-<record>
-  <date>2021-02-24T00:28:06.377120Z</date>
-  <millis>1614126486377</millis>
-  <nanos>120000</nanos>
-  <sequence>5</sequence>
-  <logger>org.uma.jmetal.util.JMetalLogger</logger>
-  <level>INFO</level>
-  <class>org.uma.jmetal.algorithm.multiobjective.nsgaiii.NSGAIII</class>
-  <method>printforFitness</method>
-  <thread>19</thread>
-  <message>Random Seed: 1614125941388</message>
-</record>
-<record>
-  <date>2021-02-24T00:28:06.378118300Z</date>
-  <millis>1614126486378</millis>
-  <nanos>118300</nanos>
-  <sequence>6</sequence>
-  <logger>org.uma.jmetal.util.JMetalLogger</logger>
-  <level>INFO</level>
-  <class>org.uma.jmetal.algorithm.multiobjective.nsgaiii.NSGAIII</class>
-  <method>printforFitness</method>
-  <thread>19</thread>
-  <message>Objectives values have been written to file FUN.tsv</message>
-</record>
-<record>
-  <date>2021-02-24T00:28:06.378118300Z</date>
-  <millis>1614126486378</millis>
-  <nanos>118300</nanos>
-  <sequence>7</sequence>
-  <logger>org.uma.jmetal.util.JMetalLogger</logger>
-  <level>INFO</level>
-  <class>org.uma.jmetal.algorithm.multiobjective.nsgaiii.NSGAIII</class>
-  <method>printforFitness</method>
-  <thread>19</thread>
-  <message>Variables values have been written to file VAR.tsv</message>
 </record>

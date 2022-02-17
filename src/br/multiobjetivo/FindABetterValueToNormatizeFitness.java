@@ -11,8 +11,7 @@ public class FindABetterValueToNormatizeFitness {
 	
 public static void main(String[] args) {// aleatorio elite 
 		
-		String path = "D:\\resultados\\elite\\localSearchTestingAllAndDontStopUntilArriveInFInalevenFindAFirstDominator\\"
-				+ "nInd4\\it220\\neighbor5/execução "; 
+		String path = "D:\\resultados\\MediaNet\\Elite/execução "; 
 		int begin=9120;
 		int end=230280;
 		int step=begin;
@@ -27,7 +26,7 @@ public static void main(String[] args) {// aleatorio elite
 		System.out.println(valueThree);
 		System.out.println(valueFour);
 		BufferedReader br;
-		for (int i = 1; i <= 10; i++) {
+		for (int i = 1; i <= 45; i++) {
 			for (int j = begin; +j <= end; j += step) {
 				try {
 					br = new BufferedReader(new FileReader(path + i + "/FUN" + j + ".tsv"));

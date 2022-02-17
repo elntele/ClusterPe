@@ -23,8 +23,8 @@ public class MetricsEvol {
 		HypervolumeConc hypervolume = new HypervolumeConc(frontRef);
 		
 		// os maiores de pe
-		double wA=19518.068353117065;
-		double wB=433736.6460002156;
+		double wA=20922.650104366;
+		double wB=612967.639391796;
 //		os maiores da medianer
 //		double wA= 18904.970121201848;
 //		double wB = 582687.162984552;
@@ -57,7 +57,7 @@ public class MetricsEvol {
 //				double hvma = 0;// cometa esse pra pegar a media jorge
 //				double hvmb = 0;// cometa esse pra pegar a media jorge
 
-				String  path = "C:\\novos testes encontrar abordagem para media net\\variando canais\\PE\\bug do jmetal corrigido\\com busca de espalhamento + acrescentando links 30 erlangs/execução " 
+				String  path = "D:\\novos testes encontrar abordagem para media net\\variando canais\\PE\\30 erlangs elitista raro ordenado por objetivo/execução " 
 						+ j + "/FUN" + i + ".tsv";
 				try {
 					normalizedFront = new ArrayFront(path);
@@ -75,7 +75,7 @@ public class MetricsEvol {
 				List<PointSolution> normalizedPopulation = FrontUtils.convertFrontToSolutionList(normalizedFront);
 				hvma += hypervolume.evaluate(normalizedPopulation);
 //
-				path = "C:\\novos testes encontrar abordagem para media net\\variando canais\\PE\\busca em todos 30 erlangs/execução " 
+				path = "D:\\novos testes encontrar abordagem para media net\\variando canais\\PE\\busca em todos 30 erlangs/execução " 
 						+ j + "/FUN" + i/2 + ".tsv";
 				try {
 					normalizedFront = new ArrayFront(path);
@@ -99,7 +99,7 @@ public class MetricsEvol {
 //				System.out.print(/*i*/j + " ");// mude pra i jorge
 //				System.out.printf("%.4f ", hvma) ;
 //				System.out.printf("%.4f\n", hvmb);
-				path = "C:\\novos testes encontrar abordagem para media net\\variando canais\\PE\\busca em todos 30 erlangs/execução " 
+				path = "D:\\novos testes encontrar abordagem para media net\\variando canais\\PE\\busca em todos 30 erlangs/execução " 
 						+ j + "/FUN" + i + ".tsv";
 				try {
 					normalizedFront = new ArrayFront(path);

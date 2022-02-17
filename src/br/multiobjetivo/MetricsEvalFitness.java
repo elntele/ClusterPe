@@ -24,15 +24,20 @@ public class MetricsEvalFitness {
 		HypervolumeConc hypervolume = new HypervolumeConc(frontRef);
 		
 		// os maiores de pe
-//		double wA=20922,650104366;
-//		double wB=612967,639391796;
-		
-		// os maiores de PE so dois resultados das 10 execuções da dissertação
-		double wA=19518.068353117065;
-		double wB=433736.6460002156;
+		double wA=20922.650104366;
+		double wB=612967.639391796;
+//		
+//		// os maiores de PE so dois resultados das 10 execuções da dissertação
+//		double wA=19518.068353117065;
+//		double wB=433736.6460002156;
 //		os maiores da medianer
 //		double wA= 18904.970121201848;
 //		double wB = 582687.162984552;
+		// os maiores da midia net para os testes do mestrado
+		
+//		double wA=19956.369280253864;
+//		double wB = 1593421.878767534;
+		
 		// tem que verificar, no w1 tava assim
 		// para medianer
 //		double wA= 20283.035456200272;
@@ -52,27 +57,34 @@ public class MetricsEvalFitness {
 
 		Front normalizedFront = null;
 		int begin=9120;
-		int end=230280;
+		int end=228000;
 		int step=begin;
+		String it="it120";
+		String it2="it20";
+		String it3="it20";
 		for (int i = begin; i <= end; i += step) {// aqui
 			// cada um desses hvm representa o hypervolume de uma abordagem, no estudo de k
 			// vizinho, hvma, hvmb e hvec eram respectivamente as médias de k2,k4 e k8
 			// vizinhos
+			
 			double hvma = 0;// descomenta esse pra pegar a media jorge
 			double hvmb = 0;// descomenta esse pra pegar a media jorge
 			double hvmc = 0;// descomenta esse pra pegar a media jorge
 			for (int j = 1; j <=10 ; j++) {
 //				double hvma = 0;// cometa esse pra pegar a media jorge
 //				double hvmb = 0;// cometa esse pra pegar a media jorge
+				//D:\resultados\elite\localSearchTestingAllAndDontStopUntilArriveInFInalevenFindAFirstDominator\nInd4\it20\neighbor3
 
-				String  path = "D:\\resultados\\elite\\localSearch\\nInd4\\it20\\neighbor5/execução " 
-						+ j + "/FUN" + i + ".tsv";
+				String  path = "D:\\resultados\\elite\\localSearchTestingAll\\nInd4\\it20\\neighbor3/execução "+ j + "/FUN" + i + ".tsv";
+//				String  path = "D:\\resultados\\sem busca so com espalhamento/execução " 
+//						+ j + "/FUN" + i + ".tsv";
 				try {
 					normalizedFront = new ArrayFront(path);
 				} catch (FileNotFoundException e) {
 					if (i>=end) {
-						path = "D:\\resultados\\elite\\localSearch\\nInd4\\it20\\neighbor5/execução " 
-								+ j + "/FUN.tsv";
+						path = "D:\\resultados\\elite\\localSearch\\nInd4"+it+"/neighbor3/execução "+ j + "/FUN" + i + ".tsv";
+//						path = "D:\\resultados\\sem busca so com espalhamento/execução " 
+//								+ j + "/FUN.tsv";
 					}
 					
 				}
@@ -98,14 +110,12 @@ public class MetricsEvalFitness {
 				List<PointSolution> normalizedPopulation = FrontUtils.convertFrontToSolutionList(normalizedFront);
 				hvma += hypervolume.evaluate(normalizedPopulation);
 //
-				path = "D:\\resultados\\aleatorio\\localSearch\\nInd4\\it20\\neighbor5/execução " 
-						+ j + "/FUN" + i + ".tsv";
+				path = "D:\\resultados\\elite\\localSearchTestingAll\\nInd8\\it120\\neighbor3/execução "+ j + "/FUN" + i + ".tsv";
 				try {
 					normalizedFront = new ArrayFront(path);
 				} catch (FileNotFoundException e) {
 					if (i>=end) {
-						path =  "D:\\resultados\\aleatorio\\localSearch\\nInd4\\it20\\neighbor5/execução " 
-								+ j + "/FUN.tsv";
+						path = "D:\\resultados\\elite\\localSearchTestingAllAndDontStopUntilArriveInFInalevenFindAFirstDominator\\nInd8\\"+it2+"/neighbor5/execução "+ j + "/FUN" + i + ".tsv";
 					}
 				}
 				
@@ -132,14 +142,13 @@ public class MetricsEvalFitness {
 //				System.out.print(/*i*/j + " ");// mude pra i jorge
 //				System.out.printf("%.4f ", hvma) ;
 //				System.out.printf("%.4f\n", hvmb);
-				path = "D:\\resultados\\aleatorio\\localSearch\\nInd4\\it120\\neighbor5/execução " 
-						+ j + "/FUN" + i + ".tsv";
+				path = "D:\\resultados\\aleatorio\\localSearchTestingAll\\nInd8\\it20\\neighbor3/execução "+ j + "/FUN" + i + ".tsv";
 				try {
 					normalizedFront = new ArrayFront(path);
 				} catch (FileNotFoundException e) {
 					if (i>=end) {
-					path = "D:\\resultados\\aleatorio\\localSearch\\nInd4\\it120\\neighbor5/execução " 
-							+ j + "/FUN.tsv";
+						path = "D:\\resultados\\eleitos\\"
+								+ "localSearchTestingAllAndDontStopUntilArriveInFInalevenFindAFirstDominator + sinc\\nInd8\\"+it3+"/execução "+ j + "/FUN" + i + ".tsv";
 					}
 				}
 				
@@ -168,13 +177,13 @@ public class MetricsEvalFitness {
 			}
 			// descomenta esse pra pegar a media jorge
 			System.out.print(i + " ");
-			System.out.printf("%.4f ", hvma / 10);
+			System.out.printf("%.4f ", hvma/10);
 			System.out.printf("%.4f ", hvmb /10);
 			System.out.printf("%.4f\n", hvmc /10);
 			
-			if (i==228000) { 
-				i=end-step;
-			}
+//			if (i==228000) { 
+//				i=end-step;
+//			}
 		}
 
 	}

@@ -27,8 +27,8 @@ public class MetricsEvolFotografiaFitness {
 //		
 		
 		// dissertação MediaNet
-		double wA=19956.369280253864;
-		double wB = 1593421.878767534;
+		double wA=18455.964069386184;
+		double wB=428587.36346861825;
 		
 		
 		
@@ -38,14 +38,14 @@ public class MetricsEvolFotografiaFitness {
 		HypervolumeConc hypervolume = new HypervolumeConc(frontRef);
 
 		Front normalizedFront = null;
-		int i =118560; // esse i é a itreração fotografada
+		int i =200640; // esse i é a itreração fotografada
 			
-			for (int j = 1; j <= 30; j++) { 
+			for (int j = 1; j <= 12; j++) { 
 				double hvma = 0;// cometa esse pra pegar a media jorge
 				double hvmb = 0;// cometa esse pra pegar a media jorge
 				double hvmc = 0;
 				
-				String  path = "D:\\resultados\\MediaNet\\Elite/execução " 
+				String  path = "C:\\Users\\elnte\\OneDrive\\Área de Trabalho\\RedeParaCECin\\src\\resultados\\algorithm_KMeans\\com busca/execução " 
 						+ j + "/FUN" + i + ".tsv";
 				
 
@@ -63,44 +63,46 @@ public class MetricsEvolFotografiaFitness {
 				List<PointSolution> normalizedPopulation = FrontUtils.convertFrontToSolutionList(normalizedFront);
 				hvma += hypervolume.evaluate(normalizedPopulation);
 				
-				path =  "D:\\resultados\\MediaNet\\busca em todos/execução " 
-						+ j + "/FUN" + i + ".tsv";
-				
-				try {
-					normalizedFront = new ArrayFront(path);
-				} catch (FileNotFoundException e) {
-					e.printStackTrace();
-				}
-
-				for (int s = 0; s < normalizedFront.getNumberOfPoints(); s++) {
-					normalizedFront.getPoint(s).setDimensionValue(0, normalizedFront.getPoint(s).getDimensionValue(0));
-					normalizedFront.getPoint(s).setDimensionValue(1, normalizedFront.getPoint(s).getDimensionValue(1)/wA);
-					normalizedFront.getPoint(s).setDimensionValue(2, normalizedFront.getPoint(s).getDimensionValue(2)/wB);
-					normalizedFront.getPoint(s).setDimensionValue(3, normalizedFront.getPoint(s).getDimensionValue(3));
-				}
-				normalizedPopulation = FrontUtils.convertFrontToSolutionList(normalizedFront);
-
-				hvmb += hypervolume.evaluate(normalizedPopulation);
-
-				
-				
-//				path =  "D:\\resultados\\elite\\localSearch\\nInd4\\"+it1+"\\neighbor5/execução " 
-//						+ j + "/FUN" + i + ".tsv";
-				try {
-					normalizedFront = new ArrayFront(path);
-				} catch (FileNotFoundException e) {
-					e.printStackTrace();
-				}
-
-				for (int s = 0; s < normalizedFront.getNumberOfPoints(); s++) {
-					normalizedFront.getPoint(s).setDimensionValue(0, normalizedFront.getPoint(s).getDimensionValue(0));
-					normalizedFront.getPoint(s).setDimensionValue(1, normalizedFront.getPoint(s).getDimensionValue(1)/wA);
-					normalizedFront.getPoint(s).setDimensionValue(2, normalizedFront.getPoint(s).getDimensionValue(2)/wB);
-					normalizedFront.getPoint(s).setDimensionValue(3, normalizedFront.getPoint(s).getDimensionValue(3));
-				}
-				normalizedPopulation = FrontUtils.convertFrontToSolutionList(normalizedFront);
-
-				hvmc += hypervolume.evaluate(normalizedPopulation);
+				/*
+				 * path = "D:\\resultados\\MediaNet\\busca em todos/execução " + j + "/FUN" + i
+				 * + ".tsv";
+				 * 
+				 * try { normalizedFront = new ArrayFront(path); } catch (FileNotFoundException
+				 * e) { e.printStackTrace(); }
+				 * 
+				 * for (int s = 0; s < normalizedFront.getNumberOfPoints(); s++) {
+				 * normalizedFront.getPoint(s).setDimensionValue(0,
+				 * normalizedFront.getPoint(s).getDimensionValue(0));
+				 * normalizedFront.getPoint(s).setDimensionValue(1,
+				 * normalizedFront.getPoint(s).getDimensionValue(1)/wA);
+				 * normalizedFront.getPoint(s).setDimensionValue(2,
+				 * normalizedFront.getPoint(s).getDimensionValue(2)/wB);
+				 * normalizedFront.getPoint(s).setDimensionValue(3,
+				 * normalizedFront.getPoint(s).getDimensionValue(3)); } normalizedPopulation =
+				 * FrontUtils.convertFrontToSolutionList(normalizedFront);
+				 * 
+				 * hvmb += hypervolume.evaluate(normalizedPopulation);
+				 * 
+				 * 
+				 * 
+				 * // path =
+				 * "D:\\resultados\\elite\\localSearch\\nInd4\\"+it1+"\\neighbor5/execução " //
+				 * + j + "/FUN" + i + ".tsv"; try { normalizedFront = new ArrayFront(path); }
+				 * catch (FileNotFoundException e) { e.printStackTrace(); }
+				 * 
+				 * for (int s = 0; s < normalizedFront.getNumberOfPoints(); s++) {
+				 * normalizedFront.getPoint(s).setDimensionValue(0,
+				 * normalizedFront.getPoint(s).getDimensionValue(0));
+				 * normalizedFront.getPoint(s).setDimensionValue(1,
+				 * normalizedFront.getPoint(s).getDimensionValue(1)/wA);
+				 * normalizedFront.getPoint(s).setDimensionValue(2,
+				 * normalizedFront.getPoint(s).getDimensionValue(2)/wB);
+				 * normalizedFront.getPoint(s).setDimensionValue(3,
+				 * normalizedFront.getPoint(s).getDimensionValue(3)); } normalizedPopulation =
+				 * FrontUtils.convertFrontToSolutionList(normalizedFront);
+				 * 
+				 * hvmc += hypervolume.evaluate(normalizedPopulation);
+				 */
 				//comenta esse pra pegar a media jorge
 				System.out.print(j + " ");// mude pra i jorge
 				System.out.printf("%.4f ", hvma) ;

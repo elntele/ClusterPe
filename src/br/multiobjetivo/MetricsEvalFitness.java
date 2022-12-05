@@ -24,8 +24,11 @@ public class MetricsEvalFitness {
 		HypervolumeConc hypervolume = new HypervolumeConc(frontRef);
 		
 		// os maiores de pe
-		double wA=20922.650104366;
-		double wB=612967.639391796;
+		double wA=18455.964069386184;
+		double wB=428587.36346861825;
+		
+		
+		
 //		
 //		// os maiores de PE so dois resultados das 10 execuções da dissertação
 //		double wA=19518.068353117065;
@@ -70,12 +73,12 @@ public class MetricsEvalFitness {
 			double hvma = 0;// descomenta esse pra pegar a media jorge
 			double hvmb = 0;// descomenta esse pra pegar a media jorge
 			double hvmc = 0;// descomenta esse pra pegar a media jorge
-			for (int j = 1; j <=10 ; j++) {
+			for (int j = 1; j <=12 ; j++) {
 //				double hvma = 0;// cometa esse pra pegar a media jorge
 //				double hvmb = 0;// cometa esse pra pegar a media jorge
 				//D:\resultados\elite\localSearchTestingAllAndDontStopUntilArriveInFInalevenFindAFirstDominator\nInd4\it20\neighbor3
 
-				String  path = "D:\\resultados\\elite\\localSearchTestingAll\\nInd4\\it20\\neighbor3/execução "+ j + "/FUN" + i + ".tsv";
+				String  path = "C:\\Users\\elnte\\OneDrive\\Área de Trabalho\\RedeParaCECin\\src\\resultados\\algorithm_KMeans\\com busca/execução "+ j + "/FUN" + i + ".tsv";
 //				String  path = "D:\\resultados\\sem busca so com espalhamento/execução " 
 //						+ j + "/FUN" + i + ".tsv";
 				try {
@@ -110,6 +113,7 @@ public class MetricsEvalFitness {
 				List<PointSolution> normalizedPopulation = FrontUtils.convertFrontToSolutionList(normalizedFront);
 				hvma += hypervolume.evaluate(normalizedPopulation);
 //
+				/*
 				path = "D:\\resultados\\elite\\localSearchTestingAll\\nInd8\\it120\\neighbor3/execução "+ j + "/FUN" + i + ".tsv";
 				try {
 					normalizedFront = new ArrayFront(path);
@@ -139,7 +143,7 @@ public class MetricsEvalFitness {
 
 				hvmb += hypervolume.evaluate(normalizedPopulation);
 				// comenta esse pra pegar a media jorge
-//				System.out.print(/*i*/j + " ");// mude pra i jorge
+//				System.out.print(/*ij + " ");// mude pra i jorge
 //				System.out.printf("%.4f ", hvma) ;
 //				System.out.printf("%.4f\n", hvmb);
 				path = "D:\\resultados\\aleatorio\\localSearchTestingAll\\nInd8\\it20\\neighbor3/execução "+ j + "/FUN" + i + ".tsv";
@@ -168,7 +172,10 @@ public class MetricsEvalFitness {
 				}
 				normalizedPopulation = FrontUtils.convertFrontToSolutionList(normalizedFront);
 
-				hvmc += hypervolume.evaluate(normalizedPopulation);
+				/*hvmc += hypervolume.evaluate(normalizedPopulation);*/
+				
+				
+				
 				// comenta esse pra pegar a media jorge
 //				System.out.print(/*i*/j + " ");// mude pra i jorge
 //				System.out.printf("%.4f ", hvma) ;
@@ -177,9 +184,9 @@ public class MetricsEvalFitness {
 			}
 			// descomenta esse pra pegar a media jorge
 			System.out.print(i + " ");
-			System.out.printf("%.4f ", hvma/10);
-			System.out.printf("%.4f ", hvmb /10);
-			System.out.printf("%.4f\n", hvmc /10);
+			System.out.printf("%.4f ", hvma/12);
+			System.out.printf("%.4f ", hvmb /14);
+			System.out.printf("%.4f\n", hvmc /14);
 			
 //			if (i==228000) { 
 //				i=end-step;

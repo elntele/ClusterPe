@@ -22,9 +22,11 @@ public class MetricsEvol {
 
 		HypervolumeConc hypervolume = new HypervolumeConc(frontRef);
 		
+			
 		// os maiores de pe
-		double wA=20922.650104366;
-		double wB=612967.639391796;
+		double wA=18455.964069386184;
+		double wB=428587.36346861825;
+		
 //		os maiores da medianer
 //		double wA= 18904.970121201848;
 //		double wB = 582687.162984552;
@@ -53,11 +55,11 @@ public class MetricsEvol {
 			double hvma = 0;// descomenta esse pra pegar a media jorge
 			double hvmb = 0;// descomenta esse pra pegar a media jorge
 			double hvmc = 0;// descomenta esse pra pegar a media jorge
-			for (int j = 1; j <=13 ; j++) {
+			for (int j = 1; j <=12 ; j++) {
 //				double hvma = 0;// cometa esse pra pegar a media jorge
 //				double hvmb = 0;// cometa esse pra pegar a media jorge
 
-				String  path = "D:\\novos testes encontrar abordagem para media net\\variando canais\\PE\\30 erlangs elitista raro ordenado por objetivo/execução " 
+				String  path = "D:\\novos testes encontrar abordagem para media net\\variando canais\\PE\\sem busca 30 erlangs/execução " 
 						+ j + "/FUN" + i + ".tsv";
 				try {
 					normalizedFront = new ArrayFront(path);
@@ -75,7 +77,7 @@ public class MetricsEvol {
 				List<PointSolution> normalizedPopulation = FrontUtils.convertFrontToSolutionList(normalizedFront);
 				hvma += hypervolume.evaluate(normalizedPopulation);
 //
-				path = "D:\\novos testes encontrar abordagem para media net\\variando canais\\PE\\busca em todos 30 erlangs/execução " 
+				/*path = "D:\\novos testes encontrar abordagem para media net\\variando canais\\PE\\busca em todos 30 erlangs/execução " 
 						+ j + "/FUN" + i/2 + ".tsv";
 				try {
 					normalizedFront = new ArrayFront(path);
@@ -96,7 +98,7 @@ public class MetricsEvol {
 
 				hvmb += hypervolume.evaluate(normalizedPopulation);
 				// comenta esse pra pegar a media jorge
-//				System.out.print(/*i*/j + " ");// mude pra i jorge
+//				System.out.print(/*ij + " ");// mude pra i jorge
 //				System.out.printf("%.4f ", hvma) ;
 //				System.out.printf("%.4f\n", hvmb);
 				path = "D:\\novos testes encontrar abordagem para media net\\variando canais\\PE\\busca em todos 30 erlangs/execução " 
@@ -117,7 +119,7 @@ public class MetricsEvol {
 				}
 				normalizedPopulation = FrontUtils.convertFrontToSolutionList(normalizedFront);
 
-				hvmc += hypervolume.evaluate(normalizedPopulation);
+				hvmc += hypervolume.evaluate(normalizedPopulation);*/
 				// comenta esse pra pegar a media jorge
 //				System.out.print(/*i*/j + " ");// mude pra i jorge
 //				System.out.printf("%.4f ", hvma) ;
@@ -126,9 +128,9 @@ public class MetricsEvol {
 			}
 			// descomenta esse pra pegar a media jorge
 			System.out.print(i + " ");
-			System.out.printf("%.4f ", hvma / 13);
-			System.out.printf("%.4f ", hvmb /13);
-			System.out.printf("%.4f\n", hvmc /13);
+			System.out.printf("%.4f ", hvma / 12);
+			System.out.printf("%.4f ", hvmb /12);
+			System.out.printf("%.4f\n", hvmc /12);
 		}
 
 	}

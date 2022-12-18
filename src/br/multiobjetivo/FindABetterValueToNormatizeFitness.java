@@ -10,8 +10,8 @@ import java.util.List;
 public class FindABetterValueToNormatizeFitness {
 	
 public static void main(String[] args) {// aleatorio elite 
-		
-		String path = "C:\\Users\\elnte\\OneDrive\\Área de Trabalho\\RedeParaCECin\\src\\resultados\\algorithm_KMeans\\com busca/execução "; 
+		String path = "D:\\resultados\\MediaNet\\Elite/execução "; 
+	  //String path = "C:\\Users\\elnte\\OneDrive\\Área de Trabalho\\RedeParaCECin\\src\\resultados\\algorithm_KMeans\\com busca/execução "; 
 		int begin=9120;
 		int end=230280;
 		int step=begin;
@@ -26,7 +26,7 @@ public static void main(String[] args) {// aleatorio elite
 		System.out.println(valueThree);
 		System.out.println(valueFour);
 		BufferedReader br;
-		for (int i = 1; i <= 14; i++) {
+		for (int i = 1; i <= 38; i++) {
 			for (int j = begin; +j <= end; j += step) {
 				try {
 					br = new BufferedReader(new FileReader(path + i + "/FUN" + j + ".tsv"));

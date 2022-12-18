@@ -1,8 +1,11 @@
 package br.multiobjetivo;
 
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Stream;
 
+import org.apache.commons.math3.stat.descriptive.moment.StandardDeviation;
 import org.uma.jmetal.qualityindicator.impl.HypervolumeConc;
 import org.uma.jmetal.util.front.Front;
 import org.uma.jmetal.util.front.imp.ArrayFront;
@@ -10,6 +13,8 @@ import org.uma.jmetal.util.front.util.FrontUtils;
 import org.uma.jmetal.util.point.Point;
 import org.uma.jmetal.util.point.impl.ArrayPoint;
 import org.uma.jmetal.util.point.util.PointSolution;
+
+import br.cns.util.ArrayUtils;
 
 public class MetricsEvalFitness {
 	
@@ -24,27 +29,19 @@ public class MetricsEvalFitness {
 		HypervolumeConc hypervolume = new HypervolumeConc(frontRef);
 		
 		// os maiores de pe
-		double wA=18455.964069386184;
-		double wB=428587.36346861825;
+//		double wA=18455.964069386184;
+//		double wB=428587.36346861825;
 		
-		
-		
-//		
-//		// os maiores de PE so dois resultados das 10 execuções da dissertação
-//		double wA=19518.068353117065;
-//		double wB=433736.6460002156;
-//		os maiores da medianer
-//		double wA= 18904.970121201848;
-//		double wB = 582687.162984552;
-		// os maiores da midia net para os testes do mestrado
-		
+		//os maiores de pe da dissertação e artigo de resvista em ingles				
+		double wA=20922.650104366;
+		double wB=612967.639391796;
+
+		// os maiores da midia net para o mestrado/artigo de revista em inglês
+		//OBS: mudar o caminho do diretório, se não não bate: 	
+		//String  path = "D:\\resultados\\MediaNet\\Elite
 //		double wA=19956.369280253864;
-//		double wB = 1593421.878767534;
-		
-		// tem que verificar, no w1 tava assim
-		// para medianer
-//		double wA= 20283.035456200272;
-//		double wB = 447498.2435865882;
+//		double wB=1593421.878767534;
+	
 //		// sem busca
 //		double wsbA=17824.4218569369;
 //		double wsbB=414062.258070812;
@@ -58,10 +55,14 @@ public class MetricsEvalFitness {
 //		double waleaA=19166.8158394274;
 //		double waleaB=452270.159650401;
 
+		List <Double> hvmaList= new ArrayList<>();
+		List <Double> hvmbList= new ArrayList<>();
+		List <Double> hvmcList= new ArrayList<>();
 		Front normalizedFront = null;
 		int begin=9120;
 		int end=228000;
 		int step=begin;
+		int t=20;
 		String it="it120";
 		String it2="it20";
 		String it3="it20";
@@ -73,12 +74,11 @@ public class MetricsEvalFitness {
 			double hvma = 0;// descomenta esse pra pegar a media jorge
 			double hvmb = 0;// descomenta esse pra pegar a media jorge
 			double hvmc = 0;// descomenta esse pra pegar a media jorge
-			for (int j = 1; j <=12 ; j++) {
-//				double hvma = 0;// cometa esse pra pegar a media jorge
-//				double hvmb = 0;// cometa esse pra pegar a media jorge
+			for (int j = 1; j <=30 ; j++) {
+
 				//D:\resultados\elite\localSearchTestingAllAndDontStopUntilArriveInFInalevenFindAFirstDominator\nInd4\it20\neighbor3
 
-				String  path = "C:\\Users\\elnte\\OneDrive\\Área de Trabalho\\RedeParaCECin\\src\\resultados\\algorithm_KMeans\\com busca/execução "+ j + "/FUN" + i + ".tsv";
+				String  path = "D:\\resultados\\eleitos\\localSearchTestingAllAndDontStopUntilArriveInFInalevenFindAFirstDominator + sinc\\nInd8\\it20/execução "+ j + "/FUN" + i + ".tsv";
 //				String  path = "D:\\resultados\\sem busca so com espalhamento/execução " 
 //						+ j + "/FUN" + i + ".tsv";
 				try {
@@ -111,10 +111,18 @@ public class MetricsEvalFitness {
 					normalizedFront.getPoint(s).setDimensionValue(3, normalizedFront.getPoint(s).getDimensionValue(3));
 				}
 				List<PointSolution> normalizedPopulation = FrontUtils.convertFrontToSolutionList(normalizedFront);
-				hvma += hypervolume.evaluate(normalizedPopulation);
-//
-				/*
-				path = "D:\\resultados\\elite\\localSearchTestingAll\\nInd8\\it120\\neighbor3/execução "+ j + "/FUN" + i + ".tsv";
+				double resultA = hypervolume.evaluate(normalizedPopulation);
+				hvma += resultA;
+				hvmaList.add(resultA);
+				
+
+				
+				  path =
+				  "D:\\novos testes encontrar abordagem para media net\\variando canais\\PE\\busca em todos pos bug do jmetal/execução "
+						  + j + "/FUN" + t/2 + ".tsv";
+				 
+				
+				//path = "D:\\resultados\\MediaNet\\busca em todos/execução "+ j + "/FUN" + i + ".tsv";
 				try {
 					normalizedFront = new ArrayFront(path);
 				} catch (FileNotFoundException e) {
@@ -140,57 +148,76 @@ public class MetricsEvalFitness {
 							normalizedFront.getPoint(s).getDimensionValue(3) );
 				}
 				normalizedPopulation = FrontUtils.convertFrontToSolutionList(normalizedFront);
-
-				hvmb += hypervolume.evaluate(normalizedPopulation);
-				// comenta esse pra pegar a media jorge
-//				System.out.print(/*ij + " ");// mude pra i jorge
-//				System.out.printf("%.4f ", hvma) ;
-//				System.out.printf("%.4f\n", hvmb);
-				path = "D:\\resultados\\aleatorio\\localSearchTestingAll\\nInd8\\it20\\neighbor3/execução "+ j + "/FUN" + i + ".tsv";
-				try {
-					normalizedFront = new ArrayFront(path);
-				} catch (FileNotFoundException e) {
-					if (i>=end) {
-						path = "D:\\resultados\\eleitos\\"
-								+ "localSearchTestingAllAndDontStopUntilArriveInFInalevenFindAFirstDominator + sinc\\nInd8\\"+it3+"/execução "+ j + "/FUN" + i + ".tsv";
-					}
-				}
+				double resultB = hypervolume.evaluate(normalizedPopulation);
+				hvmb += resultB;
+				hvmbList.add(resultB);
+//				
+//				
+//				path = "D:\\resultados\\aleatorio\\localSearchTestingAll\\nInd8\\it20\\neighbor3/execução "+ j + "/FUN" + i + ".tsv";
+//				try {
+//					normalizedFront = new ArrayFront(path);
+//				} catch (FileNotFoundException e) {
+//					if (i>=end) {
+//						path = "D:\\resultados\\eleitos\\"
+//								+ "localSearchTestingAllAndDontStopUntilArriveInFInalevenFindAFirstDominator + sinc\\nInd8\\"+it3+"/execução "+ j + "/FUN" + i + ".tsv";
+//					}
+//				}
+//				
+//				try {
+//					normalizedFront = new ArrayFront(path);
+//				} catch (FileNotFoundException e) {
+//					e.printStackTrace();
+//				}
+//
+//				for (int s = 0; s < normalizedFront.getNumberOfPoints(); s++) {
+//					normalizedFront.getPoint(s).setDimensionValue(0, normalizedFront.getPoint(s).getDimensionValue(0));
+//					normalizedFront.getPoint(s).setDimensionValue(1,
+//							normalizedFront.getPoint(s).getDimensionValue(1) / wA);//PE=29340 (midianet centroids kmeans=31727.51 veio do maxevaluating)
+//					normalizedFront.getPoint(s).setDimensionValue(2,
+//							normalizedFront.getPoint(s).getDimensionValue(2) / wB);//PE=3795187.303 (midianet centroids kmeans=3785533.180398301 veio do find a better value)
+//					normalizedFront.getPoint(s).setDimensionValue(3, normalizedFront.getPoint(s).getDimensionValue(3));
+//				}
+//				normalizedPopulation = FrontUtils.convertFrontToSolutionList(normalizedFront);
+//
+//				//hvmc += hypervolume.evaluate(normalizedPopulation);
+//				hvmcList.add(0.0);
 				
-				try {
-					normalizedFront = new ArrayFront(path);
-				} catch (FileNotFoundException e) {
-					e.printStackTrace();
-				}
-
-				for (int s = 0; s < normalizedFront.getNumberOfPoints(); s++) {
-					normalizedFront.getPoint(s).setDimensionValue(0, normalizedFront.getPoint(s).getDimensionValue(0));
-					normalizedFront.getPoint(s).setDimensionValue(1,
-							normalizedFront.getPoint(s).getDimensionValue(1) / wA);//PE=29340 (midianet centroids kmeans=31727.51 veio do maxevaluating)
-					normalizedFront.getPoint(s).setDimensionValue(2,
-							normalizedFront.getPoint(s).getDimensionValue(2) / wB);//PE=3795187.303 (midianet centroids kmeans=3785533.180398301 veio do find a better value)
-					normalizedFront.getPoint(s).setDimensionValue(3, normalizedFront.getPoint(s).getDimensionValue(3));
-				}
-				normalizedPopulation = FrontUtils.convertFrontToSolutionList(normalizedFront);
-
-				/*hvmc += hypervolume.evaluate(normalizedPopulation);*/
-				
-				
-				
-				// comenta esse pra pegar a media jorge
-//				System.out.print(/*i*/j + " ");// mude pra i jorge
-//				System.out.printf("%.4f ", hvma) ;
-//				System.out.printf("%.4f\n", hvmb);
+	
 
 			}
-			// descomenta esse pra pegar a media jorge
+			
+			
+			StandardDeviation sd= new StandardDeviation();
+			 
+			Double[] arrayHvmA = new Double[hvmaList.size()];
+	        arrayHvmA = hvmaList.toArray(arrayHvmA);
+	        double[] arrayHvmAPrimitive = Stream.of(arrayHvmA).mapToDouble(Double::doubleValue).toArray();
+			Double standardDvA = sd.evaluate(arrayHvmAPrimitive);
+			
+			Double[] arrayHvmb = new Double[hvmaList.size()];
+			arrayHvmb = hvmbList.toArray(arrayHvmb);
+	        double[] arrayHvmBPrimitive = Stream.of(arrayHvmb).mapToDouble(Double::doubleValue).toArray();
+			Double standardDvB = sd.evaluate(arrayHvmBPrimitive);
+
+//			Double[] arrayHvmc = new Double[hvmaList.size()];
+//			arrayHvmc = hvmcList.toArray(arrayHvmc);
+//	        double[] arrayHvmCPrimitive = Stream.of(arrayHvmc).mapToDouble(Double::doubleValue).toArray();
+//			Double standardDvC = sd.evaluate(arrayHvmCPrimitive);
+			
+			
+		// tem que lembrar de comentar as onde hvmbList e hvmcList recebem 0: hvmbList.add(0.0) e hvmcList.add(0.0);
 			System.out.print(i + " ");
-			System.out.printf("%.4f ", hvma/12);
-			System.out.printf("%.4f ", hvmb /14);
-			System.out.printf("%.4f\n", hvmc /14);
+			System.out.printf("%.4f ", hvma/30);
+			System.out.printf("%.4f ", standardDvA);
+			System.out.printf("%.4f ", hvmb /30);
+			System.out.printf("%.4f\n", standardDvB);
+//			System.out.printf("%.4f", hvmc /14);
+//			System.out.printf("%.4f\n", standardDvC);
 			
 //			if (i==228000) { 
 //				i=end-step;
 //			}
+			t+=20;
 		}
 
 	}

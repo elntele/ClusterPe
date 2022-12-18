@@ -23,9 +23,13 @@ public class MetricsEvol {
 		HypervolumeConc hypervolume = new HypervolumeConc(frontRef);
 		
 			
-		// os maiores de pe
+		// os maiores de pe disciplina de CEC do Cin
 		double wA=18455.964069386184;
 		double wB=428587.36346861825;
+		
+		//os maiores de pe da dissertação e artigo de resvista em ingles				
+		//double wA=20922.650104366;
+		//double wB=612967.639391796;
 		
 //		os maiores da medianer
 //		double wA= 18904.970121201848;
